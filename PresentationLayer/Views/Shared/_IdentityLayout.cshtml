@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="@Thread.CurrentThread.CurrentCulture.TextInfo.CultureName" data-bs-theme="auto" dir="@(Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Erp System - @ViewData["Title"]</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.112.5">
+    <title>Sidebars · Bootstrap v5.3</title>
+    <link rel="shortcut icon" href="~/AdminLayout2/assets/images/favicon.ico">
+    <link href="~/AdminLayout2/assets/libs/chartist/chartist.min.css" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+    {
+        <link href="~/AdminLayout2/assets/css/bootstrap-rtl.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/icons-rtl.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/app-rtl.min.css" rel="stylesheet" />
+
+        <link href="~/css/styles.rtl.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/AdminLayout2/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        <link href="~/AdminLayout2/assets/css/app.min.css" rel="stylesheet" />
+        <link href="~/css/styles.css" rel="stylesheet" />
+
+    }
+
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/CairoFont/static/CairoArabicFonts.css" rel="stylesheet" />
+    <link href="~/css/fontawesome.css" rel="stylesheet" />   
+    <link href="~/style-custom.rtl.css" rel="stylesheet" />
+    <script src="~/js/grid.custom.js"></script>
+</head>
+
+<body style="background-color: #154360">  
+
+        <div class="container-fluid pt-2">
+            @RenderBody()
+        </div>     
+
+   
+
+    @*@await Html.PartialAsync("_FooterPartial")*@
+
+
+    <script src="~/lib/jquery/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>  
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>

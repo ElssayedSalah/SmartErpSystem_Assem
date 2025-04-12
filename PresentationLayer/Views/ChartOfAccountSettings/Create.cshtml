@@ -1,0 +1,162 @@
+﻿
+@model BusinessLayer.Models.Financial.ChartOfAccountSettingsModel
+
+@{
+    ViewData["Title"] = "Create";
+    var AllowEdit = Model.AccountSettingsModel.Count<=1 ? true : false;
+
+}
+
+@Html.AntiForgeryToken()
+<div class="card">
+    <form asp-action="Create">
+        <div class="card-header card-header-55">
+            <div class="row">
+                <div class="col-lg-8 col-md-6 col-sm-8"><h5><i class="fa fa-list p-1"></i>@_Localization.GetLocalizedHtmlString("List")   @_Localization.GetLocalizedHtmlString("ChartOfAccountSettings")</h5></div>
+                <div class="col-lg-4 col-md-6 col-sm-4">
+                    <button @(AllowEdit?"":"disabled")  type="submit" class="btn btn-info float-end">
+                        <i class="fas fa-search button-icon"></i>
+                        @_Localization.GetLocalizedHtmlString("Save")
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body card-body-500 justify-content-center d-flex">
+            <div class="row w-75">
+                <div class="col-lg-12 col-md-10 col-sm-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div id="Add-edit">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="AccountSettingsCount" class="control-label"></label>
+                                <input asp-for="AccountSettingsCount" class="form-control" />
+                                <span asp-validation-for="AccountSettingsCount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top:5px">
+                            <table class="table table-responsive table-bordered">
+                                <thead>
+                                    <tr class="k-header">
+                                        <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Level") </th>
+                                        <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Name") </th>
+                                        <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Length") </th>
+                                        <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Color")</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AccountSettings">
+                                    @for (int i = 0; i < Model.AccountSettingsModel.Count; i++)
+                                    {
+                                        var templateClass = i == 0 ? "AccountSettingsTemplateRow" : "";
+                                        <tr class="AccountSettingsRow @templateClass">
+                                            <td class="SN">@(i)</td>
+                                            <td>
+                                                <input asp-for="@Model.AccountSettingsModel[i].NameAr" class="form-control" />
+                                            </td>
+                                            <td class="LengthSelector">
+                                                <input asp-for="@Model.AccountSettingsModel[i].Length" class="form-control" />
+
+                                            </td>
+                                            <td class="ColorSelector">
+                                                <input asp-for="@Model.AccountSettingsModel[i].Color" class="form-control" />
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            @Html.DisplayNameFor(x => x.AccountSettingsTotalLength)
+                                        </td>
+                                        <td>
+                                            <input asp-for="AccountSettingsTotalLength" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(x => x.Id)
+    </form>
+
+</div>
+
+
+@section Scripts {
+    <script>
+    //$("#AccountSettingsCount").attr("min", "1");
+    //$("#AccountSettingsCount").attr("max", "15");
+        $().ready(function () {
+            CreateNumericUpDown($("#AccountSettingsCount"), 0, '', false);
+            CreateNumericUpDown($("#AccountSettingsTotalLength"), 0, '', true);
+
+         $(".AccountSettingsRow:not(.AccountSettingsTemplateRow) .ColorSelector input").kendoColorPicker({
+             buttons: false
+         });
+         $(".AccountSettingsRow:not(.AccountSettingsTemplateRow) .LengthSelector input").change(calculateTotalLength);
+
+         CreateNumericUpDown($(".AccountSettingsRow:not(.AccountSettingsTemplateRow) .LengthSelector input"));
+            $("#@Html.IdFor(x=>x.AccountSettingsCount)").change(function (e) {
+             debugger
+             var settingsCount = parseInt($(e.target).val())-$(".AccountSettingsRow").length+1;
+             if (settingsCount < 0) {
+                 $('.AccountSettingsRow').slice($(".AccountSettingsRow").length+settingsCount).remove();
+             }
+             else {
+                 for (var i = 0; i < settingsCount; i++) {
+
+                     var template = $(".AccountSettingsTemplateRow").html();
+                     $("#AccountSettings").append("<tr class='AccountSettingsRow'>" + template + "</tr>");
+                     ReOrderModelListItems("#AccountSettings", ".AccountSettingsRow");
+                     $(".AccountSettingsRow").last().find(".ColorSelector input").kendoColorPicker({
+                         buttons: false
+                     });
+                     var LengthSelector = $(".AccountSettingsRow").last().find(".LengthSelector input");
+                     LengthSelector.change(calculateTotalLength);
+                     CreateNumericUpDown(LengthSelector);
+
+                     $(".AccountSettingsRow").last().find(".SN").text($(".AccountSettingsRow").length - 1);
+                 }
+             }
+                calculateTotalLength();
+         });
+        });
+
+
+        function calculateTotalLength() {
+        var length = 0;
+            $(".LengthSelector input").each(function (i, c) {
+                debugger
+                if ($(c).val() != "")
+                    debugger
+                    length += parseInt($(c).val());
+            })
+            @*$("#@Html.IdFor(x=>x.AccountSettingsTotalLength)").val(length/2).change();*@
+            $("#AccountSettingsTotalLength").data("kendoNumericTextBox").value(length/2);
+
+
+        @*setTimeout(function () {
+            debugger
+            var length = 0;
+            $(".LengthSelector input").each(function (i, c) {
+                debugger
+                if ($(c).val() != "")
+                    length += parseInt($(c).val());
+            })
+            $("#@Html.IdFor(x=>x.AccountSettingsTotalLength)").val(length);
+        }, 200);*@
+
+    }
+    </script>
+
+}
+
+<style>
+    .AccountSettingsTemplateRow {
+        display: none;
+    }
+</style>

@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@*@inject IViewLocalizer Localizer*@
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text =c.Name=="ar"? "عربي" : "English"})
+        .ToList();
+}
+
+<div class="dropdown d-none d-md-block ms-2">
+    <form id="langform" asp-controller="Culture" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post">
+      
+        <div class="dropdown d-none d-md-block ms-2">
+            <button type="button" class="btn header-item waves-effect"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="me-2" src="~/AdminLayout2/assets/images/flags/egypt.png" alt="Header Language" height="16"> @(requestCulture.RequestCulture.UICulture.Name=="ar"?"عربي":"English") <span class="mdi mdi-chevron-down"></span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a id="ar" href="javascript:void(0);" class="dropdown-item notify-item" onclick="submit(this);">
+                    <img src="~/AdminLayout2/assets/images/flags/egypt.png" alt="user-image" class="me-1" height="14" width="18"> <span class="align-middle"> @cultureItems[0]?.Text </span>
+                </a>
+                <a id="en" href="javascript:void(0);" class="dropdown-item notify-item" onclick="submit(this);">
+                    <img src="~/AdminLayout2/assets/images/flags/us_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> @cultureItems[1]?.Text </span>
+                </a>
+            </div>
+
+            <input class="d-none" type="text" id="culture" name="culture" value="@requestCulture.RequestCulture.UICulture.Name" />
+            <script>
+                function submit(e) {
+                    $("#culture").val(e.id);
+                    $("#langform").submit();
+                }
+            </script>
+        </div>
+
+    </form>
+</div>

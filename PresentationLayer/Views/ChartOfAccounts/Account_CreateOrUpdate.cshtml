@@ -1,0 +1,147 @@
+﻿@model BusinessLayer.Models.Financial.AccountModel
+@Html.ValidationSummary(true)
+
+<div class="form-horizontal">
+    <div id="Add-edit">
+        <div>
+            @Html.ValidationMessageFor(model => model.NameAr)
+            @Html.HiddenFor(x => x.Level)
+            @Html.HiddenFor(x => x.ParentId)
+            @Html.HiddenFor(x => x.JournalId)
+            <div class="row form-body">
+                <div class="col-md-6" style="margin-bottom:10px">
+                    <div class="form-group">
+                        <label asp-for="AccountCode" class="control-label"></label>
+                        <input asp-for="AccountCode" class="form-control" readonly />
+                        <span asp-validation-for="AccountCode" class="text-danger"></span>
+                    </div>
+                </div>
+               
+                    <div class="form-group">
+                        <label asp-for="NameAr" class="control-label"></label>
+                        <input asp-for="NameAr" class="form-control" />
+                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NameEn" class="control-label"></label>
+                        <input asp-for="NameEn" class="form-control" />
+                        <span asp-validation-for="NameEn" class="text-danger"></span>
+                    </div>
+               
+                    <div class="form-group col-md-6">
+                        <label asp-for="OpenDate" class="control-label"></label>
+                        <input type="date" asp-for="OpenDate" class="form-control" readonly/>
+                    </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="AccountNatureId" class="control-label"></label>
+                    <select asp-for="AccountNatureId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.AccountNatures,"Value","Text",0))" readonly></select>
+                </div>  
+                <div class="col-md-6">
+                        @*@Html.EnumDropControlFor(model => model.PostTo, typeof(PostingAccounts), Enabled: Model.AllowPostTo, OptionalLabel: T("select").Text)*@
+                    <div class="form-group">
+                        <label asp-for="PostTo" class="control-label"></label>
+                        @*readonly="@(Model.AllowPost?"":"readonly")"*@
+                        <select asp-for="PostTo" class="form-control form-select" asp-items="@(new SelectList(ViewBag.PostingAccounts,"Value","Text",0))"></select>
+                    </div>
+                    </div>
+                    <div class="col-md-6" id="PostTypePnl">
+                        @*@Html.DropDownControlFor(model => model.PostType, new List<SelectListItem>(), Enabled: Model.AllowPostTo)*@
+                        <div class="form-group">
+                            <label asp-for="PostType" class="control-label"></label>
+                            <select asp-for="PostType" class="form-control form-select"></select>
+                        </div>
+
+                    </div>
+               
+              
+                <div class="clearfix"></div>
+
+                <div class="col-12" style="display:-webkit-inline-box;">
+                    <div class="col-4">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <label asp-for="LastLevelInTree" class="control-label mt-1 ms-1"></label>
+                                <input type="checkbox" class="form-check-input" asp-for="LastLevelInTree" value="LastLevelInTree" disabled/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <label asp-for="ConnectedToCostCenter" class="control-label mt-1 ms-1"></label>
+                                <input type="checkbox" class="form-check-input" asp-for="ConnectedToCostCenter"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="k-header">
+                                <th class="k-header text-center"></th>
+                                <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Debit")</th>
+                                <th class="k-header text-center">@_Localization.GetLocalizedHtmlString("Credit")</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>                                    
+                                    @_Localization.GetLocalizedHtmlString("OpenBalanceMenuName")
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="OpenBalanceDebit" class="form-control k-text" />
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="OpenBalanceCredit" class="form-control k-text" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    
+                                    @_Localization.GetLocalizedHtmlString("AccountTransactions")
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="TransactionsBalanceDebit" class="form-control k-text" readonly/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="TransactionsBalanceCredit" class="form-control k-text" readonly/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>                                    
+                                    @_Localization.GetLocalizedHtmlString("CurrentBalance")
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="CurrentBalanceDebit" class="form-control k-text" readonly/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input asp-for="CurrentBalanceCredit" class="form-control k-text"  readonly/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+

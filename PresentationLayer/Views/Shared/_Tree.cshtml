@@ -1,0 +1,88 @@
+﻿
+<input type="text" id="SearchTxt" class="form-control" placeholder="search" />
+<script id="AccountCode-template" type="text/x-kendo-template">
+
+    <div id='#:id#'>
+     # if(LastLevelInTree==true) {#
+    <div style='color: #:Color#;'>#:AccountCode#</div>
+     #} else {# <div>#:AccountCode#</div>
+     #} #</div>
+
+</script>
+<div id="treelist"></div>
+<script src="~/AdminLayout2/assets/libs/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function ()
+    {
+         $("#treelist").kendoTreeList({
+             dataSource: {
+                 transport: {
+                     read: {
+                         url: "@Url.Action("ListAccountsTree", "ChartOfAccounts")",
+                         dataType: "json"
+                     }
+                 },
+                 schema: {
+                     model: {
+                         id: "id",
+                         parentId: "parentId",
+                         fields: {
+                             id: { field: "id" },
+                             parentId: { field: "parentId", nullable: true },
+                         },
+                         expanded: true
+                     }
+                 }
+             },
+             dataBound: function (e) {
+                 if (onTreeBound) {
+                     onTreeBound(e);
+                 }
+             },
+             columns: [
+                 {
+                     field: "LastLevelInTree",
+                     title: "LastLevelInTree",
+                     hidden:true
+                 },
+                 {
+                     field: "id", title: "Id",
+                     hidden: true
+                 },
+                 {
+                     field: "NameAr", title: '@Html.Raw(_Localization.GetLocalizedHtmlString("Name"))',
+                 },
+                 {
+                       field: "AccountCode", title:'@Html.Raw(_Localization.GetLocalizedHtmlString("AccountCode"))',
+                       template: $("#AccountCode-template").html()
+                 },
+             ],
+
+             pageable:false,selectable:true
+         });
+
+    });
+    $('#SearchTxt').on('input', function (e)
+    {
+
+                var grid = $('#treelist').data('kendoTreeList');
+                var columns = grid.columns;
+
+                var filter = { logic: 'or', filters: [] };
+                columns.forEach(function (x) {
+                    if (x.field) {
+                        filter.filters.push({
+                            field: x.field,
+                            operator: 'contains',
+                            value: e.target.value
+                        })
+                    }
+                });
+                grid.dataSource.filter(filter);
+            });
+</script>
+<style>
+    .k-grid.k-widget {
+        overflow-x: hidden;
+    }
+</style>

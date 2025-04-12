@@ -1,0 +1,57 @@
+﻿@model BusinessLayer.Models.Filters.ReviewBalanceReportFilters
+@{
+    //page title
+    Layout = "~/Views/Shared/_ReportsLayout.cshtml";
+    ViewBag.Title = _Localization.GetLocalizedHtmlString("ReviewBalanceReport").Value;
+}
+
+@Html.HiddenFor(model => model.ExportType)
+<div class="row">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group col-md-4">
+        <label asp-for="FromDate" class="control-label"></label>
+        <input asp-for="FromDate" class="form-control" />
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="ToDate" class="control-label"></label>
+        <input asp-for="ToDate" class="form-control" />
+    </div>   
+    <div class="form-group col-md-4">
+        <label asp-for="AccountId" class="control-label"></label>
+        <select asp-for="AccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Accounts, "Id", "Name", 0))"></select>
+        <span asp-validation-for="AccountId" class="text-danger"></span>
+
+    </div>
+    <div class="form-group col-md-4">
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <label asp-for="HideZeroBalance" class="control-label mt-1 ms-1"></label>
+                <input type="checkbox" class="form-check-input" asp-for="HideZeroBalance" />
+            </label>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            $(document).ready(function () {
+                var FromDate = @Html.Raw(Json.Serialize(Model.FromDate));
+                var ToDate = @Html.Raw(Json.Serialize(Model.ToDate));
+                CreateDatePickerWithElment($("#FromDate"), false, '', '', 'yyyy-MM-dd', FromDate);
+                CreateDatePickerWithElment($("#ToDate"), false, '', '', 'yyyy-MM-dd', ToDate);
+            });
+        </script>
+
+    }
+
+
+}
+
+

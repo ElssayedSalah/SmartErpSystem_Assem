@@ -1,0 +1,131 @@
+﻿<!doctype html>
+<html lang="@Thread.CurrentThread.CurrentCulture.TextInfo.CultureName" data-bs-theme="auto" dir="@(Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft? "rtl" : "ltr")">
+@{
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.Name == "ar" ? "ar-EG" : "en-US";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Erp System - @ViewData["Title"]</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>Sidebars · Bootstrap v5.3</title>
+    <link rel="shortcut icon" href="~/AdminLayout2/assets/images/favicon.ico">
+    @*<link href="~/AdminLayout2/assets/libs/chartist/chartist.min.css" rel="stylesheet">*@
+    <link href="~/AdminLayout2/assets/libs/chart.js/Chart.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+    {
+        <link href="~/AdminLayout2/assets/css/bootstrap-rtl.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/icons-rtl.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/app-rtl.min.css" rel="stylesheet" />
+
+        <link href="~/lib/kendo-ui-2022/css/kendo.rtl.min.css" rel="stylesheet">
+        <link href="~/css/styles.rtl.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/AdminLayout2/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/AdminLayout2/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+        <link href="~/AdminLayout2/assets/css/app.min.css" rel="stylesheet" />
+        <link href="~/css/styles.css" rel="stylesheet" />
+
+    }
+
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/CairoFont/static/CairoArabicFonts.css" rel="stylesheet" />
+    <link href="~/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/AdminLayout2/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+
+
+    <link href="~/lib/kendo-ui-2022/css/kendo.common.min.css" rel="stylesheet">
+    <link href="~/lib/kendo-ui-2022/css/kendo.default.min.css" rel="stylesheet">
+    <link href="~/lib/kendo-ui-2022/css/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/style-custom.rtl.css" rel="stylesheet" />
+
+</head>
+
+<body style="font-family: Cairo-SemiBold !important;" data-sidebar="dark" data-keep-enlarged="true" class="vertical">
+
+    <div id="layout-wrapper">
+        <!-- ========== Header ========== -->
+        @await Html.PartialAsync("_HeaderPartial2")
+
+        <!-- ========== Sidebar Start ========== -->
+
+        @await Html.PartialAsync("_SidebarMenuPartial2")
+
+        <!-- ========== main content ========== -->
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <!-- ========== NotificationBar ========== -->
+                @await Html.PartialAsync("_NotificationBarPartial")
+
+                <div class="container-fluid">
+
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- ========== Footer ========== -->
+
+            @await Html.PartialAsync("_FooterPartial")
+
+        </div>
+
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="~/AdminLayout2/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/peity/jquery.peity.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/chartist/chartist.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js"></script>
+    @*<script src="~/AdminLayout2/assets/js/pages/dashboard.init.js"></script>*@
+    <script src="~/AdminLayout2/assets/libs/chart.js/Chart.bundle.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/chart.js/Chart.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/chart.js/chartjs-plugin-datalabels.js"></script>
+
+
+
+    <script src="~/lib/kendo-ui-2022/js/jszip.min.js"></script>
+    <script src="~/lib/kendo-ui-2022/js/kendo.all.min.js"></script>
+    <script src="~/AdminLayout2/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <script src="~/lib/kendo-ui-2022/js/messages/kendo.messages.es-AR.min.js"></script>
+    <script src="~/lib/kendo-ui-2022/js/cultures/kendo.culture.ar-EG.min.js"></script>
+
+    <script src="~/Main.js"></script>
+    <script src="~/js/grid.custom.js"></script>
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+    {
+        <script src="~/AdminLayout2/assets/js/app.rtl.js"></script>
+    }
+    else
+    {
+        <script src="~/AdminLayout2/assets/js/app.js"></script>
+    }
+    <script type="text/javascript">
+        var currentLanguage = "@currentLanguage";
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
+
+

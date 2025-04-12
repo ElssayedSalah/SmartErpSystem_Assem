@@ -1,0 +1,175 @@
+﻿@model BusinessLayer.Models.Inventory.ItemModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("List") + " " + _Localization.GetLocalizedHtmlString(@Model != null ? Model.GetType().Name + "_S" : "");
+    ViewData["Title"] = Title;
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["ControlerName"] = "Item";
+
+}
+
+<div class="card">
+    <div class="card-header card-header-55">
+        @{await Html.RenderPartialAsync("_BasicList_Header_Partial");}
+
+    </div>
+    <div class="card-body card-body-500">
+        <div id="datatable"></div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+
+        <script>
+
+            $(document).ready(function () {
+               var gridOperationButtons = GridOperationButtons('@ViewData["ControlerName"]');
+                var dataSource = intializeKendoGrid('/Item/list');
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        serverFiltering: false,
+                        serverSorting: true,
+                        //serverPaging: true,
+                        //serverPaging: true,
+                        //serverFiltering: true,
+                        //serverSorting: true,
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("shared.show") {1} @_Localization.GetLocalizedHtmlString("shared.from") {2}",
+                                empty: "@_Localization.GetLocalizedHtmlString("shared.empty.grid")",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "Code", operator: "contains" },
+                                { name: "NameAr", operator: "contains" },
+                                { name: "NameEn", operator: "contains" },
+                                { name: "Name", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Code",title:"@_Localization.GetLocalizedHtmlString("Code")" },
+                            @*{ field: "NameAr",title:"@_Localization.GetLocalizedHtmlString("NameAr")" },
+                            { field: "NameEn" ,title:"@_Localization.GetLocalizedHtmlString("NameEn")"},*@
+                             { field: "Name" ,title:"@_Localization.GetLocalizedHtmlString("Name")" },
+                            { field: "GroupName",title:"@_Localization.GetLocalizedHtmlString("ItemGroup")" },
+                            { field: "UnitName",title:"@_Localization.GetLocalizedHtmlString("DefaultUnit")" },
+                            { field: "TypeName" ,title:"@_Localization.GetLocalizedHtmlString("ItemType")"},
+                            {
+                                field: "CreationDate", title: "@_Localization.GetLocalizedHtmlString("CreationDate")",
+                                template: "# if(CreationDate!=null) {# #: kendo.toString(kendo.parseDate(CreationDate), 'dd/MM/yyyy')# #}#",
+                            },
+                            {
+                                field: "ActivationState", title: "@_Localization.GetLocalizedHtmlString("ActivationState")",
+                                template: "# if(ActivationState==true) {# <i class='fa fa-check' aria-hidden='true' style='color:green'></i> #} else {# <i class='fa fa-times' aria-hidden='true' style='color:red'></i> #}#",
+                                attributes: { style: 'text-align:center' },
+                                width: 50,
+                            },
+                            {
+                                field: "ImagePath", title: "@_Localization.GetLocalizedHtmlString("ItemImagePath")",
+                                template: '<img class="w-80 h-100" src="/Images/#=ImagePath#" alt="Alternate Text" style="max-width:70px; max-height:70px;" />',
+                            },
+                            gridOperationButtons[0],
+                            gridOperationButtons[1],
+                            gridOperationButtons[2],
+
+
+                        ],
+                    });
+            });
+
+        </script>
+
+    }
+}
+
+
+
+
+
+
+
+@*@section Scripts {
+    @{
+        <script>
+
+            $(document).ready(function () {
+
+                $("#datatable").kendoGrid(
+                    {
+                        //dataSource: Html.Raw(Json.Serialize(Model)),
+                        //columnMenu: true, //to show or hide column
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("عرض") {1} @_Localization.GetLocalizedHtmlString("من") {2}",
+                                empty: "No items to display",
+                                //page: "Page",
+                                //of: "of",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+                            alwaysVisible: true,
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "Code", operator: "contains" },
+                                { name: "NameAr", operator: "contains" },
+                                { name: "NameEn", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "Code" },
+                            { field: "NameAr" },
+                            { field: "NameEn" },
+                            { field: "GroupName" },
+                            { field: "UnitName" },
+                            { field: "TypeName" },
+                            { field: "CreationDate" },
+                            { field: "ActivationState" },
+                            { field: "ImagePath" },
+                            {
+                                template: "#= CreateCRUDButtons(data) #",
+                                with:100
+                            },
+                        ],
+                    });
+
+                $('.delete-button').on('click', function () {
+                    debugger;
+                    var id = $(this).data('id');
+                    $('#deleteConfirmationModal').modal('show');
+                    $('#deleteConfirmationModal form').attr('action', '/@ViewData["ControlerName"]/Delete/' + id);
+                });
+
+                $('#dismiss-btn').on('click', function () {
+                    $('#deleteConfirmationModal').modal('hide');
+                });
+
+                $("#datatable").removeClass('d-none');
+
+            });
+
+        </script>
+
+
+    }
+}*@
+

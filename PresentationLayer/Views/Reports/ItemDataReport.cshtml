@@ -1,0 +1,65 @@
+﻿
+@model BusinessLayer.Models.Filters.ItemDataReportFilters
+@{
+    //page title
+    Layout = "~/Views/Shared/_ReportsLayout.cshtml";
+    ViewBag.Title = _Localization.GetLocalizedHtmlString("ItemDataReport").Value;
+}
+
+@Html.HiddenFor(model => model.ExportType)
+<div class="row">
+    <div class="form-group col-md-3">
+        <label asp-for="BranchId" class="control-label"></label>
+        <select asp-for="BranchId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Branches, "Id", "Name", 0))"></select>
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="StoreId" class="control-label"></label>
+        <select asp-for="StoreId" class="form-control form-select"></select>@*asp-items="@(new SelectList(ViewBag.Stores, "Id", "Name", 0))"*@
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="GroupId" class="control-label"></label>
+        <select asp-for="GroupId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Groups, "Id", "Name", 0))"></select>
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="ItemId" class="control-label"></label>
+        <select asp-for="ItemId" class="form-control form-select"></select>@*asp-items="@(new SelectList(ViewBag.Items, "Id", "Name", 0))"*@
+    </div>
+
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+             $("#GroupId").change(function (e) {
+                    let GroupId = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/Home/GetGroupItems/',
+                            data: { GroupId: GroupId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+
+                                FillDropDown($("#@Html.IdFor(x=>x.ItemId)"), data, '@_Localization.GetLocalizedHtmlString("Select")', '@Model.ItemId')
+                            }
+                        });
+                 }).change();
+
+             $("#BranchId").change(function (e) {
+                        let BranchId = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/Home/GetBranchStores/',
+                            data: { BranchId: BranchId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+
+                                FillDropDown($("#@Html.IdFor(x=>x.StoreId)"), data, '@_Localization.GetLocalizedHtmlString("Select")', '@Model.StoreId')
+                            }
+                        });
+                    }).change();
+            });
+    </script>
+
+}

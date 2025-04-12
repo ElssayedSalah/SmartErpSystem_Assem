@@ -1,0 +1,138 @@
+﻿
+@model BusinessLayer.Models.Inventory.ItemModel
+
+@{
+    var Title= _Localization.GetLocalizedHtmlString("ElementDetails") + _Localization.GetLocalizedHtmlString(@Model != null ? Model.GetType().Name : "");
+    ViewData["Title"] = Title;
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    @*<div class="card-header">
+        <h5><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("ElementDetails") @_Localization.GetLocalizedHtmlString(@Model != null ? Model.GetType().Name : "")</h5>
+    </div>*@
+
+    <div class="card-header card-header-55">
+        @{
+            await Html.RenderPartialAsync("_Detail_Header_Partial");
+            await Html.RenderPartialAsync("_BasicButtonsPartial", this.Model, this.ViewData["BasicButtons"] as ViewDataDictionary);
+        }
+    </div>
+
+    <div class="card-body card-body-500">
+        <div class="row col-12">
+            <div class="col-lg-6 col-md-6">
+                <dl class="row">
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.Code)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.Code)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.NameAr)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.NameAr)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.NameEn)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.NameEn)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.GroupId)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.GroupName)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.DefaultUnit)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.UnitName)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.TypeId)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.TypeName)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.PurchasePrice)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.PurchasePrice)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.SalesPrice)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.SalesPrice)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.CreationDate)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.CreationDate)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.UpdatedDate)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.UpdatedDate)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.CreationUserId)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.CreationUserId)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.UpdatedUserId)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.UpdatedUserId)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.CompanyId)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.CompanyId)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.Notes)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.Notes)
+                    </dd>
+                    <dt class="col-lg-3">
+                        @Html.DisplayNameFor(model => model.ActivationState)
+                    </dt>
+                    <dd class="col-lg-7">
+                        @Html.DisplayFor(model => model.ActivationState)
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="col-lg-4 col-md-3 p-1 m-1">
+                <img id="ItemImage" class="img-thumbnail w-100 h-50" src="~/Images/@Model.ImagePath" />
+                <label asp-for="BarCode" class="control-label"></label>
+                <div class="img-thumbnail w-100 h-25 mt-2"></div>
+            </div>
+        </div>
+    </div>
+    @*<div class="card-footer">
+        <div class="form-group p-1">
+            @{await Html.RenderPartialAsync("_BasicButtonsPartial", this.Model, this.ViewData["BasicButtons"] as ViewDataDictionary);}
+
+        </div>
+    </div>*@
+</div>

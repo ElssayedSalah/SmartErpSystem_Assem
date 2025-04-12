@@ -1,0 +1,348 @@
+﻿@model BusinessLayer.Models.Inventory.Transaction_InvMasterModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("CreateNewElement") + _Localization.GetLocalizedHtmlString("PurchasesReturnMenuName");
+    ViewData["Title"] = Title;
+}
+<div class="card">
+
+    <form asp-action="Create" method="post">
+        <div class="card-header card-header-55">
+            @{
+                <h5 class="float-start"><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("CreateNewElement") @_Localization.GetLocalizedHtmlString("PurchasesReturnMenuName")</h5>
+                await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+            }
+        </div>
+        <div class="card-body card-body-500">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row form-body">
+
+                <div class="form-group col-md-4">
+                    <label asp-for="Code" class="control-label"></label>
+                    <input type="number" asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DocDate" class="control-label"></label>
+                    <input asp-for="DocDate" class="form-control" />
+                    <span asp-validation-for="DocDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input asp-for="DueDate" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="BranchId" class="control-label"></label>
+                    <select asp-for="BranchId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Branches, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="StoreId" class="control-label"></label>
+                    <select asp-for="StoreId" class="form-control form-select"></select>
+                    <span asp-validation-for="StoreId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="SupplierId" class="control-label"></label>
+                    <select asp-for="SupplierId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Supplers, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="SupplierId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CurrencyId" class="control-label"></label>
+                    <select asp-for="CurrencyId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Currencies, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CoastCenterId" class="control-label"></label>
+                    <input asp-for="CoastCenterId" class="form-control" />
+                    <span asp-validation-for="CoastCenterId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="EntryNumber" class="control-label"></label>
+                    <input asp-for="EntryNumber" class="form-control" readonly/>
+                    <span asp-validation-for="EntryNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="InvoiceValue" class="control-label"></label>
+                    <input asp-for="InvoiceValue" id="InvoiceValue" class="form-control" onchange="CalculateInvoice();" />
+                    <span asp-validation-for="InvoiceValue" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalAdditions" class="control-label"></label>
+                    <input asp-for="TotalAdditions" class="form-control" />
+                    <span asp-validation-for="TotalAdditions" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalDiscounts" class="control-label"></label>
+                    <input asp-for="TotalDiscounts" class="form-control" onchange="CalculateInvoice();" />
+                    <span asp-validation-for="TotalDiscounts" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="InvoiceTotal" class="control-label"></label>
+                    <input asp-for="InvoiceTotal" class="form-control" />
+                    <span asp-validation-for="InvoiceTotal" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TaxValue" class="control-label"></label>
+                    <input asp-for="TaxValue" class="form-control" />
+                    <span asp-validation-for="TaxValue" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="InvoiceNet" class="control-label"></label>
+                    <input asp-for="InvoiceNet" class="form-control" />
+                    <span asp-validation-for="InvoiceNet" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 d-none">
+                    <input asp-for="VAT_Rate" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row mt-2 g-0 table-responsive">
+                <table id="datatable" class="table table-responsive table-striped text-start table-bordered border-top">
+                    <thead>
+                        <tr class="k-header">
+                            @*<th class="k-header" style="width:20px;">@_Localization.GetLocalizedHtmlString("RowIndex")</th>*@
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("ItemModel"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("ItemGroup"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DefaultUnit"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Quntity"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("PurchasePrice"))
+                            </th>                                                   
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Total"))
+                            </th>
+
+                            <th style="width:40px"><button style="display:block;max-width:40px !important" class="k-header btn btn-default" onclick="AddNewRow();" type="button"><i class="fa fa-plus-circle"></i></button></th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="Details">
+
+                        @for (int i = 0; i < Model.Transaction_InvDetails.Count(); i++)
+                        {
+                            var templateClass = i == 0 ? "TemplateRow" : "";
+                            <tr class="NewRow @templateClass">
+                                @*<td class="RowIndex">
+                                    @i
+                                </td>*@
+                                <td class="ItemIdSelect">
+                                    <select asp-for="@Model.Transaction_InvDetails[i].ItemId" class="form-control form-select item_row" asp-items="@(new SelectList(ViewBag.Itmes, "Id", "Name",@Model.Transaction_InvDetails[i].ItemId))" value="@Model.Transaction_InvDetails[i].ItemId" onchange="GetItemData(this);"></select>
+                                </td>
+                                <td class="GroupIdSelect">
+                                    <select asp-for="@Model.Transaction_InvDetails[i].GroupId" class="form-control form-select group_row" asp-items="@(new SelectList(ViewBag.Groups, "Id", "Name"))" readonly></select>
+                                </td>
+                                <td class="UnitIdSelect">
+                                    <select asp-for="@Model.Transaction_InvDetails[i].UnitId" class="form-control form-select unit_row" asp-items="@(new SelectList(ViewBag.Units, "Id", "Name"))" readonly></select>
+                                </td>
+                                <td class="QuntitySelector">
+                                    <input asp-for="@Model.Transaction_InvDetails[i].Quntity" value="@Model.Transaction_InvDetails[i].Quntity" class="qty_row" style="text-align:center;" onchange="CalculateRowTotal(this);" />@*onchange="CalculateRowTotal(this);"*@
+                                </td>
+                                <td class="PurchasePriceSelector">
+                                    <input asp-for="@Model.Transaction_InvDetails[i].PurchasePrice" value="@Model.Transaction_InvDetails[i].PurchasePrice" class="form-control PurchasePrice_row" style="text-align:center;" onchange="PurchasePriceChange(this);" />
+                                </td>                                             
+                                <td class="TotalSelector">
+                                    <input asp-for="@Model.Transaction_InvDetails[i].Total" value="@Model.Transaction_InvDetails[i].Total" class="Total_row" style="text-align:center;" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" style="display:block;max-width:40px !important" onclick="RemoveRow(this);" type="button"><i class="fa fa-times-circle" style="margin-top:3px !important"></i></button>
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </form>
+</div>
+<style>
+    .TemplateRow {
+        display: none;
+    }
+</style>
+
+@section Scripts {       
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            $(document).ready(function () {
+
+                var defaultDateTime = @Html.Raw(Json.Serialize(Model.DocDate));
+                CreatekendoDateTimePickert($("#DocDate"), false, '', '', "yyyy-MM-dd hh:mm tt", defaultDateTime);
+                CreatekendoDateTimePickert($("#DueDate"), false, '', '', "yyyy-MM-ddThh:mm");
+
+                CreateNumericUpDown($("#Code"), 0, '', true);
+
+                CreateNumericUpDown($("#InvoiceValue"), 2, '', true);
+
+                CreateNumericUpDown($("#TotalAdditions"), 2, CalculateInvoice);
+
+                CreateNumericUpDown($("#TotalDiscounts"), 2, CalculateInvoice);
+
+                CreateNumericUpDown($("#InvoiceTotal"), 2, '', true);
+
+                CreateNumericUpDown($("#TaxValue"), 2, '', true);
+
+                CreateNumericUpDown($("#VAT_Rate"), 2);
+
+                CreateNumericUpDown($("#InvoiceNet"), 2, '', true);
+
+
+                CreateNumericUpDown($(".NewRow:not(.TemplateRow)").find(".QuntitySelector input"), 2);
+
+                CreateNumericUpDown($(".NewRow:not(.TemplateRow)").find(".PurchasePriceSelector input"), 2);
+
+                CreateNumericUpDown($(".NewRow:not(.TemplateRow)").find(".TotalSelector input"), 2, '', true);
+
+                    $("#BranchId").change(function (e) {
+                        let BranchId = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/PurchasesReturn/GetBranchStores/',
+                            data: { BranchId: BranchId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+
+                                FillDropDown($("#@Html.IdFor(x=>x.StoreId)"), data, '@_Localization.GetLocalizedHtmlString("Select")', '@Model.StoreId')
+                            }
+                        });
+                    }).change();
+
+            });
+
+
+            //var indx = 0;
+
+           function AddNewRow() {
+
+                var TemplateRow = $(".TemplateRow").html();
+                $("#Details").append("<tr class='NewRow'>" + TemplateRow + "</tr>");
+
+                var ItemDropdown = $(".NewRow").last().find(".ItemIdSelect select");
+                InitKendoDropDownWithElement(ItemDropdown);
+
+                var GroupDropdown = $(".NewRow").last().find(".group_row select");
+                InitKendoDropDownWithElement(GroupDropdown);
+
+                var UnitDropdown = $(".NewRow").last().find(".unit_row select");
+                InitKendoDropDownWithElement(UnitDropdown);
+
+                var QuntitySelector = $(".NewRow").last().find(".QuntitySelector input");
+                CreateNumericUpDown(QuntitySelector, 2);
+
+                var PurchasePriceSelector = $(".NewRow").last().find(".PurchasePriceSelector input");
+                CreateNumericUpDown(PurchasePriceSelector, 2);
+
+                var TotalSelector = $(".NewRow").last().find(".TotalSelector input");
+               CreateNumericUpDown(TotalSelector, 2, '', true);
+
+                ReOrderModelListItems("#Details", ".NewRow");
+
+                //indx = indx + 1;
+                //$(".NewRow").last().find(".RowIndex").text(indx);
+
+
+            }
+
+
+           function RemoveRow(e) {
+                $(e).closest(".NewRow").remove();
+                CalculateInvoiceValue();
+                ReOrderModelListItems("#Details", ".NewRow");
+            }
+
+           function GetItemData(e) {
+                var ItemId = $(e).val();
+                $.ajax('/Item/GetItemData',
+                    {
+                        type: 'get',
+                        data: { ItemId: ItemId },
+                        success: function (data, status, xhr) {
+
+                            $(e).closest(".NewRow").find(".group_row select").data("kendoDropDownList").value(data.GroupId)
+                            $(e).closest(".NewRow").find(".unit_row select").data("kendoDropDownList").value(data.DefaultUnit)
+                            $(e).closest(".NewRow").find(".PurchasePrice_row input").last().data("kendoNumericTextBox").value(data.PurchasePrice)
+
+
+                        },
+                        error: function (jqXhr, textStatus, errorMessage) {
+                            console.log(errorMessage);
+                        }
+                    });
+            }
+
+           function CalculateRowTotal(e)
+            {
+                var Quntity = $(e).closest(".NewRow").find(".qty_row input").last().val();
+               var PurchasePrice = $(e).closest(".NewRow").find(".PurchasePriceSelector input").last().val()
+
+                var Total = PurchasePrice * Quntity;
+                $(e).closest(".NewRow").find(".Total_row input").last().data("kendoNumericTextBox").value(Total);
+
+                CalculateInvoiceValue();
+
+            }
+
+           function CalculateInvoiceValue() {
+                var InvoiceTotal = 0;
+                var NewRow = $(".NewRow:not(.TemplateRow)");
+                NewRow.each(function (i, c) {
+                    var PurchasePrice = $(c).closest(".NewRow").find(".PurchasePriceSelector input").last().val();
+                    var Quntity = $(c).closest(".NewRow").find(".qty_row input").last().val();
+                    var Total = PurchasePrice * Quntity;
+                    InvoiceTotal = InvoiceTotal + Total;
+                });
+
+                $("#InvoiceValue").data("kendoNumericTextBox").value(InvoiceTotal);
+                $("#InvoiceValue").change();
+            }
+
+           function PurchasePriceChange(e) {
+
+                CalculateRowTotal(e);
+
+            }
+
+           function CalculateInvoice() {
+
+                let InvoiceTotal = 0;
+                let TaxValue = 0;
+                let InvoiceNet = 0;
+                let InvoiceValue = $("#InvoiceValue").data("kendoNumericTextBox").value();
+                let TotalAdditions = $("#TotalAdditions").data("kendoNumericTextBox").value();
+               let TotalDisounts = $("#TotalDiscounts").data("kendoNumericTextBox").value();
+                let VAT_Rate = $("#VAT_Rate").data("kendoNumericTextBox").value();
+                InvoiceTotal = InvoiceValue + TotalAdditions - TotalDisounts;
+                TaxValue = InvoiceTotal * VAT_Rate / 100;
+                InvoiceNet = InvoiceTotal + TaxValue;
+
+                $("#InvoiceTotal").data("kendoNumericTextBox").value(InvoiceTotal);
+                $("#TaxValue").data("kendoNumericTextBox").value(TaxValue);
+                $("#InvoiceNet").data("kendoNumericTextBox").value(InvoiceNet);
+
+            }
+
+
+        </script>
+    }
+}

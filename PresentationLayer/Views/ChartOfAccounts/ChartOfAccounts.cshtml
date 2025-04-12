@@ -1,0 +1,52 @@
+﻿
+@model BusinessLayer.Models.Financial.AccountModel
+
+@{
+    ViewData["Title"] = _Localization.GetLocalizedHtmlString("ChartOfAccounts");
+    Layout = "_AdminLayout2";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light form-fit">
+            <div class="row pt-1">
+                <div class="col-lg-8 col-md-6 col-sm-8"><h5><i class="fa fa-list p-1"></i> @_Localization.GetLocalizedHtmlString("ChartOfAccounts")</h5></div>
+                <div class="col-lg-4 col-md-6 col-sm-4">
+                    <button type="button" class="btn btn-info float-end" onclick="NewAccount(this);"><i class="fa fa-plus"></i>  @_Localization.GetLocalizedHtmlString("CreateNew")</button>
+
+                    <button type="button" id="BtnSave" style="display:none" class="btn btn-info float-end" onclick="SaveAccount(this);"><i class="fa fa-save"></i>  @_Localization.GetLocalizedHtmlString("Save")</button>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-5" style="height:100vh;overflow-y:scroll">
+                                    @Html.Partial("_Tree")
+                                </div>
+                                <div class="col-md-7" id="CreateOrUpdatePnl">
+
+                                </div>
+                            </div>
+
+                            <ul id="menu">
+                                <li id="createMenu"><span action="create" class='icon'></span><i class="fa fa-plus"></i>@_Localization.GetLocalizedHtmlString("CreateNewAccount")</li>
+
+                                <li><span action="edit" class='icon'></span><i class="fa fa-pencil-alt"></i>@_Localization.GetLocalizedHtmlString("Edit")</li>
+
+                                <li><span action="delete" class='icon'></span><i class="fa fa-times"></i>@_Localization.GetLocalizedHtmlString("Delete")</li>
+
+                                <li><span action="DeleteSub" class='icon'></span><i class="fa fa-times"></i>@_Localization.GetLocalizedHtmlString("DeleteSubAccounts") </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="treelist"></div>
+</div>
+
+<script src="~/AdminLayout2/assets/libs/jquery/jquery.min.js"></script>

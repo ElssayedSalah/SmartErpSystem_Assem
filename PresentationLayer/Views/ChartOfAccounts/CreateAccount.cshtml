@@ -1,0 +1,21 @@
+﻿
+@model BusinessLayer.Models.Financial.AccountModel
+@{
+    ViewBag.Title = @_Localization.GetLocalizedHtmlString("CreateNewAccount");
+    Layout = null; }
+@using (Html.BeginForm("CreateAccount", null, FormMethod.Post, new { id = "AccountsForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="portlet light form-fit" style=" padding: 0px !important">
+        <div class="main-sec-title">
+            <h3>
+                <i class="fas fa-file-invoice-dollar"></i>
+                @ViewBag.Title
+            </h3>
+        </div>
+        <div class="portlet-body form">
+            @Html.Partial("Account_CreateOrUpdate", Model)
+        </div>
+    </div>
+}
+

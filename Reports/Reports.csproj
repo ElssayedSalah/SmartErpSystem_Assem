@@ -1,0 +1,316 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Financial\DailyAccountsDetailsReport.repx" />
+    <None Remove="Financial\DailyEntryRptPrint.repx" />
+    <None Remove="Financial\ftoturg3.q05~" />
+    <None Remove="Headers\AddToStoreRptPrint.repx" />
+    <None Remove="Headers\CheckReturnRptPrint.repx" />
+    <None Remove="Headers\CustomerBalanceReport.repx" />
+    <None Remove="Headers\DailyAccountsTotalReport.repx" />
+    <None Remove="Headers\ItemSalesAnaysisReport.repx" />
+    <None Remove="Headers\PurchasesReturnRptPrint.repx" />
+    <None Remove="Headers\ReportHeaderAr_Landscape.repx" />
+    <None Remove="Headers\ReportHeaderAr_Portal.repx" />
+    <None Remove="Headers\ReviewBalanceReport.repx" />
+    <None Remove="Headers\StoreCountRptPrint.repx" />
+    <None Remove="Headers\StoreDeprecate.repx" />
+    <None Remove="Headers\TreasuryStatementOfAccountReport.repx" />
+    <None Remove="Inventory\SalesInvoiceRptPrint.repx" />
+    <None Remove="Inventory\SalesReturnRptPrint.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Financial\AlAstazAccountReport.repx" />
+    <EmbeddedResource Include="Financial\DailyAccountsDetailsReport.repx" />
+    <EmbeddedResource Include="Financial\DailyEntryRptPrint.repx" />
+    <EmbeddedResource Include="Financial\ReviewBalanceReport.repx" />
+    <EmbeddedResource Include="Financial\DailyAccountsTotalReport.repx" />
+    <EmbeddedResource Include="Financial\BankStatementOfAccountReport.repx" />
+    <EmbeddedResource Include="Financial\TreasuryStatementOfAccountReport.repx" />
+    <EmbeddedResource Include="Financial\CashDepositInBankRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CashWithdrawalFromBankRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CashRecieveRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CashExchangeRptPrint.repx" />
+    <EmbeddedResource Include="Financial\WriteCheckOutRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CheckOutExchangeRptPrint.repx" />
+    <EmbeddedResource Include="Financial\RecieveCheckInRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CheckInExchangeRptPrint.repx" />
+    <EmbeddedResource Include="Financial\CheckReturnRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\AddToStoreRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\StoreCountRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\StoreSettlementRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\CustomerBalanceTotalReport.repx" />
+    <EmbeddedResource Include="Inventory\CustomerBalanceReport.repx" />
+    <EmbeddedResource Include="Inventory\ItemSalesAnaysisReport.repx" />
+    <EmbeddedResource Include="Inventory\SupplierBalanceTotalReport.repx" />
+    <EmbeddedResource Include="Inventory\SupplierBalanceReport.repx" />
+    <EmbeddedResource Include="Inventory\ItemPurshasAnaysisReport.repx" />
+    <EmbeddedResource Include="Inventory\ItemCartReport.repx" />
+    <EmbeddedResource Include="Inventory\ItemBalanceQuantityAndValueReport.repx" />
+    <EmbeddedResource Include="Inventory\ItemDataReport.repx" />
+    <EmbeddedResource Include="Inventory\OpenBalanceReport.repx" />
+    <EmbeddedResource Include="Inventory\StoreDeprecateRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\StoreOutRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\PurchasesReturnRptPrint.repx" />
+    <EmbeddedResource Include="Headers\ReportHeaderAr_Portal.repx" />
+    <EmbeddedResource Include="Headers\ReportHeaderAr_Landscape.repx" />
+    <EmbeddedResource Include="Inventory\PurchasesInvoiceRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\OpenBalanceRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\StoreReciveRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\SalesReturnRptPrint.repx" />
+    <EmbeddedResource Include="Inventory\SalesInvoiceRptPrint.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Financial\AlAstazAccountReport.cs">
+      <DependentUpon>AlAstazAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\AlAstazAccountReport.Designer.cs">
+      <DependentUpon>AlAstazAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyAccountsDetailsReport.cs">
+      <DependentUpon>DailyAccountsDetailsReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyAccountsDetailsReport.Designer.cs">
+      <DependentUpon>DailyAccountsDetailsReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyEntryRptPrint.cs">
+      <DependentUpon>DailyEntryRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyEntryRptPrint.Designer.cs">
+      <DependentUpon>DailyEntryRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\ReviewBalanceReport.cs">
+      <DependentUpon>ReviewBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\ReviewBalanceReport.Designer.cs">
+      <DependentUpon>ReviewBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyAccountsTotalReport.cs">
+      <DependentUpon>DailyAccountsTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\DailyAccountsTotalReport.Designer.cs">
+      <DependentUpon>DailyAccountsTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\BankStatementOfAccountReport.cs">
+      <DependentUpon>BankStatementOfAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\BankStatementOfAccountReport.Designer.cs">
+      <DependentUpon>BankStatementOfAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\TreasuryStatementOfAccountReport.cs">
+      <DependentUpon>TreasuryStatementOfAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\TreasuryStatementOfAccountReport.Designer.cs">
+      <DependentUpon>TreasuryStatementOfAccountReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashDepositInBankRptPrint.cs">
+      <DependentUpon>CashDepositInBankRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashDepositInBankRptPrint.Designer.cs">
+      <DependentUpon>CashDepositInBankRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashWithdrawalFromBankRptPrint.cs">
+      <DependentUpon>CashWithdrawalFromBankRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashWithdrawalFromBankRptPrint.Designer.cs">
+      <DependentUpon>CashWithdrawalFromBankRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashRecieveRptPrint.cs">
+      <DependentUpon>CashRecieveRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashRecieveRptPrint.Designer.cs">
+      <DependentUpon>CashRecieveRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashExchangeRptPrint.cs">
+      <DependentUpon>CashExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CashExchangeRptPrint.Designer.cs">
+      <DependentUpon>CashExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\WriteCheckOutRptPrint.cs">
+      <DependentUpon>WriteCheckOutRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\WriteCheckOutRptPrint.Designer.cs">
+      <DependentUpon>WriteCheckOutRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckOutExchangeRptPrint.cs">
+      <DependentUpon>CheckOutExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckOutExchangeRptPrint.Designer.cs">
+      <DependentUpon>CheckOutExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\RecieveCheckInRptPrint.cs">
+      <DependentUpon>RecieveCheckInRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\RecieveCheckInRptPrint.Designer.cs">
+      <DependentUpon>RecieveCheckInRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckInExchangeRptPrint.cs">
+      <DependentUpon>CheckInExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckInExchangeRptPrint.Designer.cs">
+      <DependentUpon>CheckInExchangeRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckReturnRptPrint.cs">
+      <DependentUpon>CheckReturnRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Financial\CheckReturnRptPrint.Designer.cs">
+      <DependentUpon>CheckReturnRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\AddToStoreRptPrint.cs">
+      <DependentUpon>AddToStoreRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\AddToStoreRptPrint.Designer.cs">
+      <DependentUpon>AddToStoreRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreCountRptPrint.cs">
+      <DependentUpon>StoreCountRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreCountRptPrint.Designer.cs">
+      <DependentUpon>StoreCountRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreSettlementRptPrint.cs">
+      <DependentUpon>StoreSettlementRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreSettlementRptPrint.Designer.cs">
+      <DependentUpon>StoreSettlementRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\CustomerBalanceTotalReport.cs">
+      <DependentUpon>CustomerBalanceTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\CustomerBalanceTotalReport.Designer.cs">
+      <DependentUpon>CustomerBalanceTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\CustomerBalanceReport.cs">
+      <DependentUpon>CustomerBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\CustomerBalanceReport.Designer.cs">
+      <DependentUpon>CustomerBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemSalesAnaysisReport.cs">
+      <DependentUpon>ItemSalesAnaysisReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemSalesAnaysisReport.Designer.cs">
+      <DependentUpon>ItemSalesAnaysisReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SupplierBalanceTotalReport.cs">
+      <DependentUpon>SupplierBalanceTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SupplierBalanceTotalReport.Designer.cs">
+      <DependentUpon>SupplierBalanceTotalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SupplierBalanceReport.cs">
+      <DependentUpon>SupplierBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SupplierBalanceReport.Designer.cs">
+      <DependentUpon>SupplierBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemPurshasAnaysisReport.cs">
+      <DependentUpon>ItemPurshasAnaysisReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemPurshasAnaysisReport.Designer.cs">
+      <DependentUpon>ItemPurshasAnaysisReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemCartReport.cs">
+      <DependentUpon>ItemCartReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemCartReport.Designer.cs">
+      <DependentUpon>ItemCartReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemBalanceQuantityAndValueReport.cs">
+      <DependentUpon>ItemBalanceQuantityAndValueReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemBalanceQuantityAndValueReport.Designer.cs">
+      <DependentUpon>ItemBalanceQuantityAndValueReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemDataReport.cs">
+      <DependentUpon>ItemDataReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\ItemDataReport.Designer.cs">
+      <DependentUpon>ItemDataReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\OpenBalanceReport.cs">
+      <DependentUpon>OpenBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\OpenBalanceReport.Designer.cs">
+      <DependentUpon>OpenBalanceReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreDeprecateRptPrint.cs">
+      <DependentUpon>StoreDeprecateRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreDeprecateRptPrint.Designer.cs">
+      <DependentUpon>StoreDeprecateRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreOutRptPrint.cs">
+      <DependentUpon>StoreOutRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreOutRptPrint.Designer.cs">
+      <DependentUpon>StoreOutRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\PurchasesReturnRptPrint.cs">
+      <DependentUpon>PurchasesReturnRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\PurchasesReturnRptPrint.Designer.cs">
+      <DependentUpon>PurchasesReturnRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Headers\ReportHeaderAr_Landscape.cs">
+      <DependentUpon>ReportHeaderAr_Landscape.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Headers\ReportHeaderAr_Landscape.Designer.cs">
+      <DependentUpon>ReportHeaderAr_Landscape.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Headers\ReportHeaderAr_Portal.cs">
+      <DependentUpon>ReportHeaderAr_Portal.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Headers\ReportHeaderAr_Portal.Designer.cs">
+      <DependentUpon>ReportHeaderAr_Portal.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\PurchasesInvoiceRptPrint.cs">
+      <DependentUpon>PurchasesInvoiceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\PurchasesInvoiceRptPrint.Designer.cs">
+      <DependentUpon>PurchasesInvoiceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\OpenBalanceRptPrint.cs">
+      <DependentUpon>OpenBalanceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\OpenBalanceRptPrint.Designer.cs">
+      <DependentUpon>OpenBalanceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreReciveRptPrint.cs">
+      <SubType>Component</SubType>
+      <DependentUpon>StoreReciveRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\StoreReciveRptPrint.Designer.cs">
+      <DependentUpon>StoreReciveRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SalesInvoiceRptPrint.cs">
+      <DependentUpon>SalesInvoiceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SalesInvoiceRptPrint.Designer.cs">
+      <DependentUpon>SalesInvoiceRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SalesReturnRptPrint.cs">
+      <DependentUpon>SalesReturnRptPrint.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Inventory\SalesReturnRptPrint.Designer.cs">
+      <DependentUpon>SalesReturnRptPrint.repx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

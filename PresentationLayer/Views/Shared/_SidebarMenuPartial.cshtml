@@ -1,0 +1,82 @@
+﻿@inject SideMenuService _SideMenuService;
+
+
+<div class="d-flex flex-column flex-shrink-0 p-4 bg-body-tertiary" style="width: 20%; min-width:200px;">
+   
+    <form class="col-10 col-lg-auto mb-1 mb-lg-0 me-lg-1 border">
+        <input type="search" class="form-control rounded-2 p-1" placeholder="@_Localization.GetLocalizedHtmlString("shared.search")" aria-label="Search">
+    </form>
+    <ul class="list-unstyled ps-0">
+        <li class="sidebar-item mb-1 ">
+            <a class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed w-100" asp-area="" asp-controller="Home" asp-action="Dashpoard" style="font-size:larger">
+                <i class="fa fa-home"></i>
+                <strong>@_Localization.GetLocalizedHtmlString("shared.main")</strong>
+            </a>            
+        </li>
+        @if (_SideMenuService.SideMenuItems != null)
+        {
+            @foreach (var item in _SideMenuService.SideMenuItems)
+            {               
+                <li class="sidebar-item mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed w-100" data-bs-toggle="collapse" data-bs-target="#@item.Data_Ds_Target" aria-expanded="false" style="font-size:larger">
+                        <i class="@item.Icon"></i>
+                        @_Localization.GetLocalizedHtmlString(@item.ItemTextLocalizationResource)
+                    </button>
+                   
+                    @if (item.ChaildsMenuItems != null)
+                    {
+                        <div class="collapse ps-3" id="@item.Data_Ds_Target">
+                            <ul class="nav flex-column list-unstyled fw-normal pb-1 small">
+                                @foreach (var sitem in item.ChaildsMenuItems)
+                                {
+                                <li class="sidebar-item mb-1">                     
+                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed w-100" data-bs-toggle="collapse" data-bs-target="#@sitem.Data_Ds_Target" aria-expanded="false">
+                                        <i class="@sitem.Icon"></i>
+                                        @_Localization.GetLocalizedHtmlString(@sitem.ItemTextLocalizationResource)
+                                    </button>
+                                </li>
+                                    @if (sitem.ChaildsMenuItems != null)
+                                    {
+                                        <li class="sidebar-item mb-1">
+                                            <div class="collapse ps-3" id="@sitem.Data_Ds_Target">                                                
+                                                <ul class="btn-toggle-nav list fw-normal pb-1 small">                                                   
+                                                    @foreach (var ssitem in sitem.ChaildsMenuItems)
+                                                    {
+                                                        <li class="sidebar-item">
+                                                            <a asp-controller="@ssitem.Controler" asp-action="@ssitem.Action" class="link-body-emphasis d-inline-flex text-decoration-none rounded w-100" style="font-size:small">
+                                                                @*<i class="@ssitem.Icon"></i>*@
+                                                                @_Localization.GetLocalizedHtmlString(@ssitem.ItemTextLocalizationResource)
+
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                    }
+
+                                }
+                            </ul>
+                        </div>
+                    }
+                </li>
+
+
+            }
+
+
+        }
+
+
+
+
+    </ul>
+</div>
+
+
+
+
+
+
+   

@@ -1,0 +1,84 @@
+﻿
+<div class="form-group">
+
+    @{
+        var BasicButtons = this.ViewData["BasicButtons"] as BasicButtons;
+    }
+
+
+    @if (BasicButtons.SaveBtnVisibilty)
+    {
+        @*<input type="submit" value="@_Localization.GetLocalizedHtmlString("Save") +" class="btn btn-success" />*@
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-check button-icon"></i>
+            @_Localization.GetLocalizedHtmlString("Save")
+        </button>
+
+    }
+
+    @if (BasicButtons.CreateNewBtnVisibilty)
+    {
+        @*<a asp-controller="@BasicButtons.CreateNewBtnControler" asp-action="@BasicButtons.CreateNewBtnAction" class="btn btn-primary">@_Localization.GetLocalizedHtmlString("CreateNew")  <i class="k-icon k-i-add k-button-icon"></i>  </a>*@
+        <a asp-controller="@BasicButtons.CreateNewBtnControler" asp-action="@BasicButtons.CreateNewBtnAction" class="btn btn-primary">
+            <i class="fas fa-plus icon"></i>
+            @_Localization.GetLocalizedHtmlString("CreateNew")
+        </a>
+    }
+
+    @if (BasicButtons.EditBtnVisibilty)
+    {
+        @*<a asp-controller="@BasicButtons.EditBtnControler" asp-action="@BasicButtons.EditBtnAction" asp-route-Id="@BasicButtons.RouteId" class="btn btn-info">@_Localization.GetLocalizedHtmlString("Edit")<i class="k-icon k-i-edit k-button-icon"></i></a>*@
+        <a asp-controller="@BasicButtons.EditBtnControler" asp-action="@BasicButtons.EditBtnAction" asp-route-Id="@BasicButtons.RouteId" class="btn btn-primary">
+            <i class="fas fa-edit icon"></i>
+            @_Localization.GetLocalizedHtmlString("Edit")
+        </a>
+    }
+
+    @if (BasicButtons.DeleteBtnVisibilty)
+    {
+
+        @if (BasicButtons.RouteId == 0)
+        {
+            <button type="button" onclick="DeleteWithConfirmationDailog('@BasicButtons.StringRouteId','@BasicButtons.DeleteBtnControler','')" class="btn btn-danger" title="">
+                <i class="k-icon k-i-delete k-button-icon"></i>
+                @_Localization.GetLocalizedHtmlString("Delete")
+
+            </button>
+        }
+        else
+        {
+            <button type="button" onclick="DeleteWithConfirmationDailog('@BasicButtons.RouteId','@BasicButtons.DeleteBtnControler','')" class="btn btn-danger" title="">
+                <i class="k-icon k-i-delete k-button-icon"></i>
+                @_Localization.GetLocalizedHtmlString("Delete")
+
+            </button>
+        }
+    }
+
+    @if (BasicButtons.PrintBtnVisibilty)
+    {
+        <a asp-controller="@BasicButtons.PrintBtnControler" asp-action="@BasicButtons.PrintBtnAction" asp-route-Id="@BasicButtons.RouteId" class="btn btn-blue-grey" title="@_Localization.GetLocalizedHtmlString("ExportDocumentToPdf")">
+            <i class="fas fa-file-pdf icon"></i>
+            @_Localization.GetLocalizedHtmlString("Export")
+        </a>
+    }
+
+    @if (BasicButtons.SendEInvoiceBtnVisibilty)
+    {       
+        <button type="button" onclick="SendEInvoiceWithConfirmation2('@BasicButtons.RouteId','EGInvoice','@BasicButtons.DocumentType')" class="btn btn-success" title="@_Localization.GetLocalizedHtmlString("SendDocumentToTaxAuthority")">
+            <i class="k-icon k-i-export k-button-icon"></i>
+            @_Localization.GetLocalizedHtmlString("Send")
+        </button>
+
+    }
+
+    @if (BasicButtons.BackToListBtnVisibilty)
+    {
+        @*<a asp-controller="@BasicButtons.BackToListControler" asp-action="@BasicButtons.BackToListAction" class="btn btn-info">@_Localization.GetLocalizedHtmlString("BackToList") <i class="k-icon k-i-grid k-button-icon"></i></a>*@
+        <a asp-controller="@BasicButtons.BackToListControler" asp-action="@BasicButtons.BackToListAction" class="btn btn-info">
+            <i class="fas fa-th-list icon"></i>
+            @_Localization.GetLocalizedHtmlString("BackToList")
+        </a>
+    }
+
+</div>

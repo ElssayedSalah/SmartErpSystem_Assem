@@ -1,0 +1,214 @@
+﻿@model HomeDashboardModel
+@{
+    ViewData["Title"] = "Dashpoard";
+    Layout = "_AdminLayout2";
+}
+<style>
+    .chart-title {
+        text-align: center;
+        font-size: small;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("Dashboard")</h5>
+    </div>
+
+    <div class="card-body" style="padding:0">
+
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-start mini-stat-img me-4">
+                                <img src="~/AdminLayout2/assets/images/services-icon/01.png" alt="">
+                            </div>
+                            <h5 class="font-size-22 text-uppercase text-white">@_Localization.GetLocalizedHtmlString("PurchasesInvoice_Transacton_S")</h5>
+                            <h3 class="fw-medium font-size-26">
+                                @Model.PurchasesTransactionCount <i class="mdi mdi-arrow-up text-success ms-2"></i>
+                            </h3>
+                        </div>
+                        <div class="pt-2">
+                            <div class="float-end">
+                                <a asp-controller="PurchasesInvoice" asp-action="Index" class="text-white"><i class="mdi mdi-arrow-right h3 text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-start mini-stat-img me-4">
+                                <img src="~/AdminLayout2/assets/images/services-icon/02.png" alt="">
+                            </div>
+                            <h5 class="font-size-22 text-uppercase text-white">@_Localization.GetLocalizedHtmlString("PurchasesReturnMenuName")</h5>
+                            <h3 class="fw-medium font-size-26">
+                                @Model.PurchasesReturnTransactionCount <i class="mdi mdi-arrow-down text-danger ms-2"></i>
+                            </h3>
+                        </div>
+                        <div class="pt-2">
+                            <div class="float-end">
+                                <a asp-controller="PurchasesReturn" asp-action="Index" class="text-white"><i class="mdi mdi-arrow-right h3 text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-start mini-stat-img me-4">
+                                <img src="~/AdminLayout2/assets/images/services-icon/03.png" alt="">
+                            </div>
+                            <h5 class="font-size-22 text-uppercase text-white">@_Localization.GetLocalizedHtmlString("SalesInvoice_Transacton_S")</h5>
+                            <h3 class="fw-medium font-size-26">
+                                @Model.SalesTransactionCount <i class="mdi mdi-arrow-up text-success ms-2"></i>
+                            </h3>
+                        </div>
+                        <div class="pt-2">
+                            <div class="float-end">
+                                <a asp-controller="SalesInvoice" asp-action="Index" class="text-white"><i class="mdi mdi-arrow-right h3 text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary text-white">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="float-start mini-stat-img me-4">
+                                <img src="~/AdminLayout2/assets/images/services-icon/04.png" alt="">
+                            </div>
+                            <h5 class="font-size-22 text-uppercase text-white">@_Localization.GetLocalizedHtmlString("SalesReturnMenuName")</h5>
+                            <h3 class="fw-medium font-size-26">
+                                @Model.SalesReturnTransactionCount <i class="mdi mdi-arrow-down text-danger ms-2"></i>
+                            </h3>
+                        </div>
+                        <div class="pt-2">
+                            <div class="float-end">
+                                <a asp-controller="SalesReturn" asp-action="Index" class="text-white"><i class="mdi mdi-arrow-right h3 text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("NetPurshasesOverMonthes")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="PurchasesBarChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("NetSalesOverMonthes")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="SalesBarChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("ItemsPurshasesFlow")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="ItemPurchasesChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("ItemsSalesFlow")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="ItemSalesChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("PurshasesOverSuplers")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="SupplerPurchasesPieChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("SalesOverCustomers")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="CustomerSalesPieChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("TreasurysBalanceInYear")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="TreasurysBalanceDonutChart" height="200" dir="ltr"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="chart-title">@_Localization.GetLocalizedHtmlString("BanksBalanceInYear")</h6>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="BanksBalanceDonutChart" height="200" dir="ltr"></canvas>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                   
+                        <canvas id="myChart"></canvas>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+

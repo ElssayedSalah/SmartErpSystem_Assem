@@ -1,0 +1,350 @@
+﻿/*Here WE Can Add Any Css Fixes For RTL*/
+
+/*Grid Header Fix*/
+.k-grid .k-grid-header .k-header {
+    text-align: right;
+}
+
+div.k-grid-footer, div.k-grid-header {
+    padding-right: 0px !important;
+}
+/*fix grid buttons*/
+.k-button-icontext .k-icon, .k-button-icontext .k-image, .k-button-icontext .k-sprite {
+    margin-left: 3px !important;
+}
+/*fix tree view*/
+.treeview .list-group-item span.pull-right {
+    position: absolute;
+    left: 10px;
+}
+/*fix localizer country flag*/
+.k-panelbar .k-tabstrip-items .k-item .k-image, .k-panelbar .k-tabstrip-items .k-item .k-sprite, .k-tabstrip-items .k-item .k-image, .k-tabstrip-items .k-item .k-sprite {
+    margin: -3px 3px 0 0px !important;
+}
+/*popup close button*/
+.k-window-titlebar .k-window-actions {
+    right: inherit;
+    left: 0 !important;
+}
+
+.control-label{
+    text-align:right !important;
+}
+.mt-checkbox > span:after {
+    border-width: 2px 0 0px 2px;
+    transform: rotate(-150deg);
+}
+
+label.control-label {
+    text-align: right !important;
+}
+.k-autocomplete > .k-i-close, .k-combobox > .k-dropdown-wrap > .k-i-close, .k-multiselect > .k-multiselect-wrap > .k-i-close {
+    right: inherit !important;
+    left: 6px !important;
+}
+.k-multiselect-wrap li {
+    float: right;
+}
+.k-multiselect-clearable .k-multiselect-wrap {
+    padding-right: 0.2em;
+}
+
+.page-sidebar .page-sidebar-menu > li > a, .page-sidebar li  a {
+    border-left: 1px solid #F0F5F7;
+}
+
+.navbar-brand-box {
+    padding: 0rem;
+    text-align: center;
+    width: 260px;
+}
+.nav-item.active a{
+    position:relative;
+}
+.page-sidebar .page-sidebar-menu > li.active > a > .selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .selected {
+    display: block;
+    float: left;
+    position: absolute;
+    top: 8px;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #fff;
+}
+.page-sidebar .page-sidebar-menu > li.active.open > a > .selected, .page-sidebar .page-sidebar-menu > li.active > a > .selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .selected {
+    top: 0;
+    left: -8px;
+    right:unset !important;
+    border-top: 20px double transparent;
+    border-bottom: 20px double transparent;
+    border-left: 0;
+    border-right: 8px solid #3FD5C0;
+}
+.page-sidebar .page-sidebar-menu .sub-menu, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu {
+    margin:0 !important;
+}.page-sidebar .page-sidebar-menu li > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before {
+    content: "\f104"  
+}
+.arrowActive:before {
+    content: "\f100" !important;
+}
+.k-multiselect-wrap.k-floatwrap .k-input.k-readonly[aria-autocomplete="list"] {
+    float: right;
+}
+body{
+    overflow-x:hidden;
+}
+.k-i-collapse:before {
+    content: "\e002";
+}
+.k-i-expand:before {
+    content: "\e007";
+}
+.mt-checkbox > span:after {
+    right: 10px;
+    top: 3px;
+    width: 8px;
+    height: 15px;
+}
+
+
+.k-state-disabled .k-multiselect-wrap {
+    background: #e9ecf3;
+}
+
+.k-grid .k-grid-header .k-header .k-link, .k-grid tr td {
+    font-size: 14px;
+}
+.k-header{
+    font-size: medium;
+}
+
+.k-input {
+    height: 35px;
+
+}
+
+.k-picker {
+    background-color: transparent !important;
+    height: 35px;
+}
+
+.k-toolbar {
+    display: inherit;
+}
+
+.TemplateRow {
+    display: none;
+}
+
+.InvalidRow {
+    background: #fbe1e3;
+}
+
+select[readonly] {
+    pointer-events: none;
+}
+
+.page-sidebar .page-sidebar-menu li > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before {
+    content: "\f105"
+}
+
+.arrowActive:before {
+    content: "\f101" !important;
+}
+
+.page-sidebar .page-sidebar-menu .sub-menu li > .sub-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > .sub-menu > li > a {
+    padding: 5px;
+}
+
+.input-group .form-control:not(.headerSearch), .input-group .k-dropdown-wrap {
+    border-radius: 0px !important;
+}
+
+.k-multiselect-wrap.k-floatwrap, .k-widget.k-multiselect.k-header.k-multiselect-clearable {
+    max-height: 64px;
+    min-height: 32px;
+}
+
+.k-multiselect-wrap.k-floatwrap {
+    overflow-y: scroll;
+    width: 99%;
+    box-shadow: none;
+}
+
+.k-multiselect-wrap li {
+    min-height: calc(1.7em );
+}
+
+.k-multiselect-clearable .k-input {
+    height: 0px;
+    caret-color: transparent;
+}
+
+.k-autocomplete > .k-i-close, .k-combobox > .k-dropdown-wrap > .k-i-close, .k-multiselect > .k-multiselect-wrap > .k-i-close {
+    color: black;
+}
+
+.k-multiselect .k-button {
+    font-size: 16px;
+}
+
+.note-hr {
+    background-color: #0894d0ab;
+    border-color: #097eb1;
+    color: #ffffff;
+    padding: 5px;
+}
+
+.note {
+    margin: 10px 0 10px;
+    border-radius: 0;
+}
+.k-datepicker .k-select {
+    display: none;
+}
+.k-datepicker .k-picker-wrap {
+    padding-right: 0px;
+    border-top: 1px solid #ccc !important;
+    border-bottom: 2px groove #eeeeee9c !important;
+    border-radius: 0;
+}
+.k-input.text-box {
+    padding: 6px 12px;
+}
+
+textarea.form-control.k-input {
+    padding: 6px 12px;
+}
+
+.k-grid label input[type=checkbox] {
+    position: unset;
+    width: 0;
+    height: 0;
+}
+/*input[type=password] {
+    height:35px;
+}*/
+
+.page-content-white .page-content .page-bar {
+    border-bottom: 0px;
+}
+.treeview .list-group-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.treeview span.indent {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.treeview span.icon {
+    width: 12px;
+    margin-right: 5px;
+}
+
+.treeview .node-disabled {
+    color: silver;
+    cursor: not-allowed;
+}
+
+.treeview .list-group-item span.pull-right {
+    margin-left: auto;
+}
+
+body {
+    font-family: Cairo-SemiBold !important;
+    font-size: 18px;
+    font-weight: 400;
+}
+.vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a i {
+    font-size: 1.4rem;
+    margin-right: 6px;
+}
+body[data-sidebar=dark] #sidebar-menu ul li a i {
+    color: #fff;
+}
+#sidebar-menu ul li a i {
+    font-size: 16px;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a {
+    color: #f5f5f5;
+}
+#sidebar-menu ul li a {
+    display: block;
+    padding: 12px 20px;
+    font-family: "Cairo-SemiBold";
+    color: white;
+    position: relative;
+    font-size: 16px;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.card-header-55 {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid !important;
+    border-color: darkslateblue;
+    border-width: thin !important;
+}
+
+.card-body-500 {
+    border-bottom: solid !important;
+    border-color: darkslateblue;
+    border-width: thin !important;
+    min-height: 800px;
+}
+
+.table > :not(caption) > * > * {
+    padding: 4px 4px
+}
+
+/*@media only screen and (min-width:827px) and (max-width:862px){
+    .card-header-55 {
+        height: 90px;
+ 
+    }
+}
+
+@media only screen and (min-width:993px) and (max-width:1122px) {
+    .card-header-55 {
+        height: 90px;
+    }
+}
+*/
+@media only screen and (max-width: 826px) {
+    .NewsBar {
+            display: none !important;
+        }
+
+    .card-header-55 {
+        height: 80px;
+    } 
+
+    }
+
+@media only screen and (min-width: 827px) {
+        .NewsBar {
+            width: 27vw;
+        }
+    }
+
+@media only screen and (min-width: 1200px) {
+        .NewsBar {
+            width: 37vw;
+        }
+    }
+
+@media only screen and (min-width: 1303px) {
+        .NewsBar {
+            width: 38vw;
+        }
+    }

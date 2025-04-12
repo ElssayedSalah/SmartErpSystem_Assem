@@ -1,0 +1,321 @@
+﻿@model BusinessLayer.Models.Financial.FinancialPeriodCloseModel
+
+@{
+    ViewData["Title"] = "TempClose";
+}
+<style>
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+        .btn-group .btn {
+            flex: 0 0 calc(50% - 10px);
+            margin: 5px;
+        }
+
+    .btn1 {
+        font-size: 25px;
+        height: 100px;
+    }
+</style>
+<div class="card-header card-header-55">
+
+    <h5><i class="fa fa-list p-1"></i>@_Localization.GetLocalizedHtmlString("FinancialPeriodClose")</h5>
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-info">
+            <i class="fas fa-th-list icon"></i>
+            @_Localization.GetLocalizedHtmlString("BackToList")
+        </a>
+    </div>
+
+</div>
+<div class="row">
+    @Html.HiddenFor(x=>x.CuruntPeriodId)
+    <div class="col-12">
+        <div class="row col-12">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        @_Localization.GetLocalizedHtmlString("CuruntPeriod")
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CuruntYear)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.CuruntYear)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CuruntDateFrom)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.CuruntDateFrom)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CuruntDateTo)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.CuruntDateTo)
+                            </dd>
+                        </dl>
+                        <div class="form-group">
+                            <a asp-controller="" asp-action="" asp-route-Id="" class="btn btn-primary disabled">
+                                <i class="fas fa-plus icon"></i>
+                                @_Localization.GetLocalizedHtmlString("Create")
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        @_Localization.GetLocalizedHtmlString("NewPeriod")
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.NextYear)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.NextYear)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.NextDateFrom)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.NextDateFrom)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.NextDateTo)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.NextDateTo)
+                            </dd>
+                        </dl>
+                        <div class="form-group">
+                            <a asp-controller="FinancialPeriodClose" asp-action="Create" asp-route-Id="@Model.CuruntPeriodId" class="btn btn-primary @(Model.AllowClose?"disabled":"")" title="@_Localization.GetLocalizedHtmlString("CreateNewYear")">
+                                <i class="fas fa-plus icon"></i>
+                                @_Localization.GetLocalizedHtmlString("Create")
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <div class="btn-group">
+                            <button id="TransferItems" class="btn btn-primary btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferItems")</button>
+                            <button id="TransferCustomers" class="btn btn-info btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferCustomers")</button>
+                            <button id="TransferSupplers" class="btn btn-success btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferSupplers")</button>
+                            <button id="TransferTreasurys" class="btn btn-blue-grey btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferTreasurys")</button>
+                            <button id="TransferBanks" class="btn btn-danger btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferBanks")</button>
+                            <button id="TransferAccounts" class="btn btn-primary btn1 @(Model.AllowClose?"":"disabled")" type="button">@_Localization.GetLocalizedHtmlString("TransferAccounts")</button>
+                        </div>
+
+                        <div id="progress" class="progress border-1 border-primary" style="height: 20px;border:solid 1px">
+                            <div id="progressbar" class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/signalr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/AppHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            connection.start().then(function () {
+                console.log("SignalR Connected.");
+            }).catch(function (err) {
+                return console.error(err.toString());
+            });
+
+            connection.on("UpdateProgressBar", function (message) {
+                
+                document.getElementById("progressbar").style.width = message + '%';
+                document.getElementById("progressbar").textContent = message + '%';
+
+            });
+           
+
+            $("#TransferCustomers").click(function () {
+
+                $('.btn1').prop('disabled', true);
+                var CuruntPeriodId = $("#CuruntPeriodId").val();
+                $.ajax({
+                    url: '/FinancialPeriodClose/TransferCustomers/',
+                    data: { CuruntPeriodId: CuruntPeriodId },
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data != null) {
+                                if (data.msgType == "success") {
+                                    ShowSuccessMessege(data.msg);
+
+                                } else if (data.msgType == "erorr") {
+                                    ShowErrorMessege(data.msg)
+                                }
+
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                        $('.btn1').prop('disabled', false);
+
+                    }
+                });
+
+            });
+
+            $("#TransferSupplers").click(function () {
+
+                $('.btn1').prop('disabled', true);
+                var CuruntPeriodId = $("#CuruntPeriodId").val();
+                $.ajax({
+                    url: '/FinancialPeriodClose/TransferSupplers/',
+                    data: { CuruntPeriodId: CuruntPeriodId },
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data != null) {
+                                if (data.msgType == "success") {
+                                    ShowSuccessMessege(data.msg);
+
+                                } else if (data.msgType == "erorr") {
+                                    ShowErrorMessege(data.msg)
+                                }
+
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                        $('.btn1').prop('disabled', false);
+
+                    }
+                });
+
+            });
+
+            $("#TransferTreasurys").click(function () {
+
+                $('.btn1').prop('disabled', true);
+                var CuruntPeriodId = $("#CuruntPeriodId").val();
+                $.ajax({
+                    url: '/FinancialPeriodClose/TransferTreasurys/',
+                    data: { CuruntPeriodId: CuruntPeriodId },
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data != null) {
+                                if (data.msgType == "success") {
+                                    ShowSuccessMessege(data.msg);
+
+                                } else if (data.msgType == "erorr") {
+                                    ShowErrorMessege(data.msg)
+                                }
+
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                        $('.btn1').prop('disabled', false);
+
+                    }
+                });
+
+            });
+
+            $("#TransferBanks").click(function () {
+
+                $('.btn1').prop('disabled', true);
+                var CuruntPeriodId = $("#CuruntPeriodId").val();
+                $.ajax({
+                    url: '/FinancialPeriodClose/TransferBanks/',
+                    data: { CuruntPeriodId: CuruntPeriodId },
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data != null) {
+                                if (data.msgType == "success") {
+                                    ShowSuccessMessege(data.msg);
+
+                                } else if (data.msgType == "erorr") {
+                                    ShowErrorMessege(data.msg)
+                                }
+
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                        $('.btn1').prop('disabled', false);
+
+                    }
+                });
+
+            });
+
+            $("#TransferAccounts").click(function () {
+
+                $('.btn1').prop('disabled', true);
+                var CuruntPeriodId = $("#CuruntPeriodId").val();
+                $.ajax({
+                    url: '/FinancialPeriodClose/TransferAccounts/',
+                    data: { CuruntPeriodId: CuruntPeriodId },
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data != null) {
+                                if (data.msgType == "success") {
+                                    ShowSuccessMessege(data.msg);
+
+                                } else if (data.msgType == "erorr") {
+                                    ShowErrorMessege(data.msg)
+                                }
+
+                            }
+                        }
+                    },
+                    complete: function () {
+
+                        $('.btn1').prop('disabled', false);
+
+                    }
+                });
+
+            });
+
+        });
+
+
+
+    </script>
+
+}
+
+
+

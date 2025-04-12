@@ -1,0 +1,87 @@
+﻿@model BusinessLayer.Models.Inventory.BranchModel
+
+@{
+    ViewData["Title"] = "Details";
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <form class="col-md-12">
+        
+        <div class="card-header card-header-55">
+            @{
+                await Html.RenderPartialAsync("_Detail_Header_Partial");
+                await Html.RenderPartialAsync("_BasicButtonsPartial", this.Model, this.ViewData["BasicButtons"] as ViewDataDictionary);
+             }
+        </div>
+        <div class="card-body card-body-500">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Code)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Code)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NameAr)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NameAr)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NameEn)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NameEn)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.TaxAuthorityCode)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TaxAuthorityCode)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreationDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UpdatedDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreationUserId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreationUserId)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UpdatedUserId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UpdatedUserId)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActivationState)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ActivationState)
+                </dd>
+            </dl>
+        </div>
+
+    </form>
+
+       
+
+    </div>
+

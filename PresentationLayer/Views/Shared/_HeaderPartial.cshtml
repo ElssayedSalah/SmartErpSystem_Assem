@@ -1,0 +1,48 @@
+﻿
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom box-shadow mb-1 shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Dashpoard">
+                <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap" /></svg>Smart Erp System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav float-end">
+                    @if (_IdentityService.IsSignedInUser(User))
+                    {  
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">Wellcome: @User.Identity.Name</a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown10">
+                                <li>
+                                    <form method="post" asp-action="LogOut" asp-controller="Account">
+                                        <button type="submit" class="nav-link btn btn-link py-0" style="width:auto;">Log Out</button>
+                                    </form>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    }
+                    <li class="nav-item nav-link text-dark">
+                        @await Html.PartialAsync("_SetLanguagePartial")
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+
+

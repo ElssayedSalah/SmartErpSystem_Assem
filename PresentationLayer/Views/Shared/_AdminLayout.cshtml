@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html lang="@Thread.CurrentThread.CurrentCulture.TextInfo.CultureName" data-bs-theme="auto" dir="@(Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Erp System - @ViewData["Title"]</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.112.5">
+    <title>Sidebars · Bootstrap v5.3</title>
+
+
+    <!-- Bootstrap core CSS -->
+    @if (Thread.CurrentThread.CurrentCulture.Name == "ar")
+    {
+        <link href="~/lib/bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet" />
+        <link href="~/DataTables/datatables.rtl.css" rel="stylesheet" />
+        <link href="~/lib/kendo-ui-2022/css/kendo.rtl.min.css" rel="stylesheet">
+        <link href="~/css/styles.rtl.css" rel="stylesheet" />
+
+    }
+    else
+    {
+        <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/DataTables/datatables.css" rel="stylesheet" />
+        <link href="~/css/styles.css" rel="stylesheet" />
+
+    }
+
+    <link href="~/lib/sidebars/sidebars.css" rel="stylesheet" />
+    <link href="~/css/fonts.googleapis.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/CairoFont/static/CairoArabicFonts.css" rel="stylesheet" />
+    <link href="~/css/fontawesome.css" rel="stylesheet" />
+    @*<link href="~/css/customstyle.css" rel="stylesheet" />*@
+
+    <link href="~/lib/kendo-ui-2022/css/kendo.common.min.css" rel="stylesheet">
+    <link href="~/lib/kendo-ui-2022/css/kendo.default.min.css" rel="stylesheet">
+
+    @*<link href="~/styles.css" rel="stylesheet" />*@
+    <link href="~/style-custom.rtl.css" rel="stylesheet" />
+    <script src="~/js/grid.custom.js"></script>
+
+    <link href="~/lib/kendo-ui-2022/css/kendo.bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.bootstrap-v4.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.bootstrap-vintage.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.common-bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.dataviz.bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.bootstrap-nordic.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.bootstrap-main.min.css" rel="stylesheet" />*@
+    @*<link href="~/lib/kendo-ui-2022/css/kendo.bootstrap.mobile.min.css" rel="stylesheet" />*@
+
+
+
+</head>
+
+<body>
+
+    @await Html.PartialAsync("_HeaderPartial")
+
+    @await Html.PartialAsync("_NotificationBarPartial")
+
+    <div class="d-flex flex-nowrap">
+        @await Html.PartialAsync("_SidebarMenuPartial")
+
+        <div class="container-fluid pt-2">
+            @RenderBody()
+        </div>
+        <div class="b-example-divider b-example-vr" style="width:0"></div>
+
+    </div>
+
+    @await Html.PartialAsync("_FooterPartial")
+
+
+    <script src="~/lib/jquery/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sidebars/sidebars.js"></script>
+    <script src="~/lib/kendo-ui-2022/js/jszip.min.js"></script>
+    <script src="~/lib/kendo-ui-2022/js/kendo.all.min.js"></script>
+    <script src="~/Main.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>

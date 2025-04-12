@@ -1,0 +1,71 @@
+﻿@model BusinessLayer.Models.Financial.CashTransactionModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("List") + " " + _Localization.GetLocalizedHtmlString("CreditSettlementTransaction");
+    ViewData["Title"] = Title;
+    ViewData["ControlerName"] = "CreditSettlementTransaction";
+
+}
+<div class="card">
+    <div class="card-header card-header-55">
+        @{await Html.RenderPartialAsync("_TransactionList_Header_Partial");}
+    </div>
+    <div class="card-body">
+        <div id="datatable"></div>
+    </div>
+
+</div>
+@section Scripts {
+    @{
+
+        <script>
+
+            $(document).ready(function () {
+                var gridOperationButtons = GridOperationButtons('@ViewData["ControlerName"]');
+                var dataSource = intializeKendoGrid('/CreditSettlementTransaction/list');
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        serverFiltering: false,
+                        serverSorting: true,
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("shared.show") {1} @_Localization.GetLocalizedHtmlString("shared.from") {2}",
+                                empty: "@_Localization.GetLocalizedHtmlString("shared.empty.grid")",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "DocDate", operator: "contains" },
+                                { name: "Code", operator: "contains" },
+                                { name: "EntryNumber", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                            { field: "Id", hidden: true },
+                            { field: "EntryNumber",title:"@_Localization.GetLocalizedHtmlString("EntryNumber")"  },
+                            { field: "Code", title: "@_Localization.GetLocalizedHtmlString("DocCode")" },
+                            { field: "BranchName" ,title:"@_Localization.GetLocalizedHtmlString("Branch")" },
+                            {
+                                field: "DocDate", title: "@_Localization.GetLocalizedHtmlString("CreationDate")",
+                                template: "# if(DocDate!=null) {# #: kendo.toString(kendo.parseDate(DocDate), 'dd/MM/yyyy')# #}#",
+                            },
+                            gridOperationButtons[1],
+                            gridOperationButtons[2],
+
+                        ],
+                    });
+            });
+
+        </script>
+
+    }
+}

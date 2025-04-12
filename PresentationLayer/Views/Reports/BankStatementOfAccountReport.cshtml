@@ -1,0 +1,53 @@
+﻿@model BusinessLayer.Models.Filters.BankStatementOfAccountReportFilters
+@{
+    //page title
+    Layout = "~/Views/Shared/_ReportsLayout.cshtml";
+    ViewBag.Title = _Localization.GetLocalizedHtmlString("BankStatementOfAccountReport").Value;
+}
+
+@Html.HiddenFor(model => model.ExportType)
+<div class="row">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group col-md-3">
+        <label asp-for="BanckId" class="control-label"></label>
+        <select asp-for="BanckId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.bancks, "Id", "Name", 0))"></select>
+        <span asp-validation-for="BanckId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="DocTypeId" class="control-label"></label>
+        <select asp-for="DocTypeId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Documents, "Id", "Name", 0))"></select>
+    </div>
+     
+    <div class="form-group col-md-3">
+        <label asp-for="FromDate" class="control-label"></label>
+        <input asp-for="FromDate" class="form-control" />
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="ToDate" class="control-label"></label>
+        <input asp-for="ToDate" class="form-control" />
+    </div>
+
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            $(document).ready(function () {
+                var FromDate = @Html.Raw(Json.Serialize(Model.FromDate));
+                var ToDate = @Html.Raw(Json.Serialize(Model.ToDate));
+                CreateDatePickerWithElment($("#FromDate"), false, '', '', "yyyy-MM-dd", FromDate);
+                CreateDatePickerWithElment($("#ToDate"), false, '', '', "yyyy-MM-dd", ToDate);
+
+
+            });
+        </script>
+
+    }
+
+
+}
+
+

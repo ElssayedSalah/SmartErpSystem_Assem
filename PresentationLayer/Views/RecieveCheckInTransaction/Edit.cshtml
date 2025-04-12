@@ -1,0 +1,253 @@
+﻿@model BusinessLayer.Models.Financial.CheckTransactionModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("UpdateElement") + _Localization.GetLocalizedHtmlString("RecieveCheckInTransaction");
+    ViewData["Title"] = Title;
+}
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <div class="card-header card-header-55">
+            @{
+                <h5 class="float-start"><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("UpdateElement") @_Localization.GetLocalizedHtmlString("RecieveCheckInTransaction")</h5>
+                await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+            }
+        </div>
+        <div class="card-body card-body-500">
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+            <div class="row form-body">
+                @Html.HiddenFor(x => x.EntryId)
+
+                <div class="form-group col-md-4">
+                    <label asp-for="Code" class="control-label"></label>
+                    <input type="number" asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DocDate" class="control-label"></label>
+                    <input asp-for="DocDate" class="form-control" />
+                    <span asp-validation-for="DocDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input asp-for="DueDate" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="BranchId" class="control-label"></label>
+                    <select asp-for="BranchId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Branches, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="BankId" class="control-label"></label>
+                    <select asp-for="BankId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Banks, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="BankId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CheckNumber" class="control-label"></label>
+                    <input asp-for="CheckNumber" class="form-control" />
+                    <span asp-validation-for="CheckNumber" class="text-danger"></span>
+                </div>
+
+                @*<div class="form-group col-md-4">
+            <label asp-for="BankBranchName" class="control-label"></label>
+            <input asp-for="BankBranchName" class="form-control" />
+            <span asp-validation-for="BankBranchName" class="text-danger"></span>
+        </div>*@
+                <div class="form-group col-md-4">
+                    <label asp-for="CurrencyId" class="control-label"></label>
+                    <select asp-for="CurrencyId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Currencies, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CurrencyFactor" class="control-label"></label>
+                    <input asp-for="CurrencyFactor" class="form-control" />
+                    <span asp-validation-for="CurrencyFactor" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="EntryNumber" class="control-label"></label>
+                    <input asp-for="EntryNumber" class="form-control" />
+                    <span asp-validation-for="EntryNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="CostCenterId" class="control-label"></label>
+                    <input asp-for="CostCenterId" class="form-control" />
+                    <span asp-validation-for="CostCenterId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="BankAccountNumber" class="control-label"></label>
+                    <input asp-for="BankAccountNumber" class="form-control" />
+                    <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+                </div>
+                <div class="row"></div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">@_Localization.GetLocalizedHtmlString("TheSide")</label>
+                    <select asp-for="FirstSideTypeId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.SideTypes1,"Value","Text"))"></select>
+                    <span asp-validation-for="FirstSideTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FirstSideId" class="control-label"></label>
+                    <select asp-for="FirstSideId" class="form-control form-select"></select>
+                    <span asp-validation-for="FirstSideId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FirstSideAccountId" class="control-label"></label>
+                    <select asp-for="FirstSideAccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Accounts,"Id", "Name"))" readonly></select>
+                    <span asp-validation-for="FirstSideAccountId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">@_Localization.GetLocalizedHtmlString("ComplementryAccountType") </label>
+                    <select asp-for="SecondSideTypeId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.SideTypes2,"Value","Text"))"></select>
+                    <span asp-validation-for="SecondSideTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="SecondSideId" class="control-label"></label>
+                    <select asp-for="SecondSideId" class="form-control form-select"></select>
+                    <span asp-validation-for="SecondSideId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="SecondSideAccountId" class="control-label"></label>
+                    <select asp-for="SecondSideAccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Accounts,"Id", "Name", 0))" readonly></select>
+                    <span asp-validation-for="SecondSideAccountId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="CheckOwner" class="control-label"></label>
+                    <input asp-for="CheckOwner" class="form-control" />
+                    <span asp-validation-for="CheckOwner" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<style>
+    .TemplateRow {
+        display: none;
+    }
+</style>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+            $(document).ready(function () {
+                var defaultDateTime = @Html.Raw(Json.Serialize(Model.DocDate));
+                CreatekendoDateTimePickert($("#DocDate"), false, '', '', "yyyy-MM-dd hh:mm tt", defaultDateTime);
+                CreatekendoDateTimePickert($("#DueDate"), false, '', '', "yyyy-MM-ddThh:mm");
+                CreateNumericUpDown($("#Code"), 0, '', true);
+                CreateNumericUpDown($("#CurrencyFactor"), 2, '', true);
+                CreateNumericUpDown($("#EntryNumber"), 2, '', true);
+                CreateNumericUpDown($("#Amount"), 2, '', false);
+                CreateNumericUpDown($("#DiscountAmount"), 2, '', false);
+
+                $("#CurrencyId").change(function (e) {
+                    let CurrencyId = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/RecieveCheckInTransaction/GetCurrencyFactor/',
+                        data: { CurrencyId: CurrencyId },
+                        contentType: 'application/json; charset=utf-8',
+                        datatype: 'json',
+                        success: function (data) {
+                            $("#CurrencyFactor").data("kendoNumericTextBox").value(data);
+                            /*$("#CurrencyFactor").change();*/
+                        }
+                    });
+                }).change();
+
+                $("#FirstSideTypeId").change(function (e) {
+
+                    $("#FirstSideAccountId").data("kendoDropDownList").value('@Model.FirstSideAccountId');
+                    let SideTypeId = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/RecieveCheckInTransaction/GetTransactionSide/',
+                            data: { SideTypeId:SideTypeId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+                                FillDropDown($("#@Html.IdFor(x=>x.FirstSideId)"), data, '@_Localization.GetLocalizedHtmlString("Select")', '@Model.FirstSideId')
+                            }
+                        });
+                }).change();
+
+                $("#FirstSideId").change(function (e) {
+
+                    let SideId = $(this).val();
+                    let SideTypeId = $("#FirstSideTypeId").val();
+                    if (SideId != null && SideTypeId != null) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/RecieveCheckInTransaction/GetTransactionSideAccount/',
+                            data: { SideTypeId: SideTypeId, SideId: SideId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+                                debugger
+                                $("#FirstSideAccountId").data("kendoDropDownList").value(data);
+                                /*$("#FirstSideAccountId").change();*/
+                            }
+                        });
+                    }
+
+                }).change();
+
+                $("#SecondSideTypeId").change(function (e) {
+                    $("#SecondSideAccountId").data("kendoDropDownList").value('@Model.SecondSideAccountId');
+
+                    let SideTypeId = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '/RecieveCheckInTransaction/GetTransactionSide/',
+                            data: { SideTypeId:SideTypeId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+
+                                FillDropDown($("#@Html.IdFor(x=>x.SecondSideId)"), data, '@_Localization.GetLocalizedHtmlString("Select")', '@Model.SecondSideId')
+                            }
+                        });
+                }).change();
+
+                $("#SecondSideId").change(function (e) {
+                    let SideId = $(this).val();
+                    let SideTypeId = $("#SecondSideTypeId").val();
+                    if (SideId != null && SideTypeId != null) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/RecieveCheckInTransaction/GetTransactionSideAccount/',
+                            data: { SideTypeId: SideTypeId, SideId: SideId },
+                            contentType: 'application/json; charset=utf-8',
+                            datatype: 'json',
+                            success: function (data) {
+                                $("#SecondSideAccountId").data("kendoDropDownList").value(data);
+                                /*$("#SecondSideAccountId").change();*/
+                            }
+                        });
+
+                    }
+
+                }).change();
+
+
+            });
+
+
+
+
+
+        </script>
+    }
+}

@@ -1,0 +1,187 @@
+﻿@model BusinessLayer.Models.EGInvoice.EGInvoiceModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("List") + "" + _Localization.GetLocalizedHtmlString("EInovoices");
+    ViewData["Title"] = Title;
+    ViewData["ControlerName"] = "EGInvoice";
+
+}
+<style>
+    .TextCenter{
+        text-align:center;
+    }
+</style>
+
+<div class="card">
+    <form asp-action="Index" method="post">
+        <div class="card-header card-header-55">
+             <h5><i class="fa fa-list p-1"></i>@_Localization.GetLocalizedHtmlString("List")   @_Localization.GetLocalizedHtmlString("EInovoices")</h5>
+                <div>
+                    <button type="submit" class="btn btn-info">
+                        <i class="fas fa-search button-icon"></i>
+                        @_Localization.GetLocalizedHtmlString("shared.search")
+                    </button>
+                </div>                
+        </div>
+
+
+        <div class="card-body card-body-500">
+            <div class="row">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group col-md-3">
+                    <label asp-for="Master.From" class="control-label"></label>
+                    <input type="date" asp-for="Master.From" class="form-control" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Master.To" class="control-label"></label>
+                    <input type="date" asp-for="Master.To" class="form-control" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Master.DocumentType" class="control-label"></label>
+                    <select asp-for="Master.DocumentType" class="form-control form-select" asp-items="@(new SelectList(ViewBag.DocumentTypes, "Value", "Text"))"></select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="Master.DocumentState" class="control-label"></label>
+                    <select asp-for="Master.DocumentState" class="form-control form-select" asp-items="@(new SelectList(ViewBag.DocumentStates, "Value", "Text"))"></select>
+                </div>
+
+            </div>
+            <div class="table table-responsive">
+                <table id="datatable" class="table table-responsive table-striped text-start table-bordered border-top">
+                    <thead>
+                        <tr class="k-header">
+                            <th class="k-header TextCenter">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DocCode"))
+                            </th>
+                            <th class="k-header TextCenter">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DocDate"))
+                            </th>
+                            <th class="k-header TextCenter">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DocType"))
+                            </th>
+                            <th class="k-header TextCenter">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DocumentState"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Issuer"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Receiver"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("UUID"))
+                            </th>
+                            <th class="k-header" style="max-width:50px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Send"))
+                            </th>
+                            <th class="k-header" style="max-width:50px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Print"))
+                            </th>
+                            <th class="k-header" style="max-width:50px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Cancel"))
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="Details" style="font-size:14px;">
+
+                        @for (int i = 0; i < Model.InvDetails.Count(); i++)
+                        {
+
+                            <tr>
+                                <td class="IdSelector d-none">
+                                    <input asp-for=" @Model.InvDetails[i].Id" class="Id_row" />
+                                </td>
+                                <td class="DocTypeSelector d-none">
+                                    <input asp-for=" @Model.InvDetails[i].DocType" class="DocType_row" />
+                                </td>
+                                <td class="TextCenter">
+                                    @Model.InvDetails[i].DocCode
+                                </td>
+                                <td class="TextCenter">
+                                    @Model.InvDetails[i].DocDate.ToString("dd/MM/yyyy")
+                                </td>
+                                <td class="TextCenter">
+                                    @Model.InvDetails[i].DocTypeName
+                                </td>
+                                <td class="DocStateTd TextCenter">
+                                    @Model.InvDetails[i].DocState
+                                </td>
+                                <td>
+                                    @Model.InvDetails[i].Issuer
+                                </td>
+                                <td>
+                                    @Model.InvDetails[i].Receiver
+                                </td>
+                                <td class="TextCenter">
+                                    @Model.InvDetails[i].UUID
+                                </td>
+                                <td style="max-width:50px;">
+                                    <button class="btn btn-success" style="display:block" onclick="SendEInvoice(this)" type="button" title="ارسال"><i class="fa fa-cloud"></i></button>
+                                </td>
+                                <td style="max-width:50px;">
+                                    <button class="btn btn-info" style="display:block" onclick="RefreshEInvoice(this)" type="button" title="تحديث"><i class="fa fa-fan"></i></button>
+                                </td>
+                                <td style="max-width:50px;">
+                                    <button class="btn btn-danger" style="display:block" onclick="CancelEInvoice(this)" type="button" title="الغاء"><i class="fa fa-archive"></i></button>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+          
+        </div>
+    </form>
+
+</div>
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+
+            $(document).ready(function () {
+               
+                var Master_From = @Html.Raw(Json.Serialize(Model.Master.From));
+                var Master_To = @Html.Raw(Json.Serialize(Model.Master.To));
+                CreateDatePickerWithElment($("#Master_From"), false, '', '', 'yyyy-MM-dd', Master_From);
+                CreateDatePickerWithElment($("#Master_To"), false, '', '', 'yyyy-MM-dd', Master_To);
+
+
+            });
+
+            function SendEInvoice(e) {
+                let Id = $(e).closest("tr").find(".Id_row").val();
+                let DocType = $(e).closest("tr").find(".DocType_row").val();
+                SendEInvoiceWithConfirmation2(Id, "EGInvoice", DocType);
+            }
+
+            function CancelEInvoice(e) {
+                let Id = $(e).closest("tr").find(".Id_row").val();
+                CancelEInvoiceWithConfirmation(Id, "EGInvoice");
+            }
+
+            function RefreshEInvoice(e) {
+                debugger
+                let Id = $(e).closest("tr").find(".Id_row").val();
+                $.ajax({
+                    url: '/EGInvoice/RefreshEInvoice/',
+                    data: { Id: Id },
+                    success: function (data) {
+                        if (data.type == "success") {
+                            $(e).closest("tr").find(".DocStateTd").text(data.msg);
+                        }
+                        else if (data.type == "faild") {
+                            Swal.fire(data.msg, '', 'error');
+                        }
+                    }
+                });
+            }
+
+
+        </script>
+    }
+}

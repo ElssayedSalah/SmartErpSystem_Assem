@@ -1,0 +1,105 @@
+﻿@model BusinessLayer.Models.Inventory.DepartmentModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("List") + "" + _Localization.GetLocalizedHtmlString(@Model != null ? Model.GetType().Name + "_S" : "");
+    ViewData["Title"] = Title;
+    ViewData["ControlerName"] = "Department";
+
+}
+
+<div class="card">
+    <div class="card-header card-header-55">
+        @{await Html.RenderPartialAsync("_BasicList_Header_Partial");}
+
+    </div>
+    <div class="card-body card-body-500">
+        <div id="datatable"></div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        <script>
+
+            $(document).ready(function () {
+                 var gridOperationButtons = GridOperationButtons('@ViewData["ControlerName"]');
+                var dataSource = intializeKendoGrid('/Department/list');
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        serverFiltering: false,
+                        serverSorting: true,
+                        //serverPaging: true,
+                        //serverPaging: true,
+                        //serverFiltering: true,
+                        //serverSorting: true,
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("shared.show") {1} @_Localization.GetLocalizedHtmlString("shared.from") {2}",
+                                empty: "@_Localization.GetLocalizedHtmlString("shared.empty.grid")",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "Code", operator: "contains" },
+                                { name: "NameAr", operator: "contains" },
+                                { name: "NameEn", operator: "contains" },
+                                { name: "Name", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                           { field: "Id", hidden: true },
+                           { field: "Code",title:"@_Localization.GetLocalizedHtmlString("Code")"  },
+                           @*{ field: "NameAr" ,title:"@_Localization.GetLocalizedHtmlString("NameAr")" },
+                           { field: "NameEn" ,title:"@_Localization.GetLocalizedHtmlString("NameEn")" },*@
+                            { field: "Name" ,title:"@_Localization.GetLocalizedHtmlString("Name")" },
+                            {
+                                field: "CreationDate", title: "@_Localization.GetLocalizedHtmlString("CreationDate")",
+                                template: "# if(CreationDate!=null) {# #: kendo.toString(kendo.parseDate(CreationDate), 'dd/MM/yyyy')# #}#",
+                            },
+                            {
+                               field: "ActivationState", title: "@_Localization.GetLocalizedHtmlString("ActivationState")",
+                                template: "# if(ActivationState==true) {# <i class='fa fa-check' aria-hidden='true' style='color:green'></i> #} else {# <i class='fa fa-times' aria-hidden='true' style='color:red'></i> #}#",
+                                attributes: { style: 'text-align:center' },
+                                width: 50,
+                            },
+                            gridOperationButtons[0],
+                            gridOperationButtons[1],
+                            gridOperationButtons[2],
+
+
+                            @*{
+                                title: "@_Localization.GetLocalizedHtmlString("shared.show")",
+                             template:'<a href="/@ViewData["ControlerName"]/Details/#=Id#" class="btn btn-info"><span class="k-icon k-i-eye k-button-icon"></span><span class="k-button-text"></span></a>',
+                             width: 50,
+                           },
+                            {
+                                title: "@_Localization.GetLocalizedHtmlString("Edit")",
+                             width: 50,
+                             template: '<a href="/@ViewData["ControlerName"]/Edit/#=Id#" class="btn btn-primary"><span class="k-icon k-i-edit k-button-icon"></span><span class=""></span></a>',
+                            },
+                            {
+                                 title: "@_Localization.GetLocalizedHtmlString("Delete")",
+                             width: 50,
+                             template: '<button type="button" onclick="ConfirmationDailog(\'#=Id#\',\'@ViewData["ControlerName"]\',\'@_Localization.GetLocalizedHtmlString("DeleteConfirmationTitle")\',\'@_Localization.GetLocalizedHtmlString("shared.delete.erorr")\')" class="btn btn-danger" title="{DeleteTitle}"><span class="k-icon k-i-close k-button-icon"></span><span class=""></span> </button>',
+
+                            }
+                            ,*@
+
+                        ],
+                    });
+            });
+
+        </script>
+
+    }
+}

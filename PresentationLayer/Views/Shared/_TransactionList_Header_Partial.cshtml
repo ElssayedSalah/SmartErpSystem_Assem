@@ -1,0 +1,11 @@
+﻿@model BusinessLayer.Models.Model
+    <h5><i class="fa fa-list p-1"></i>@(ViewData["Title"] != null ? ViewData["Title"] : "")</h5>
+    <div class="form-group">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus icon"></i>
+            @_Localization.GetLocalizedHtmlString("CreateNew")
+        </a>
+
+
+
+</div>

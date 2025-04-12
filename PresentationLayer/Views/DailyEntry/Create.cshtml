@@ -1,0 +1,305 @@
+﻿@model BusinessLayer.Models.Financial.DailyEntryMasterModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("CreateNewElement") + _Localization.GetLocalizedHtmlString("DailyEntry");
+    ViewData["Title"] = Title;
+    
+}
+<div class="card">
+    <form asp-action="Create" method="post" id="myform">
+        <div class="card-header card-header-55">
+            @{
+                <h5 class="float-start"><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("CreateNewElement") @_Localization.GetLocalizedHtmlString("DailyEntry")</h5>
+                await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+            }
+        </div>
+        <div class="card-body card-body-500">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row form-body">
+                <input asp-for="Code" class="form-control" type="hidden" />
+                <input asp-for="EntryType" class="form-control" type="hidden" />
+
+                <div class="form-group col-md-4">
+                        <label asp-for="EntryNumber" class="control-label"></label>
+                        <input asp-for="EntryNumber" class="form-control" readonly/>
+                        <span asp-validation-for="EntryNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TransactionDate" class="control-label"></label>
+                    <input asp-for="TransactionDate" class="form-control" />
+                    <span asp-validation-for="TransactionDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DailyTypeId" class="control-label"></label>
+                    <select asp-for="DailyTypeId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.DailyAccounts, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="DailyTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="IsTransfered" class="control-label"></label>
+                    <select asp-for="IsTransfered" class="form-control form-select" asp-items="@(new SelectList(ViewBag.EntryTransferState,"Value","Text",0))"></select>
+                    <span asp-validation-for="IsTransfered" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="EntryState" class="control-label"></label>
+                    <select asp-for="EntryState" class="form-control form-select" asp-items="@(new SelectList(ViewBag.EntryBalanceState,"Value","Text",Model.EntryState))"></select>
+                    <span asp-validation-for="EntryState" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="EntryCreationMethod" class="control-label"></label>
+                    <select asp-for="EntryCreationMethod" class="form-control form-select"  asp-items="@(new SelectList(ViewBag.EntryCreationMethod,"Value","Text"))"></select>
+                    <span asp-validation-for="EntryCreationMethod" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CurrencyId" class="control-label"></label>
+                    <select asp-for="CurrencyId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Currencies, "Id", "Name", 0))"></select>
+                    <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CurrencyFactor" class="control-label"></label>
+                    <input asp-for="CurrencyFactor" class="form-control" readonly/>
+                    <span asp-validation-for="CurrencyFactor" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DocType" class="control-label"></label>
+                    <select asp-for="DocType" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Documents, "Id", "Name", 0))" readonly></select>
+                    <span asp-validation-for="DocType" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="DocNumber" class="control-label"></label>
+                    <input asp-for="DocNumber" class="form-control" readonly/>
+                    <span asp-validation-for="DocNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalDebit" class="control-label"></label>
+                    <input asp-for="TotalDebit" class="form-control" readonly/>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="TotalCredit" class="control-label"></label>
+                    <input asp-for="TotalCredit" class="form-control" readonly/>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-2 g-0">
+                <table id="datatable" class="table table-responsive table-striped text-start table-bordered border-top">
+                    <thead>
+                        <tr class="k-header">
+                            <th class="k-header" style="width:20px;">@_Localization.GetLocalizedHtmlString("RowIndex")</th>
+                            <th class="k-header" style="width: 200px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Account"))
+                            </th>
+                            <th class="k-header" style="width: 200px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("CoastCenter"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Debit"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Credit"))
+                            </th>
+                            <th class="k-header" style="width: 250px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Notes"))
+                            </th>
+                            <th style="width:50px;align-content:center"><button class="k-header btn btn-default" onclick="AddNewRow();" type="button"><i class="fa fa-plus-circle"></i></button></th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="Details">
+
+                        @for (int i = 0; i < Model.DailyEntryDetails.Count(); i++)
+                        {
+                            var templateClass = i == 0 ? "TemplateRow" : "";
+                        <tr class="NewRow @templateClass">
+                            <td class="RowIndex">
+                                @i
+                            </td>
+                            <td class="AccountSelector">
+                                <select asp-for="@Model.DailyEntryDetails[i].AccountId" class="form-control form-select Account_row" asp-items="@(new SelectList(ViewBag.Accounts, "Id", "Name",@Model.DailyEntryDetails[i].AccountId))" value="@Model.DailyEntryDetails[i].AccountId" onchange="ValidateDuplicateAccount(this)"></select>
+                            </td>
+                            <td class="AccountNameSelector">
+                                <input asp-for="@Model.DailyEntryDetails[i].CostCenterId" value="@Model.DailyEntryDetails[i].CostCenterId" class="form-control AccountName_row" style="text-align:center;" />
+                            </td>
+                            <td class="DebitSelector">
+                                <input asp-for="@Model.DailyEntryDetails[i].Debit" value="@Model.DailyEntryDetails[i].Debit" class="form-control Debit_row" style="text-align:center;" onchange="GetTotalDebitAndCredit(this)"/>
+                            </td>
+                            <td class="CreditSelector">
+                                <input asp-for="@Model.DailyEntryDetails[i].Credit" value="@Model.DailyEntryDetails[i].Credit" class="form-control Credit_row" style="text-align:center;" onchange="GetTotalDebitAndCredit(this)"/>
+                            </td>
+                            <td class="NotesSelector">
+                                <input asp-for="@Model.DailyEntryDetails[i].Notes" value="@Model.DailyEntryDetails[i].Notes" class="form-control Notes_row" style="text-align:center;" />
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" style="display: block; align-content: center" onclick="RemoveRow(this)" type="button"><i class="fa fa-times-circle"></i></button>
+                            </td>
+                        </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<style>
+    .TemplateRow {
+        display: none;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+
+            $(document).ready(function () {
+             var defaultDateTime = @Html.Raw(Json.Serialize(Model.TransactionDate));
+                CreatekendoDateTimePickert($("#TransactionDate"), false, '', '', "yyyy-MM-dd hh:mm tt", defaultDateTime);
+                CreateNumericUpDown($("#EntryNumber"), 0, '', true);
+                CreateNumericUpDown($("#TotalDebit"), 0, '', true);
+                CreateNumericUpDown($("#TotalCredit"), 0, '', true);
+                CreateNumericUpDown($(".NewRow:not(.TemplateRow)").find(".DebitSelector input"), 2);
+                CreateNumericUpDown($(".NewRow:not(.TemplateRow)").find(".CreditSelector input"), 2);
+
+                $("#CurrencyId").change(function (e)
+                {
+                    let CurrencyId = $(this).val();
+                  $.ajax({
+                  type: 'GET',
+                      url: '/DailyEntry/GetCurrencyFactor/',
+                      data: { CurrencyId: CurrencyId },
+                      contentType: 'application/json; charset=utf-8',
+                      datatype: 'json',
+                      success: function (data) {
+                          $("#CurrencyFactor").val(data);
+                      }
+                  });
+                }).change();
+
+                $(".btn-success").click(function (e) {
+                    debugger
+                    var rows = $(".NewRow:not(.TemplateRow)");
+                    if (rows == null || rows.length < 2) {
+                        e.preventDefault();
+                        ShowErrorMessege("يجب ان يتكون القيد من طرفين علي الاقل");
+                    }
+                    else
+                    {
+                        var TotalDebit = $("#TotalDebit").val();
+                        var TotalCredit = $("#TotalCredit").val();
+                        if (TotalDebit != TotalCredit) {
+                            e.preventDefault();
+                            var form = $("#myform");
+                            ShowConfirmationMessege('@Html.Raw(_Localization.GetLocalizedHtmlString("NotBalancedEntryMessege"))', form);
+                        }
+                    }
+
+                });
+
+
+
+            });
+
+            var indx=0;
+            function AddNewRow() {
+                var TemplateRow = $(".TemplateRow").html();
+                $("#Details").append("<tr class='NewRow'>" + TemplateRow + "</tr>");
+
+                var AccountDropdown = $(".NewRow").last().find(".AccountSelector select");
+                InitKendoDropDownWithElement(AccountDropdown);
+
+                var DebitSelector = $(".NewRow").last().find(".DebitSelector input");
+                CreateNumericUpDown(DebitSelector, 2);
+
+                var CreditSelector = $(".NewRow").last().find(".CreditSelector input");
+                CreateNumericUpDown(CreditSelector, 2);
+
+
+                ReOrderModelListItems("#Details", ".NewRow");
+
+                indx = indx + 1;
+                $(".NewRow").last().find(".RowIndex").text(indx);
+
+
+            }
+
+            function RemoveRow(e) {
+                $(e).closest(".NewRow").remove();
+                ReOrderModelListItems("#Details", ".NewRow");
+                GetTotalDebitAndCredit();
+            }
+
+            function GetTotalDebitAndCredit(e) {
+                var totalDebit = 0;
+                var totalCredit = 0;
+                ResetDebitAndCreditValue(e);
+
+                var NewRow = $(".NewRow:not(.TemplateRow)");
+                NewRow.each(function (i, c) {
+                    var Debit = $(c).closest(".NewRow").find(".DebitSelector input").last().val();
+                    totalDebit += parseFloat(Debit);
+
+                    var Credit = $(c).closest(".NewRow").find(".CreditSelector input").last().val();
+                    totalCredit += parseFloat(Credit);
+                });
+
+                $("#TotalDebit").data("kendoNumericTextBox").value(totalDebit);
+                $("#TotalDebit").change();
+
+                $("#TotalCredit").data("kendoNumericTextBox").value(totalCredit);
+                $("#TotalCredit").change();
+
+
+
+            }
+
+            function ValidateDuplicateAccount(e) {
+                var selectedAccountId = $(e).prop("id");
+                var selectedAccount = $(e).data("kendoDropDownList").value();
+
+                var isDuplicate = false;
+
+                $(".NewRow:not(.TemplateRow)").each(function (i, c) {
+                    var rowAccount = $(c).find(".AccountSelector select").data("kendoDropDownList").value();
+                    var rowAccountId = $(c).find(".AccountSelector select").prop("id");
+
+                    if (selectedAccountId !== rowAccountId && selectedAccount == rowAccount) {
+                        isDuplicate = true;
+                        return false; // Exit the loop early since a duplicate is found
+                    }
+                });
+
+                if (isDuplicate) {
+                    // Reset the selected account to '0' if a duplicate is found
+                    $(e).data("kendoDropDownList").value('0');
+                    ShowErrorMessege("تم اختيار الحساب من قبل");
+                }
+            }
+
+            function ResetDebitAndCreditValue(e) {
+                debugger
+                var valueType = $(e).attr("class")
+                var debitValue = $(e).closest(".NewRow").find(".DebitSelector input").last().val();
+                var creditValue = $(e).closest(".NewRow").find(".CreditSelector input").last().val();
+                if (debitValue > 0 && creditValue > 0) {
+                    if (valueType.includes("Debit_row")) {
+                        $(e).closest(".NewRow").find(".CreditSelector input").last().data("kendoNumericTextBox").value(0);
+                    } else {
+                        $(e).closest(".NewRow").find(".DebitSelector input").last().data("kendoNumericTextBox").value(0);
+
+                    }
+
+                }
+
+            }
+
+        </script>
+    }
+}

@@ -1,0 +1,98 @@
+﻿@model BusinessLayer.Models.Identity.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+
+@*<div class="home-btn d-none d-sm-block">
+    <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
+</div>*@
+<div class="account-pages my-5 pt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="card overflow-hidden">
+                    <div class="bg-primary">
+                        <div class="text-primary text-center p-4">
+                            <h5 class="text-white font-size-20">@_Localization.GetLocalizedHtmlString("LoginWelcomeMsg")</h5>
+                            <p class="text-white-50">@_Localization.GetLocalizedHtmlString("LoginHeaderMsg")</p>
+                            <a asp-action="Login" class="logo logo-admin">
+                                <img src="~/AdminLayout2/assets/images/logo-sm.png" height="24" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="p-3">
+                            <form class=" mt-4" asp-action="Register">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="mb-3">
+                                    <label asp-for="UserName" class="form-label" for="username"></label>
+                                    <input asp-for="UserName" type="text" class="form-control" id="username">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Password" class="form-label" for="userpassword"></label>
+                                    <input asp-for="Password" type="password" class="form-control" id="userpassword">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="ConfirmPassword" class="form-label" for="userpassword"></label>
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" id="userpassword">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label" for="Email"></label>
+                                    <input asp-for="Email" type="email" class="form-control" id="Email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="EmployeeId" class="form-label" for=""></label>
+                                    <input asp-for="EmployeeId" type="text" class="form-control" id="">
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="CompanyId" class="form-label" for=""></label>
+                                    <input asp-for="CompanyId" type="text" class="form-control" id="">
+                                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-12 text-start">
+                                        <button class="btn btn-primary w-md waves-effect waves-light" type="submit">@_Localization.GetLocalizedHtmlString("RegisterBtn")</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,300 @@
+﻿@model BusinessLayer.Models.Inventory.Transaction_InvMasterModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("CreateNewElement") + _Localization.GetLocalizedHtmlString("StoreSettlement_Transacton");
+    ViewData["Title"] = Title;
+    var m = Model.Transaction_InvDetails;
+}
+<div class="card">   
+    <form asp-action="Create" method="post">
+        <div class="card-header card-header-55">
+            @{
+                <h5 class="float-start"><i class="fa fa-home"></i> @_Localization.GetLocalizedHtmlString("CreateNewElement") @_Localization.GetLocalizedHtmlString("StoreSettlement_Transacton")</h5>
+                await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+            }
+        </div>
+        <div class="card-body card-body-500">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row form-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Code" class="control-label"></label>
+                        <input asp-for="Code" class="form-control" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DocDate" class="control-label"></label>
+                        <input asp-for="DocDate" class="form-control" />
+                        <span asp-validation-for="DocDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="StoreCountId" class="control-label"></label>
+                    <select asp-for="StoreCountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.StoreCounts, "Id", "Code"))"></select>
+                    <span asp-validation-for="StoreCountId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="EntryNumber" class="control-label"></label>
+                    <input asp-for="EntryNumber" class="form-control" />
+                    <span asp-validation-for="EntryNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CountDateFrom" class="control-label"></label>
+                        <input asp-for="CountDateFrom" class="form-control" readonly/>
+                        <span asp-validation-for="CountDateFrom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="CountDateTo" class="control-label"></label>
+                    <input asp-for="CountDateTo" class="form-control" readonly/>
+                    <span asp-validation-for="CountDateTo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label asp-for="BranchId" class="control-label"></label>
+                    <select asp-for="BranchId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Branches, "Id", "Name"))" readonly></select>
+                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="StoreId" class="control-label"></label>
+                    <select asp-for="StoreId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Stores, "Id", "Name"))" readonly></select>
+                    <span asp-validation-for="StoreId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="StoreSurplusValue" class="control-label"></label>
+                    <input asp-for="StoreSurplusValue" class="form-control" readonly/>
+                    <span asp-validation-for="StoreSurplusValue" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="StoreDeficitValue" class="control-label"></label>
+                    <input asp-for="StoreDeficitValue" class="form-control" readonly/>
+                    <span asp-validation-for="StoreDeficitValue" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-2 g-0 table-responsive">
+                <table id="datatable" class="table table-responsive table-striped text-start table-bordered border-top">
+                    <thead>
+                        <tr class="k-header">
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("ItemModel"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("ItemGroup"))
+                            </th>
+                            <th class="k-header">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DefaultUnit"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("Quntity"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("ActualQuntity"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("DifferenceQuntity"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("UnitCoast"))
+                            </th>
+                            <th class="k-header" style="width: 150px;">
+                                @Html.DisplayName(@_Localization.GetLocalizedHtmlString("TotalCoast"))
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="Details">
+
+                        @for (int i = 0; i < Model.Transaction_InvDetails.Count(); i++)
+                        {
+                            var templateClass = i == 0 ? "TemplateRow" : "";
+                        <tr class="NewRow @templateClass">
+                            <td class="ItemIdSelect">
+                                <select asp-for="@Model.Transaction_InvDetails[i].ItemId" class="form-control form-select item_row" asp-items="@(new SelectList(ViewBag.Itmes, "Id", "Name",@Model.Transaction_InvDetails[i].ItemId))" value="@Model.Transaction_InvDetails[i].ItemId" readonly></select>
+                            </td>
+                            <td class="GroupIdSelect">
+                                <select asp-for="@Model.Transaction_InvDetails[i].GroupId" class="form-control form-select group_row" asp-items="@(new SelectList(ViewBag.Groups, "Id", "Name"))" readonly></select>
+
+                            </td>
+                            <td class="UnitIdSelect">
+                                <select asp-for="@Model.Transaction_InvDetails[i].UnitId" class="form-control form-select unit_row" asp-items="@(new SelectList(ViewBag.Units, "Id", "Name"))" readonly></select>
+                            </td>
+                            <td class="QuntitySelector">
+                                <input asp-for="@Model.Transaction_InvDetails[i].Quntity" value="@Model.Transaction_InvDetails[i].Quntity" class="qty_row" style="text-align:center;" readonly/>
+                            </td>
+                            <td class="ActualQuntitySelector">
+                                <input asp-for="@Model.Transaction_InvDetails[i].ActualQuntity" value="@Model.Transaction_InvDetails[i].ActualQuntity" class="form-control ActualQuntity_row" style="text-align:center;" readonly/>
+                            </td>
+                            <td class="DifferenceQuntitySelector">
+                                <input asp-for="@Model.Transaction_InvDetails[i].DifferenceQuntity" value="@Model.Transaction_InvDetails[i].DifferenceQuntity" class="form-control DifferenceQuntity_row" style="text-align:center;" readonly/>
+                            </td>
+                            <td class="PurchasePriceSelector">
+                                <input asp-for="@Model.Transaction_InvDetails[i].PurchasePrice" value="@Model.Transaction_InvDetails[i].PurchasePrice" class="form-control PurchasePrice_row" style="text-align:center;" readonly/>
+                            </td>
+                            <td class="TotalSelector">
+                                <input asp-for="@Model.Transaction_InvDetails[i].Total" value="@Model.Transaction_InvDetails[i].Total" class="form-control Total_row" style="text-align:center;" readonly/>
+                            </td>
+
+                        </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<style>
+    .TemplateRow {
+        display: none;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+
+            $(document).ready(function () {    
+
+                 var DocDate = @Html.Raw(Json.Serialize(Model.DocDate));
+                CreatekendoDateTimePickert($("#DocDate"), false, '', '', "yyyy-MM-dd hh:mm tt", DocDate);
+
+                var CountDateFrom = @Html.Raw(Json.Serialize(Model.CountDateFrom));
+                CreatekendoDateTimePickert($("#CountDateFrom"), false, '', '', "yyyy-MM-dd hh:mm tt", CountDateFrom);
+
+                var CountDateTo = @Html.Raw(Json.Serialize(Model.CountDateTo));
+                CreatekendoDateTimePickert($("#CountDateTo"), false, '', '', "yyyy-MM-dd hh:mm tt", CountDateTo);
+
+
+
+
+                CreateNumericUpDown($("#Code"), 0, '', true);
+                CreateNumericUpDown($("#StoreSurplusValue"), 2, '', true);
+                CreateNumericUpDown($("#StoreDeficitValue"), 2, '', true);
+
+
+                $("#StoreCountId").change(function () {
+                    $("#Details tr:not(.TemplateRow)").remove();
+                    let StoreCountId = $(this).val();
+                  $.ajax({
+                  type: 'GET',
+                  url: '/StoreSettlement/GetStoreCount/',
+                  data: { StoreCountId: StoreCountId},
+                  contentType: 'application/json; charset=utf-8',
+                  datatype: 'json',
+                      success: function (data) {
+                          debugger
+                          $("#BranchId").data("kendoDropDownList").value(data.master.BranchId);
+                          $("#StoreId").data("kendoDropDownList").value(data.master.StoreId);
+                          $("#StoreSurplusValue").data("kendoNumericTextBox").value(data.master.StoreSurplusValue);
+                          $("#StoreDeficitValue").data("kendoNumericTextBox").value(data.master.StoreDeficitValue);
+                          $("#CountDateFrom").data("kendoDateTimePicker").value(data.master.CountDateFrom);
+                          $("#CountDateTo").data("kendoDateTimePicker").value(data.master.CountDateTo);
+
+                          $(data.master.Transaction_InvDetails).each(function (i, v) {
+                              AddNewRow(v);
+                          })
+                          ReOrderModelListItems("#Details", ".NewRow");
+
+            }
+        });
+              });
+
+            });
+
+
+            function AddNewRow(item) {
+                var TemplateRow = $(".TemplateRow").html();
+                $("#Details").append("<tr class='NewRow'>" + TemplateRow + "</tr>");
+
+                var ItemDropdown = $(".NewRow").last().find(".ItemIdSelect select");
+                InitKendoDropDownWithElement(ItemDropdown);
+                ItemDropdown.closest(".NewRow").find(".item_row select").data("kendoDropDownList").value(item.ItemId)
+
+                var GroupDropdown = $(".NewRow").last().find(".group_row select");
+                InitKendoDropDownWithElement(GroupDropdown);
+                GroupDropdown.closest(".NewRow").find(".group_row select").data("kendoDropDownList").value(item.GroupId)
+
+
+                var UnitDropdown = $(".NewRow").last().find(".unit_row select");
+                InitKendoDropDownWithElement(UnitDropdown);
+                UnitDropdown.closest(".NewRow").find(".unit_row select").data("kendoDropDownList").value(item.UnitId)
+
+                var QuntitySelector = $(".NewRow").last().find(".QuntitySelector input");
+                CreateNumericUpDownNigativeValue(QuntitySelector, 2, '', true);
+                QuntitySelector.closest(".NewRow").find(".qty_row input").last().data("kendoNumericTextBox").value(item.Quntity)
+
+                var ActualQuntitySelector = $(".NewRow").last().find(".ActualQuntitySelector input");
+                CreateNumericUpDown(ActualQuntitySelector, 2);
+                ActualQuntitySelector.closest(".NewRow").find(".ActualQuntity_row input").last().data("kendoNumericTextBox").value(item.ActualQuntity)
+
+
+                var PurchasePriceSelector = $(".NewRow").last().find(".PurchasePriceSelector input");
+                CreateNumericUpDown(PurchasePriceSelector, 2, '', true);
+                PurchasePriceSelector.closest(".NewRow").find(".PurchasePrice_row input").last().data("kendoNumericTextBox").value(item.PurchasePrice)
+
+                var DifferenceQuntitySelector = $(".NewRow").last().find(".DifferenceQuntitySelector input");
+                CreateNumericUpDownNigativeValue(DifferenceQuntitySelector, 2, '', true);
+                DifferenceQuntitySelector.closest(".NewRow").find(".DifferenceQuntity_row input").last().data("kendoNumericTextBox").value(item.DifferenceQuntity)
+
+                var TotalSelector = $(".NewRow").last().find(".TotalSelector input");
+                CreateNumericUpDownNigativeValue(TotalSelector, 2, '', true);
+                TotalSelector.closest(".NewRow").find(".Total_row input").last().data("kendoNumericTextBox").value(item.Total)
+
+            }
+
+            //function GetDifferenceQuntity(e) {
+            //    var ActualQuntity = $(e).val();
+            //    var CurruntQuntity = $(e).closest(".NewRow").find(".qty_row input").last().val();
+            //    let dif = ActualQuntity - CurruntQuntity;
+            //    $(e).closest(".NewRow").find(".DifferenceQuntity_row input").last().data("kendoNumericTextBox").value(dif);
+            //    $(e).closest(".NewRow").find(".DifferenceQuntity_row input").last().change();
+
+
+            //}
+
+            //function GetTotalCoast(e) {
+            //    var DifferenceQuntity = $(e).val();
+            //    var PurchasePrice = $(e).closest(".NewRow").find(".PurchasePrice_row input").last().val();
+            //    let Total = DifferenceQuntity * PurchasePrice;
+            //    $(e).closest(".NewRow").find(".Total_row input").last().data("kendoNumericTextBox").value(Total);
+            //    $(e).closest(".NewRow").find(".Total_row input").last().change();
+            //}
+
+            //function GetDeficitAndSurplusValue() {
+            //    debugger
+            //    var DeficitValue = 0;
+            //    var SurplusValue = 0;
+            //    var Coasts = $(".NewRow:not(.TemplateRow) .TotalSelector");
+
+            //    $(Coasts).each(function (i, c) {
+            //        debugger
+            //        var coast = $(c).closest(".NewRow").find(".Total_row input").last().data("kendoNumericTextBox").value();
+            //        if (coast>0) {
+            //            SurplusValue += coast;
+            //        }
+            //        if (coast < 0) {
+            //            DeficitValue += Math.abs(coast);
+            //        }
+            //    });
+
+            //    $("#StoreSurplusValue").data("kendoNumericTextBox").value(SurplusValue);
+            //    $("#StoreDeficitValue").data("kendoNumericTextBox").value(DeficitValue);
+            //}
+
+
+        </script>
+    }
+}

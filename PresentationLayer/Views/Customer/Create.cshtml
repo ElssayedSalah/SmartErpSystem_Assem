@@ -1,0 +1,138 @@
+﻿@model BusinessLayer.Models.Sales.CustomerModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="card">
+    
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="card-header card-header-55">
+                @{
+                    await Html.RenderPartialAsync("_Create_Header_Partial");
+                    await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+                }
+            </div>
+            <div class="card-body card-body-500 justify-content-center d-flex">
+
+                <div class="row w-75">                   
+                    <div class="col-lg-12 col-md-10 col-sm-8">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NameAr" class="control-label"></label>
+                            <input asp-for="NameAr" class="form-control" />
+                            <span asp-validation-for="NameAr" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NameEn" class="control-label"></label>
+                            <input asp-for="NameEn" class="form-control" />
+                            <span asp-validation-for="NameEn" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Mobile" class="control-label"></label>
+                            <input asp-for="Mobile" class="form-control" />
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Fax" class="control-label"></label>
+                            <input asp-for="Fax" class="form-control" />
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="AccountId" class="control-label"></label>
+                            <select asp-for="AccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Accounts,"Id","Name",0))"></select>
+                            <span asp-validation-for="AccountId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OpeningBalanceDebit" class="control-label"></label>
+                            <input asp-for="OpeningBalanceDebit" class="form-control" />
+                            <span asp-validation-for="OpeningBalanceDebit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OpeningBalanceCredit" class="control-label"></label>
+                            <input asp-for="OpeningBalanceCredit" class="form-control" />
+                            <span asp-validation-for="OpeningBalanceCredit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EntryNumber" class="control-label"></label>
+                            <input asp-for="EntryNumber" class="form-control" />
+                            <span asp-validation-for="EntryNumber" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="ClassType" class="control-label"></label>
+                            <select asp-for="ClassType" class="form-control form-select" asp-items="@(new SelectList(ViewBag.CustomerClassType,"Value","Text",0))"></select>
+                            <span asp-validation-for="ClassType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IDType" class="control-label"></label>
+                            <select asp-for="IDType" class="form-control form-select" asp-items="@(new SelectList(ViewBag.IDType,"Value","Text",0))"></select>
+                            <span asp-validation-for="IDType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NationalID" class="control-label"></label>
+                            <input asp-for="NationalID" class="form-control" />
+                            <span asp-validation-for="NationalID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CountryCode" class="control-label"></label>
+                            <select asp-for="CountryCode" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Countries,"Id","Name",0))"></select>
+                            <span asp-validation-for="CountryCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Governate" class="control-label"></label>
+                            <input asp-for="Governate" class="form-control" />
+                            <span asp-validation-for="Governate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegionCity" class="control-label"></label>
+                            <input asp-for="RegionCity" class="form-control" />
+                            <span asp-validation-for="RegionCity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Street" class="control-label"></label>
+                            <input asp-for="Street" class="form-control" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BuildingNumber" class="control-label"></label>
+                            <input asp-for="BuildingNumber" class="form-control" />
+                            <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxRegesterationNumber" class="control-label"></label>
+                            <input asp-for="TaxRegesterationNumber" class="form-control" />
+                            <span asp-validation-for="TaxRegesterationNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <label asp-for="ActivationState" class="control-label mt-3 ms-1"></label>
+                                <input type="checkbox" class="form-check-input" asp-for="ActivationState" />
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

@@ -1,0 +1,30 @@
+﻿
+<script type="text/javascript">
+    function CreateCRUDButtons(dataItem) {
+        debugger
+        let Id = dataItem.id;
+        var partialViewHtml =
+            '<a href="/@ViewData["ControlerName"]/Edit/' + Id + '" class="btn btn-primary"><span class="k-icon k-i-edit k-button-icon"></span><span class=""></span></a>' +
+            '<a href="/@ViewData["ControlerName"]/Details/' + Id + '" class="btn btn-info"><span class="k-icon k-i-eye k-button-icon"></span><span class="k-button-text"></span></a>' +
+            '<a href="#" class="delete-button btn btn-danger" data-id="' + Id + '"><span class="k-icon k-i-close k-button-icon"></span><span class=""></span></a>'
+
+            ;
+
+        return partialViewHtml
+    }
+</script>
+
+@*<script type="text/javascript">
+    function CreateCRUDButtons(dataItem) {
+        debugger
+        let Id = dataItem.Id.trim();
+        var partialViewHtml =
+            '<a href="/@ViewData["ControlerName"]/Edit/' + Id + '" class="k-grid-edit k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base"><span class="k-icon k-i-edit k-button-icon"></span><span class="k-button-text"></span></a>' +
+            '<a href="/@ViewData["ControlerName"]/Details/' + Id + '" class="k-grid-edit k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base"><span class="k-icon k-i-eye k-button-icon"></span><span class="k-button-text"></span></a>' +
+            '<a href="#" class="delete-button k-grid-delete k-button k-button-md k-button-rectangle k-rounded-md k-button-solid k-button-solid-base" data-id="' + Id + '"><span class="k-icon k-i-close k-button-icon"></span><span class="k-button-text"></span></a>'
+
+            ;
+
+        return partialViewHtml
+    }
+</script>*@

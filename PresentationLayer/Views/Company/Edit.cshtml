@@ -1,0 +1,206 @@
+﻿@model BusinessLayer.Models.System.CompanyMobel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="card">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div class="card-header card-header-55">
+                @{
+                    await Html.RenderPartialAsync("_Edit_Header_Partial");
+                    await Html.RenderPartialAsync("_BasicButtonsPartial", this.ViewData["BasicButtons"]);
+                }
+            </div>
+            <div class="card-body card-body-500 justify-content-center d-flex">
+                <div class="row w-75">
+                    <div class="col-md-8">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NameAr" class="control-label"></label>
+                            <input asp-for="NameAr" class="form-control" />
+                            <span asp-validation-for="NameAr" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NameEn" class="control-label"></label>
+                            <input asp-for="NameEn" class="form-control" />
+                            <span asp-validation-for="NameEn" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Fax" class="control-label"></label>
+                            <input asp-for="Fax" class="form-control" />
+                            <span asp-validation-for="Fax" class="text-danger"></span>
+                        </div>
+                        <div class="bg-info text-light p-2">@_Localization.GetLocalizedHtmlString("EInvoiceData")</div>
+                        <div class="form-group">
+                            <label asp-for="TaxNumber" class="control-label"></label>
+                            <input asp-for="TaxNumber" class="form-control" />
+                            <span asp-validation-for="TaxNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxAuthorityRegestrationNumber" class="control-label"></label>
+                            <input asp-for="TaxAuthorityRegestrationNumber" class="form-control" />
+                            <span asp-validation-for="TaxAuthorityRegestrationNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TaxPayerActivityCode" class="control-label"></label>
+                            <input asp-for="TaxPayerActivityCode" class="form-control" />
+                            <span asp-validation-for="TaxPayerActivityCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ClassType" class="control-label"></label>
+                            <select asp-for="ClassType" class="form-control form-select" asp-items="@(new SelectList(ViewBag.ClassTypes,"Value","Text",0))"></select>
+                            <span asp-validation-for="ClassType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CountryCode" class="control-label"></label>
+                            <select asp-for="CountryCode" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Countries,"Id","Name",0))"></select>
+                            <span asp-validation-for="CountryCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Governate" class="control-label"></label>
+                            <input asp-for="Governate" class="form-control" />
+                            <span asp-validation-for="Governate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegionCity" class="control-label"></label>
+                            <input asp-for="RegionCity" class="form-control" />
+                            <span asp-validation-for="RegionCity" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Street" class="control-label"></label>
+                            <input asp-for="Street" class="form-control" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BuildingNumber" class="control-label"></label>
+                            <input asp-for="BuildingNumber" class="form-control" />
+                            <span asp-validation-for="BuildingNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CommercialNnumber" class="control-label"></label>
+                            <input asp-for="CommercialNnumber" class="form-control" />
+                            <span asp-validation-for="CommercialNnumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Client_ID" class="control-label"></label>
+                            <input asp-for="Client_ID" class="form-control" />
+                            <span asp-validation-for="Client_ID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Client_Secret" class="control-label"></label>
+                            <input asp-for="Client_Secret" class="form-control" />
+                            <span asp-validation-for="Client_Secret" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TokenPassword" class="control-label"></label>
+                            <input asp-for="TokenPassword" class="form-control" />
+                            <span asp-validation-for="TokenPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group d-none">
+                            <label asp-for="ImagePath" class="control-label"></label>
+                            <input asp-for="ImagePath" class="form-control" />
+                            <span asp-validation-for="ImagePath" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VAT_Tax_Rate" class="control-label"></label>
+                            <input asp-for="VAT_Tax_Rate" class="form-control" />
+                            <span asp-validation-for="VAT_Tax_Rate" class="text-danger"></span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-4 p-4">
+                        <img id="Image" class="img-thumbnail w-100 h-100" src="~/Images/@Model.ImagePath" style="max-height:200px;">
+                        <label for="ImageFile" class="custom-file-upload w-100 text-center form-control mt-2">
+                            <i class="fas fa-cloud-upload-alt"></i> @_Localization.GetLocalizedHtmlString("ItemImageFile")
+                        </label>
+                        <input type="file" id="ImageFile" name="ImageFile" asp-for="ImageFile" accept="image/*" class="form-control d-none" />
+                    </div>
+                    <div class="col-12" style="display:-webkit-inline-box;">
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <label asp-for="DefaultCompany" class="control-label mt-3 ms-1"></label>
+                                    <input type="checkbox" class="form-check-input" asp-for="DefaultCompany" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <label asp-for="ActivateEInvoice" class="control-label mt-3 ms-1"></label>
+                                    <input type="checkbox" class="form-check-input" asp-for="ActivateEInvoice" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <label asp-for="ActivationState" class="control-label mt-3 ms-1"></label>
+                                    <input type="checkbox" class="form-check-input" asp-for="ActivationState" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <label asp-for="Activate_VAT_Tax" class="control-label mt-3 ms-1"></label>
+                                    <input type="checkbox" class="form-check-input" asp-for="Activate_VAT_Tax" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+  
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#Image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(document).ready(function () {
+
+            $("#ImageFile").change(function () {
+                readURL(this);
+            });
+
+        });
+
+    </script>
+
+
+
+}

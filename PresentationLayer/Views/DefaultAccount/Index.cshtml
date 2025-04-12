@@ -1,0 +1,111 @@
+﻿@model List< BusinessLayer.Models.Financial.DefaultAccountsGroups>
+
+@{
+    ViewData["Title"] = _Localization.GetLocalizedHtmlString("DefaultAccounts");
+
+}
+<form asp-controller="DefaultAccount" asp-action="Index" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row content-header clearfix pt-4">
+        <h1 class="float-left col">
+            <i class="nav-icon fas fa-cogs"></i>&nbsp;
+            @_Localization.GetLocalizedHtmlString("DefaultAccounts")
+        </h1>
+        <div class="float-end col">
+            <button type="submit" name="save" class="btn btn-primary float-end">
+                <i class="far fa-save"></i>
+                @_Localization.GetLocalizedHtmlString("Save")
+            </button>
+        </div>
+    </div>
+
+    <section>
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="cards-group m-0  p-0">
+                    <div class="card card-default">
+                        <div class="card-body p-0">
+                            <div id="DefaultAccounts" class="h-100 d-none">
+                                <ul>
+                                    @foreach (var r in Model)
+                                    {
+                                        <li>
+                                            <i class="fa fa-users"></i>@r.GroupName
+                                        </li>
+                                    }
+                                </ul>
+                                @for (int r = 0; r < Model.Count(); r++)
+                                {
+                                    <input asp-for="@Model[r].GroupName" value="@Model[r].GroupName" type="hidden">
+
+                                    <div>
+                                        @for (int i = 0; i < Model[r].DefaultAccountModel.Count; i++)
+                                        {
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].Id" value="@Model[r].DefaultAccountModel[i].Id" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].GroupId" value="@Model[r].DefaultAccountModel[i].GroupId" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].AccountNameId" value="@Model[r].DefaultAccountModel[i].AccountNameId" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].AccountNameAr" value="@Model[r].DefaultAccountModel[i].AccountNameAr" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].AccountNameEn" value="@Model[r].DefaultAccountModel[i].AccountNameEn" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].GroupNameAr" value="@Model[r].DefaultAccountModel[i].GroupNameAr" type="hidden">
+                                            <input asp-for="@Model[r].DefaultAccountModel[i].GroupNameEn" value="@Model[r].DefaultAccountModel[i].GroupNameEn" type="hidden">
+                                            <table class="w-100">
+                                                <tr>
+                                                    <td class="w-25">
+                                                        <strong> @Model[r].DefaultAccountModel[i].AccountName</strong>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <strong>
+                                                                @_Localization.GetLocalizedHtmlString("Account")
+                                                            </strong>
+                                                            @if (Model[r].DefaultAccountModel[i].AccountNameId == 33 || Model[r].DefaultAccountModel[i].AccountNameId == 34)
+                                                            {
+                                                                <select asp-for="@Model[r].DefaultAccountModel[i].AccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.AllAccounts, "Id", "Name", 0))"></select>
+                                                            }
+                                                            else
+                                                            {
+                                                                <select asp-for="@Model[r].DefaultAccountModel[i].AccountId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Accounts, "Id", "Name", 0))"></select>
+                                                            }
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                        }
+                                    </div>
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+@section Scripts {
+
+    <script>       
+
+        $(document).ready(function () {
+            $("#DefaultAccounts").kendoTabStrip(
+                {
+                    tabPosition: "left",
+                    animation: {
+                        open: false
+                    }
+                });
+            var tabStrip = $("#DefaultAccounts").data("kendoTabStrip");
+            tabStrip.select(0);
+
+            $("#DefaultAccounts").removeClass("d-none");
+        });
+    </script>
+
+
+}

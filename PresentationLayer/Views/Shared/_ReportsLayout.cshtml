@@ -1,0 +1,76 @@
+﻿@model Reports.Model.BaseFiltersModel
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+    var hideFilters = Model.reportResultModel != null ? "style = display:none" : "";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            <div class="portlet light form-fit">
+                @Html.AntiForgeryToken()
+                <div class="row pt-2">
+                    <input type="hidden" asp-for="FinancialPeriodId" />
+                    <input type="hidden" asp-for="CompanyId" />
+                    <div class="col-10">
+                        <i class="fa fa-file"></i>
+                        @ViewBag.Title
+                    </div>
+                    <div class="col-2 actions float-end">
+                        <div class="btn-group btn-group-devided d-flex justify-content-end">
+                            @if (Model.reportResultModel != null)
+                            {
+                                <button class="btn btn-info" onclick="$('#ReportFilters').toggle('slow')" type="button" title="Filters"><i class="fa fa-filter"></i></button>
+                            }
+                            @*<!-- Other buttons go here -->*@
+                            <button class="btn btn-pdf" type="submit" name="ExportType" value="pdf" title="PDF"><i class="fa fa-file-pdf"></i> PDF</button>
+                            @*<button class="btn btn-xls" type="submit" name="ExportType" value="xls" title="XLS"><i class="fa fa-file-excel"></i> XLS</button>*@
+                            @*<button class="btn btn-xlsx" type="submit" name="ExportType" value="xlsx" title="XLSX"><i class="fa fa-file-excel-o"></i> XLSX</button>*@
+                        </div>
+                    </div>
+                </div>
+                <div style="border-bottom:solid;border-width:thin;padding-top:15px;"> </div>
+                <div id="ReportFilters" class="portlet-title pt-5" @hideFilters>
+                    @RenderBody()
+                </div>
+
+                <div class="portlet-body form">
+                    @if (Model.reportResultModel != null && Model.reportResultModel.Success)
+                    {
+                        <iframe id="PdfViewer" style="width:100%;height:500px" src="@Model.reportResultModel.FilePath#zoom=100&scrollbar=1&toolbar=1&navpanes=1"></iframe>
+                        @*<iframe id="PdfViewer" style="width:100%;height:500px" src='@Url.Action("ReportViewer", new { fileName = Model.reportResultModel.FilePath })'></iframe>*@
+                    }
+                    @if (Model.reportResultModel != null && !Model.reportResultModel.Success)
+                    {
+                        <div id="ReportError" style="display:none" class="alert alert-danger text-center">T("Report.Failed")</div>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<script src="~/AdminLayout2/assets/libs/jquery/jquery.min.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+<style>
+    .btn-pdf {
+        background: #870000;
+    }
+
+    .btn-xls {
+        background: #13632c;
+    }
+
+    .btn-xlsx {
+        background: #69b641;
+    }
+
+    .btn-pdf, .btn-xls, .btn-xlsx {
+        min-width: 80px;
+        color: white;
+        border: 1px solid white;
+    }
+</style>

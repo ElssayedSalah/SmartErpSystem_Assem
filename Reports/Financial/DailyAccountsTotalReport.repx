@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="19.2.6.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="DailyAccountsTotalReport" Landscape="true" Margins="6, 4, 15, 19" PaperKind="A4" PageWidth="1169" PageHeight="827" Version="19.2" RightToLeft="Yes" RightToLeftLayout="Yes" EventsInfo="|DailyAccountsTotalReport,BeforePrint,DailyAccountsTotalReport_BeforePrint" DataSource="#Ref-0">
+  <Parameters>
+    <Item1 Ref="3" Description="Parameter1" Name="AccountFilter" />
+    <Item2 Ref="5" Description="Parameter1" ValueInfo="2024-09-24" Name="FromDateFilter" Type="#Ref-4" />
+    <Item3 Ref="6" Description="Parameter1" ValueInfo="2024-09-24" Name="ToDateFilter" Type="#Ref-4" />
+    <Item4 Ref="7" Description="Parameter1" Name="DailyAccountsFilter" />
+    <Item5 Ref="8" Description="Parameter1" Name="CoastCenterFilter" />
+  </Parameters>
+  <Bands>
+    <Item1 Ref="9" ControlType="TopMarginBand" Name="topMarginBand1" HeightF="15" />
+    <Item2 Ref="10" ControlType="DetailBand" Name="detailBand1" HeightF="25">
+      <Controls>
+        <Item1 Ref="11" ControlType="XRTable" Name="table6" KeepTogether="true" TextAlignment="TopCenter" SizeF="1158.25,25" LocationFloat="2.259016E-05, 0" OddStyleName="Style1" Font="Times New Roman, 10pt" Padding="2,2,0,0,96" BorderColor="WhiteSmoke" Borders="All" BorderWidth="0.2">
+          <Rows>
+            <Item1 Ref="12" ControlType="XRTableRow" Name="tableRow6" Weight="11.5">
+              <Cells>
+                <Item1 Ref="13" ControlType="XRTableCell" Name="tableCell12" Weight="0.3738117785408005" Multiline="true" TextAlignment="MiddleCenter">
+                  <Summary Ref="14" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="15" EventName="BeforePrint" PropertyName="Text" Expression="sumRecordNumber()" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="16" UseTextAlignment="false" />
+                </Item1>
+                <Item2 Ref="17" ControlType="XRTableCell" Name="tableCell7" Weight="2.6767580802251834" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="18" EventName="BeforePrint" PropertyName="Text" Expression="[AccountName]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="19" UseBorders="false" UseTextAlignment="false" />
+                </Item2>
+                <Item3 Ref="20" ControlType="XRTableCell" Name="tableCell3" Weight="0.62666655629692736" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="21" EventName="BeforePrint" PropertyName="Text" Expression="[OpenBalanceDebit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="22" UseBorders="false" UseTextAlignment="false" />
+                </Item3>
+                <Item4 Ref="23" ControlType="XRTableCell" Name="tableCell1" Weight="0.54427691577987791" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="24" EventName="BeforePrint" PropertyName="Text" Expression="[OpenBalanceCredit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="25" UseBorders="false" UseTextAlignment="false" />
+                </Item4>
+                <Item5 Ref="26" ControlType="XRTableCell" Name="tableCell20" Weight="0.59744746541716276" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="27" EventName="BeforePrint" PropertyName="Text" Expression="[Debit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="28" UseBorders="false" UseTextAlignment="false" />
+                </Item5>
+                <Item6 Ref="29" ControlType="XRTableCell" Name="tableCell21" Weight="0.72403461467194119" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="30" EventName="BeforePrint" PropertyName="Text" Expression="[Credit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="31" UseBorders="false" UseTextAlignment="false" />
+                </Item6>
+                <Item7 Ref="32" ControlType="XRTableCell" Name="tableCell5" Weight="0.71687614287785106" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="33" EventName="BeforePrint" PropertyName="Text" Expression="[BalanceDebit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="34" UseBorders="false" UseTextAlignment="false" />
+                </Item7>
+                <Item8 Ref="35" ControlType="XRTableCell" Name="tableCell17" Weight="0.75161268702920536" Multiline="true" TextAlignment="MiddleCenter" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="36" EventName="BeforePrint" PropertyName="Text" Expression="[BalanceCredit]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="37" UseBorders="false" UseTextAlignment="false" />
+                </Item8>
+                <Item9 Ref="38" ControlType="XRTableCell" Name="tableCell13" Weight="0.72978377505495107" Multiline="true" TextAlignment="MiddleCenter" Borders="All">
+                  <ExpressionBindings>
+                    <Item1 Ref="39" EventName="BeforePrint" PropertyName="Text" Expression="[Notes]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="40" UseBorders="false" UseTextAlignment="false" />
+                </Item9>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="41" UseFont="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item2>
+    <Item3 Ref="42" ControlType="BottomMarginBand" Name="bottomMarginBand1" HeightF="19" />
+    <Item4 Ref="43" ControlType="PageHeaderBand" Name="PageHeader" HeightF="49.9999962">
+      <Controls>
+        <Item1 Ref="44" ControlType="XRTable" Name="table4" TextAlignment="MiddleCenter" SizeF="1158.75,49.9999962" LocationFloat="0.250015885, 0" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro" Padding="2,2,0,0,96" BorderColor="Silver" Borders="All" BorderWidth="0.2">
+          <Rows>
+            <Item1 Ref="45" ControlType="XRTableRow" Name="tableRow10" Weight="11.5">
+              <Cells>
+                <Item1 Ref="46" ControlType="XRTableCell" Name="tableCell4" Weight="5.5089659278796992" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="47" UseFont="false" UseTextAlignment="false" />
+                </Item1>
+                <Item2 Ref="48" ControlType="XRTableCell" Name="firstPeriodLbl" Weight="2.1136878575908811" Multiline="true" Text="رصيد أول المدة" TextAlignment="MiddleCenter" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="49" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+                <Item3 Ref="50" ControlType="XRTableCell" Name="transactionLbl" Weight="2.3890568173636586" Multiline="true" Text="الحركات" TextAlignment="MiddleCenter" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="51" UseFont="false" UseTextAlignment="false" />
+                </Item3>
+                <Item4 Ref="52" ControlType="XRTableCell" Name="balanceLbl" Weight="2.6580396291585098" Multiline="true" Text="الرصيد" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="53" UseFont="false" />
+                </Item4>
+                <Item5 Ref="54" ControlType="XRTableCell" Name="tableCell24" Weight="1.331430471805962" Multiline="true" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="55" UseFont="false" />
+                </Item5>
+              </Cells>
+            </Item1>
+            <Item2 Ref="56" ControlType="XRTableRow" Name="tableRow4" Weight="11.5">
+              <Cells>
+                <Item1 Ref="57" ControlType="XRTableCell" Name="Serial" Weight="0.90656373963272707" Multiline="true" Text="م" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="58" UseFont="false" />
+                </Item1>
+                <Item2 Ref="59" ControlType="XRTableCell" Name="detailsAccount" Weight="6.554291359889409" Multiline="true" Text="الحساب" TextAlignment="MiddleCenter" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="60" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+                <Item3 Ref="61" ControlType="XRTableCell" Name="openBalanceDebit" Weight="1.5294050822061078" Multiline="true" Text="مدين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="62" UseFont="false" />
+                </Item3>
+                <Item4 Ref="63" ControlType="XRTableCell" Name="openBalanceCredit" Weight="1.331880988543924" Multiline="true" Text="داين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="64" UseFont="false" />
+                </Item4>
+                <Item5 Ref="65" ControlType="XRTableCell" Name="transDebit" Weight="1.4619937699143184" Multiline="true" Text="مدين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="66" UseFont="false" />
+                </Item5>
+                <Item6 Ref="67" ControlType="XRTableCell" Name="transCredit" Weight="1.7717599801344972" Multiline="true" Text="داين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="68" UseFont="false" />
+                </Item6>
+                <Item7 Ref="69" ControlType="XRTableCell" Name="BalanceDebit" Weight="1.7542428458264758" Multiline="true" Text="مدين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="70" UseFont="false" />
+                </Item7>
+                <Item8 Ref="71" ControlType="XRTableCell" Name="BalanceCredit" Weight="1.8474212101856851" Multiline="true" Text="داين" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="72" UseFont="false" />
+                </Item8>
+                <Item9 Ref="73" ControlType="XRTableCell" Name="detailsNotes" Weight="1.7940064541384173" Multiline="true" Text="ملاحظات" Font="Times New Roman, 11pt, style=Bold">
+                  <StylePriority Ref="74" UseFont="false" />
+                </Item9>
+              </Cells>
+            </Item2>
+          </Rows>
+          <StylePriority Ref="75" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item4>
+    <Item5 Ref="76" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="199.791687">
+      <Controls>
+        <Item1 Ref="77" ControlType="XRTable" Name="table3" TextAlignment="MiddleCenter" SizeF="472.318573,24.9999847" LocationFloat="7, 131.458328" Font="Times New Roman, 11pt, style=Bold" BackColor="Silver" Padding="2,2,0,0,96" BorderColor="DarkGray" Borders="Bottom" BorderWidth="1">
+          <Rows>
+            <Item1 Ref="78" ControlType="XRTableRow" Name="tableRow3" Weight="11.5">
+              <Cells>
+                <Item1 Ref="79" ControlType="XRTableCell" Name="CoastCenterLbl" Weight="0.3480793985968561" Multiline="true" Text="مركز التكلفة" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="80" UseFont="false" UseBackColor="false" />
+                </Item1>
+                <Item2 Ref="81" ControlType="XRTableCell" Name="tableCell6" Weight="0.808335138921988" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" BackColor="Transparent">
+                  <ExpressionBindings>
+                    <Item1 Ref="82" EventName="BeforePrint" PropertyName="Text" Expression="?CoastCenterFilter" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="83" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="84" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="85" ControlType="XRTable" Name="table1" TextAlignment="MiddleCenter" SizeF="472.068542,24.9999847" LocationFloat="7.25, 156.458313" Font="Times New Roman, 11pt, style=Bold" BackColor="Silver" Padding="2,2,0,0,96" BorderColor="DarkGray" Borders="Bottom" BorderWidth="1">
+          <Rows>
+            <Item1 Ref="86" ControlType="XRTableRow" Name="tableRow1" Weight="11.5">
+              <Cells>
+                <Item1 Ref="87" ControlType="XRTableCell" Name="DailyAccountsLbl" Weight="0.31207763256579346" Multiline="true" Text="يومية الحسابات" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="88" UseFont="false" UseBackColor="false" />
+                </Item1>
+                <Item2 Ref="89" ControlType="XRTableCell" Name="tableCell2" Weight="0.72418014939451436" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" BackColor="Transparent">
+                  <ExpressionBindings>
+                    <Item1 Ref="90" EventName="BeforePrint" PropertyName="Text" Expression="?DailyAccountsFilter" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="91" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="92" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="93" ControlType="XRTable" Name="table7" TextAlignment="MiddleCenter" SizeF="472.068573,24.9999847" LocationFloat="7, 106.458344" Font="Times New Roman, 11pt, style=Bold" BackColor="Silver" Padding="2,2,0,0,96" BorderColor="DarkGray" Borders="Bottom" BorderWidth="1">
+          <Rows>
+            <Item1 Ref="94" ControlType="XRTableRow" Name="tableRow7" Weight="11.5">
+              <Cells>
+                <Item1 Ref="95" ControlType="XRTableCell" Name="AccountHedarFilter" Weight="0.3480793985968561" Multiline="true" Text="الحساب" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="96" UseFont="false" UseBackColor="false" />
+                </Item1>
+                <Item2 Ref="97" ControlType="XRTableCell" Name="tableCell28" Weight="0.80772304435085007" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" BackColor="Transparent">
+                  <ExpressionBindings>
+                    <Item1 Ref="98" EventName="BeforePrint" PropertyName="Text" Expression="?AccountFilter" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="99" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="100" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="101" ControlType="XRTable" Name="table5" TextAlignment="MiddleCenter" SizeF="388.907471,24.9999847" LocationFloat="759.3426, 156.458313" Font="Times New Roman, 11pt, style=Bold" BackColor="Silver" Padding="2,2,0,0,96" BorderColor="DarkGray" Borders="Bottom" BorderWidth="1">
+          <Rows>
+            <Item1 Ref="102" ControlType="XRTableRow" Name="tableRow5" Weight="11.5">
+              <Cells>
+                <Item1 Ref="103" ControlType="XRTableCell" Name="ToDateLbl" Weight="0.28637095050413053" Multiline="true" Text="إلي تاريخ" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="104" UseFont="false" UseBackColor="false" />
+                </Item1>
+                <Item2 Ref="105" ControlType="XRTableCell" Name="tableCell16" Weight="0.56121014056634866" TextFormatString="{0:yyyy-MM-dd}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" BackColor="Transparent">
+                  <ExpressionBindings>
+                    <Item1 Ref="106" EventName="BeforePrint" PropertyName="Text" Expression="?ToDateFilter" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="107" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="108" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="109" ControlType="XRTable" Name="table8" TextAlignment="MiddleCenter" SizeF="389.407471,24.9999847" LocationFloat="759.5925, 131.458328" Font="Times New Roman, 11pt, style=Bold" BackColor="Silver" Padding="2,2,0,0,96" BorderColor="DarkGray" Borders="Bottom" BorderWidth="1">
+          <Rows>
+            <Item1 Ref="110" ControlType="XRTableRow" Name="tableRow8" Weight="11.5">
+              <Cells>
+                <Item1 Ref="111" ControlType="XRTableCell" Name="FromDateLbl" Weight="0.28600334296153906" Multiline="true" Text="من تاريخ" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="112" UseFont="false" UseBackColor="false" />
+                </Item1>
+                <Item2 Ref="113" ControlType="XRTableCell" Name="tableCell10" Weight="0.56157774810894012" TextFormatString="{0:yyyy-MM-dd}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" BackColor="Transparent">
+                  <ExpressionBindings>
+                    <Item1 Ref="114" EventName="BeforePrint" PropertyName="Text" Expression="?FromDateFilter" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="115" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="116" UseFont="false" UseBackColor="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="117" ControlType="XRSubreport" Name="RptHeader" SizeF="1151,89.99999" LocationFloat="7, 0" />
+      </Controls>
+    </Item5>
+    <Item6 Ref="118" ControlType="PageFooterBand" Name="PageFooter" HeightF="34.1666527">
+      <Controls>
+        <Item1 Ref="119" ControlType="XRPageInfo" Name="pageInfo2" TextAlignment="MiddleCenter" SizeF="100,23" LocationFloat="0, 0" Padding="2,2,0,0,100">
+          <StylePriority Ref="120" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="121" ControlType="XRPageInfo" Name="pageInfo1" PageInfo="DateTime" AnchorVertical="Bottom" TextAlignment="MiddleCenter" SizeF="165.125,23" LocationFloat="982.875, 0" Padding="2,2,0,0,100">
+          <StylePriority Ref="122" UseTextAlignment="false" />
+        </Item2>
+      </Controls>
+    </Item6>
+    <Item7 Ref="123" ControlType="ReportFooterBand" Name="ReportFooter" HeightF="25">
+      <Controls>
+        <Item1 Ref="124" ControlType="XRTable" Name="table9" KeepTogether="true" TextAlignment="TopCenter" SizeF="1159,25" LocationFloat="0, 0" Font="Times New Roman, 10pt" Padding="2,2,0,0,96" BorderColor="LightGray" Borders="All" BorderWidth="0.2">
+          <Rows>
+            <Item1 Ref="125" ControlType="XRTableRow" Name="tableRow9" Weight="11.5">
+              <Cells>
+                <Item1 Ref="126" ControlType="XRTableCell" Name="TotalLbl" Weight="6.5017077476069014" Multiline="true" Text="الإجمالي" TextAlignment="MiddleCenter" Font="Times New Roman, 11pt, style=Bold" BackColor="Gainsboro">
+                  <StylePriority Ref="127" UseFont="false" UseBackColor="false" UseTextAlignment="false" />
+                </Item1>
+                <Item2 Ref="128" ControlType="XRTableCell" Name="tableCell30" Weight="1.3356200282870165" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="129" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="130" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([OpenBalanceDebit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="131" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item2>
+                <Item3 Ref="132" ControlType="XRTableCell" Name="tableCell23" Weight="1.1671438892148285" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="133" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="134" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([OpenBalanceCredit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="135" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item3>
+                <Item4 Ref="136" ControlType="XRTableCell" Name="tableCell14" Weight="1.2519832027188982" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="137" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="138" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([Debit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="139" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item4>
+                <Item5 Ref="140" ControlType="XRTableCell" Name="tableCell31" Weight="1.5609437360241094" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="141" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="142" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([Credit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="143" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item5>
+                <Item6 Ref="144" ControlType="XRTableCell" Name="tableCell32" Weight="1.517202109157574" TextFormatString="{0:n2}" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="145" Running="Report" />
+                  <ExpressionBindings>
+                    <Item1 Ref="146" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([BalanceDebit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="147" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item6>
+                <Item7 Ref="148" ControlType="XRTableCell" Name="tableCell15" Weight="1.6052532088656704" TextFormatString="{0:n2}" Multiline="true" Text="tableCell4" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <Summary Ref="149" TreatStringsAsNumerics="false" Running="Report" IgnoreNullValues="true" />
+                  <ExpressionBindings>
+                    <Item1 Ref="150" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([BalanceCredit])" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="151" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item7>
+                <Item8 Ref="152" ControlType="XRTableCell" Name="tableCell22" Weight="1.56986476706179" Multiline="true" TextAlignment="MiddleCenter" Font="Times New Roman, 10pt, style=Bold" Padding="0,0,0,0,100" Borders="All">
+                  <StylePriority Ref="153" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+                </Item8>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="154" UseFont="false" UseBorderColor="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item7>
+  </Bands>
+  <StyleSheet>
+    <Item1 Ref="155" Name="Style1" BorderStyle="Inset" BackColor="WhiteSmoke" StringFormat="Near;Near;0;None;Character;Default" />
+  </StyleSheet>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.ObjectBinding.ObjectDataSource,DevExpress.DataAccess.v19.2" Name="objectDataSource1" Base64="PE9iamVjdERhdGFTb3VyY2UgTmFtZT0ib2JqZWN0RGF0YVNvdXJjZTEiPjxEYXRhU291cmNlIFR5cGU9IkJ1c2luZXNzTGF5ZXIuTW9kZWxzLlJlcG9ydHMuRmluYW5jZS5EYWlseUFjY291bnRzVG90YWxSZXBvcnREcywgQnVzaW5lc3NMYXllciwgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwiIC8+PC9PYmplY3REYXRhU291cmNlPg==" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v19.2" Ref="4" Content="System.DateTime" Type="System.Type" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>

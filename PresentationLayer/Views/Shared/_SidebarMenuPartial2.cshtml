@@ -1,0 +1,134 @@
+﻿@using DataAccessLayer.Entities.Identity;
+@using static BusinessLayer.Helpers.SharedEnums;
+@inject SideMenuService _SideMenuService;
+@inject IidentityService _identityService;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _HttpContextAccessor;
+
+@{
+    var CurrentUser = _HttpContextAccessor.HttpContext.Session.GetCurrentUser<ApplicationUser>("CurrentUser");
+}
+
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            @*<form class="app-search d-none d-lg-block">
+                <div class="position-relative">
+                    <input type="text" class="form-control" placeholder="@_Localization.GetLocalizedHtmlString("shared.search")">
+                    <span class="fa fa-search"></span>
+                </div>
+            </form>*@
+            <ul class="metismenu list-unstyled" id="side-menu">
+
+                <li>
+                    <a asp-controller="Home" asp-action="Dashpoard2" class="waves-effect">
+                        <i class="fas fa-home"></i>
+                        <strong><span>@_Localization.GetLocalizedHtmlString("shared.main")</span></strong>
+                    </a>
+                </li>
+
+                @if (_SideMenuService.SideMenuItems != null)
+                {
+                    @foreach (var item in _SideMenuService.SideMenuItems)
+                    {
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="@item.Icon"></i>
+                                <span>@_Localization.GetLocalizedHtmlString(@item.ItemTextLocalizationResource)</span>
+                            </a>
+                            @if (item.ChaildsMenuItems != null)
+                            {
+
+                                <ul class="sub-menu" aria-expanded="false">
+                                    @foreach (var sitem in item.ChaildsMenuItems)
+                                    {
+                                        if (sitem.ChaildsMenuItems != null && sitem.ChaildsMenuItems.Count() > 0)
+                                        {
+                                            <li>
+                                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                                    <i class="@sitem.Icon"></i>
+                                                    <strong><span>@_Localization.GetLocalizedHtmlString(@sitem.ItemTextLocalizationResource)</span></strong>
+                                                </a>
+                                                @if (sitem.ChaildsMenuItems != null)
+                                                {
+                                                    <ul class="sub-menu" aria-expanded="false">
+                                                        @foreach (var ssitem in sitem.ChaildsMenuItems)
+                                                        {
+
+                                                            @if (CurrentUser != null && ssitem.Permission != null && ssitem.Permission.VisibleForSuperOnly)
+                                                            {
+                                                                @if (_identityService.IsSuperUser(CurrentUser).Result)
+                                                                {
+                                                                    <li>
+                                                                        <a asp-controller="@ssitem.Controler" asp-action="@ssitem.Action">
+                                                                            <i class="@ssitem.Icon"></i>
+                                                                            @_Localization.GetLocalizedHtmlString(@ssitem.ItemTextLocalizationResource)
+
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                @if (CurrentUser != null && ssitem.Permission != null && (_identityService.Authorize(ssitem.Permission.SystemName, CurrentUser, PermissionActions.List) || _identityService.Authorize(ssitem.Permission.SystemName, CurrentUser, PermissionActions.Report)))
+                                                                {
+                                                                    <li>
+                                                                        <a asp-controller="@ssitem.Controler" asp-action="@ssitem.Action">
+                                                                            <i class="@ssitem.Icon"></i>
+                                                                            @_Localization.GetLocalizedHtmlString(@ssitem.ItemTextLocalizationResource)
+
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        }
+                                        else
+                                        {
+
+                                            @if (CurrentUser != null && sitem.Permission != null && sitem.Permission.VisibleForSuperOnly)
+                                            {
+                                                @if (_identityService.IsSuperUser(CurrentUser).Result)
+                                                {
+                                                    <li>
+                                                        <a asp-controller="@sitem.Controler" asp-action="@sitem.Action" style="font-size:small">
+                                                            <i class="@sitem.Icon"></i>
+                                                            @_Localization.GetLocalizedHtmlString(@sitem.ItemTextLocalizationResource)
+                                                        </a>
+                                                    </li>
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                                @if (CurrentUser != null && sitem.Permission != null && (_identityService.Authorize(sitem.Permission.SystemName, CurrentUser, PermissionActions.List) || _identityService.Authorize(sitem.Permission.SystemName, CurrentUser, PermissionActions.Report)))
+                                                {
+                                                    <li>
+                                                        <a asp-controller="@sitem.Controler" asp-action="@sitem.Action" style="font-size:small">
+                                                            <i class="@sitem.Icon"></i>
+                                                            @_Localization.GetLocalizedHtmlString(@sitem.ItemTextLocalizationResource)
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                </ul>
+                            }
+                        </li>
+
+                    }
+                }
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>

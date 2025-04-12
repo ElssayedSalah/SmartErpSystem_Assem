@@ -1,0 +1,87 @@
+﻿@model BusinessLayer.Models.Identity.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_IdentityLayout.cshtml";
+}
+
+
+@*<div class="home-btn d-none d-sm-block">
+    <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
+</div>*@
+<div class="account-pages my-5 pt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-6">
+                <div class="card overflow-hidden">
+                    <div class="bg-primary">
+                        <div class="text-primary text-center p-4">
+                            <h5 class="text-white font-size-20">@_Localization.GetLocalizedHtmlString("LoginWelcomeMsg")</h5>
+                            <p class="text-white-50">@_Localization.GetLocalizedHtmlString("LoginHeaderMsg")</p>
+                            <a href="javascript: void(0);" class="logo logo-admin">
+                                <img src="~/AdminLayout2/assets/images/logo-sm.png" height="24" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="p-3">
+                            <form class="mt-4" asp-action="Login">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="mb-3">
+                                    <label asp-for="UserName" class="form-label" for="username"></label>
+                                    <input asp-for="UserName" type="text" class="form-control" id="username" placeholder="" value="mmh">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Password" class="form-label" for="userpassword"></label>
+                                    <input asp-for="Password" type="password" class="form-control" id="userpassword" placeholder="" value="mmh">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="FinancialPeriodId" class="control-label"></label>
+                                    <select id="mainGroupSelectid" asp-for="FinancialPeriodId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.FinancialPeriods,"Id","Year",0))"></select>
+                                    <span asp-validation-for="FinancialPeriodId" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <div class="col-sm-6">
+                                        <div class="form-check">
+                                            <input asp-for="RememberMe" type="checkbox" class="form-check-input" id="customControlInline">
+                                            <label asp-for="RememberMe" class="form-check-label" for="customControlInline"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-5">
+                                        </div>
+                                            <div class="col-6">
+                                                <input type="submit" value="@_Localization.GetLocalizedHtmlString("LoginBtn")" class="btn btn-primary" />
+
+                                                @*<a asp-action="Register" class="btn btn-info">@_Localization.GetLocalizedHtmlString("RegisterBtn")</a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                            @*@await Html.PartialAsync("_SetLanguagePartial")*@
+                            <div class="row-cols-4">
+                                @await Html.PartialAsync("_SetLanguagePartial2")
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

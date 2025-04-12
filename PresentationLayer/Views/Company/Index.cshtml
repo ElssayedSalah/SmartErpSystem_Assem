@@ -1,0 +1,87 @@
+﻿@model BusinessLayer.Models.System.CompanyMobel
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["ControlerName"] = "Company";
+}
+<div class="card">
+    <div class="card-header card-header-55">
+        @{await Html.RenderPartialAsync("_BasicList_Header_Partial");}
+
+    </div>
+
+    <div class="card-body card-body-500">
+        <div id="datatable" style="align-items:center"></div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+
+        <script>
+
+            $(document).ready(function () {
+                var gridOperationButtons = GridOperationButtons('@ViewData["ControlerName"]');
+                var dataSource = intializeKendoGrid('/Company/list');
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        serverFiltering: false,
+                        serverSorting: true,
+                        //serverPaging: true,
+                        //serverPaging: true,
+                        //serverFiltering: true,
+                        //serverSorting: true,
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("shared.show") {1} @_Localization.GetLocalizedHtmlString("shared.from") {2}",
+                                empty: "@_Localization.GetLocalizedHtmlString("shared.empty.grid")",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "Code", operator: "contains" },
+                                { name: "NameAr", operator: "contains" },
+                                { name: "NameEn", operator: "contains" },
+                                { name: "Name", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                           { field: "Id", hidden: true },
+                           { field: "Code",title:"@_Localization.GetLocalizedHtmlString("Code")"  },
+                           @*{ field: "NameAr" ,title:"@_Localization.GetLocalizedHtmlString("NameAr")" },
+                           { field: "NameEn" ,title:"@_Localization.GetLocalizedHtmlString("NameEn")" },*@
+                            { field: "Name" ,title:"@_Localization.GetLocalizedHtmlString("Name")" },
+                            {
+                                field: "CreationDate", title: "@_Localization.GetLocalizedHtmlString("CreationDate")",
+                                template: "# if(CreationDate!=null) {# #: kendo.toString(kendo.parseDate(CreationDate), 'dd/MM/yyyy')# #}#",
+
+                            },
+                            {
+                                field: "ActivationState", title: "@_Localization.GetLocalizedHtmlString("ActivationState")",
+                                template: "# if(ActivationState==true) {# <i class='fa fa-check' aria-hidden='true' style='color:green'></i> #} else {# <i class='fa fa-times' aria-hidden='true' style='color:red'></i> #}#",
+                                attributes: { style: 'text-align:center' },
+                                width: 50,
+                            },
+
+                           /* gridOperationButtons[0],*/
+                            gridOperationButtons[1],
+                            gridOperationButtons[2],
+                        ],
+                    });
+            });
+
+
+
+        </script>
+
+    }
+}

@@ -1,0 +1,407 @@
+﻿@model IEnumerable<BusinessLayer.Models.Inventory.UnitModel>
+
+@{
+    ViewData["Title"] = "Unit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["ControlerName"] = "Unit";
+
+}
+<div class="card">
+    <div class="card-header">
+
+        @{await Html.RenderPartialAsync("_BasicList_Header_Partial");}
+
+    </div>
+    <div class="card-body">
+        <div id="datatable"></div>
+
+
+
+        @*<table id="datatable" class="d-none">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="">
+                            @Html.DisplayNameFor(model => model.Code)
+                        </th>
+                        <th class="">
+                            @Html.DisplayNameFor(model => model.NameAr)
+                        </th>
+                        <th class="">
+                            @Html.DisplayNameFor(model => model.NameEn)
+                        </th>
+                        <th class="">
+                            @Html.DisplayNameFor(model => model.CreationDate)
+                        </th>
+                        <th class="">
+                            @Html.DisplayNameFor(model => model.ActivationState)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameAr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameEn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActivationState)
+                            </td>
+                            <td>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+    </div>
+</div>
+
+@Html.Partial("_Edit_Details_Delete_Partial")
+@Html.Partial("_DeleteConfirmationPartial")
+
+
+@section Scripts {
+    @{
+        <script>
+
+            $(document).ready(function () {debugger
+                var dataSource = new kendo.data.DataSource({
+                    /*type: "ajax",*/
+                    transport: {
+                        read: {
+                            url: '/unit/list',
+                            type: 'POST',
+                            dataType: 'json',
+
+                        }
+                    },
+                    schema: {
+                        data: 'data',
+                        model: {
+                            fields: {
+                                Code: {
+                                    type: "string",
+                                    label: "الرقم الوظيفي"
+                                },
+                                NameAr: {
+                                    type: "string",
+                                    label: "الإسم"
+                                },
+                            }
+                        },
+                        total: 'total',
+                        errors: 'Errors'
+                    },
+                    error: function (e) {
+                        display_kendoui_grid_error(e);
+                        this.cancelChanges();
+                    },
+                  /*  serverPaging: true,*/
+                    serverFiltering: true,
+                    serverSorting: true,
+                    pageSize: 10
+                });
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        schema: {
+                            data: 'data',
+                            model: {
+                                fields: {
+                                    code: {
+                                        type: "string",
+                                        label: "الرقم الوظيفي"
+                                    },
+                                    nameAr: {
+                                        type: "string",
+                                        label: "الإسم"
+                                    },
+                                }
+                            },
+                            total: 'total',
+                            errors: 'Errors'
+                        },
+                        serverPaging: true,
+                        serverFiltering: true,
+                        serverSorting: true,
+                        //columnMenu: true, //to show or hide column
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("عرض") {1} @_Localization.GetLocalizedHtmlString("من") {2}",
+                                empty: "No items to display",
+                                //page: "Page",
+                                //of: "of",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+                            alwaysVisible: true,
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "code", operator: "contains" },
+                                { name: "nameAr", operator: "contains" },
+                                { name: "nameEn", operator: "contains" },
+                            ]
+                        },
+                        columns: [
+                            { field: "id", hidden: true },
+                            { field: "code" },
+                            { field: "nameAr" },
+                            { field: "nameEn" },
+                            { field: "creationDate" },
+                            { field: "activationState" },
+                            {
+                                template: "#= CreateCRUDButtons(data) #",
+                                with:100
+                            },
+                        ],
+                    }).data("kendoGrid");
+
+                $('.delete-button').on('click', function () {
+                    debugger;
+                    var id = $(this).data('id');
+                    $('#deleteConfirmationModal').modal('show');
+                    $('#deleteConfirmationModal form').attr('action', '/@ViewData["ControlerName"]/Delete/' + id);
+                });
+
+                $('#dismiss-btn').on('click', function () {
+                    $('#deleteConfirmationModal').modal('hide');
+                 });
+
+                $("#datatable").removeClass('d-none');
+
+            });
+        </script>
+
+
+
+        @*<script>
+
+                $(document).ready(function () {
+                    //var expression = {
+                    //    logic: 'and',
+                    //    filters: []
+                    //};
+                    /*    var dtExpression = [];*/
+                    var dataSource = new kendo.data.DataSource({
+                        type: "ajax",
+                        transport: {
+                            read: {
+                                url: '/unit/list',
+                                type: 'POST',
+                                dataType: 'json',
+
+                            }
+                        },
+                        schema: {
+                            data: 'Data',
+                            model: {
+                                fields: {
+                                    Code: {
+                                        type: "string",
+                                        label: "الرقم الوظيفي"
+                                    },
+                                    NameAr: {
+                                        type: "string",
+                                        label: "الإسم"
+                                    },
+                                }
+                            },
+                            total: 'Total',
+                            errors: 'Errors'
+                        },
+                        error: function (e) {
+                            display_kendoui_grid_error(e);
+                            this.cancelChanges();
+                        },
+                        serverPaging: true,
+                        serverFiltering: true,
+                        serverSorting: true,
+                        pageSize: 10
+                    });
+                    $('#datatable').kendoGrid({
+
+                        dataSource: dataSource,
+                        toolbar: ["excel"],
+                        excel: {
+                            allPages: true,
+                            fileName: "الموظفين.xlsx",
+                            proxyURL: "https://demos.telerik.com/kendo-ui/service/export"
+                        },
+                        pageable: {
+                            pageSizes: [10, 15, 20, 50, 100],
+                            refresh: true,
+                            numeric: true,
+                            previousNext: true,
+                            info: true
+                        },
+                        editable: {
+                            confirmation: false,
+                            mode: 'inline'
+                        },
+                        scrollable: false,
+                        autoBind: true,
+                        sortable: true,
+                        reorderable: true,
+                        resizable: true,
+
+                        columns: [
+                            { field: "Id", hidden: true },
+                            {
+                                field: 'Code',
+                                title: 'الكود',
+                                width: 180,
+                                template: '<a  href="Edit/#=Id#">#=Id#</a>',
+
+                                filterable: {
+                                    cell: {
+                                        delay: 1,
+                                        suggestionOperator: "contains",
+                                        showOperators: false,
+                                        operator: 'contains'
+                                    },
+                                }
+                            },
+                            {
+                                field: 'NameAr',
+                                title: 'الإسم',
+                                template: '<a  href="Edit/#=Id#">#=NameAr#</a>',
+
+                                filterable: {
+                                    cell: {
+                                        delay: 1,
+                                        suggestionOperator: "contains",
+                                        showOperators: false,
+                                        operator: 'contains'
+                                    },
+                                }
+                            },
+                            {
+                                field: 'NameEn',
+                                title: 'الاسم',
+
+                                filterable: {
+                                    cell: {
+                                        delay: 1,
+                                        suggestionOperator: "contains",
+                                        showOperators: false,
+                                        operator: 'contains'
+                                    },
+                                }
+                            },
+                            {
+                                field: 'CreationDate',
+                                title: 'CreationDate',
+
+                            },
+                            {
+                                field: 'ActivationState',
+                                title: 'ActivationState',
+                            },
+                            {
+                                template: "#= CreateCRUDButtons(data) #",
+                                with: 100
+                            },
+                            //{
+                            //    field: 'Id',
+                            //    title: ' ',
+                            //    template: '<a href="Profile/#=Id#" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true" ></i></a>',
+                            //    filterable: false
+                            //},
+                            //{
+                            //    field: '',
+                            //    title: '',
+                            //    width: 50,
+                            //    template: '<a class="btn btn-sm btn-default" href="Edit/#=Id#" title="تعديل"><i class="fa fa-pencil"></i> </a>',
+                            //    sortable: false,
+                            //    filterable: false
+                            //},
+                            //{
+                            //    field: '',
+                            //    title: '',
+                            //    width: 50,
+                            //    template: '<button type="button" onclick="DeleteWithConfirm(\'#=Id#\')" class="btn btn-sm btn-danger"  title="{DeleteTitle}"><i class="fa fa-times"></i> </button>',
+                            //    sortable: false,
+                            //    filterable: false
+                            //    },
+
+                        ]
+                    });
+                    //$("#KendoGrid-filter").kendoFilter({
+                    //    dataSource: dataSource,
+                    //    messages: {
+                    //        apply: "بحــث" //The APPLY button text.
+                    //    },
+                    //    operators: {
+                    //        string: {
+                    //            contains: "يحتوى" // Define a custom text.
+                    //        },
+                    //        number: {
+                    //            gte: "اكبر من", // Define a custom text.
+                    //            lt: kendo.ui.Filter.fn.options.operators.number.lt // Take the default Kendo UI text.
+                    //        }
+                    //    },
+                    //    applyButton: true,
+                    //    showOperators: false,
+                    //    operator: 'contains',
+                    //    expression: {
+                    //        logic: "and",
+                    //        filters: []
+                    //    },
+                    //    change: function (e) {
+                    //        expression = e.expression;
+                    //        if (!expression.filters)
+                    //            expression.filters = [];
+                    //        dtExpression.forEach(function (item) {
+                    //            expression.filters.push(item)
+                    //        });
+                    //        console.log(expression);
+                    //    }
+                    //});
+                    //$('#applySearch').click(function () {
+                    //    dtExpression.forEach(function (item) {
+                    //        if (!expression.filters)
+                    //            expression.filters = [];
+                    //        if (expression.filters.length > 0) {
+                    //            const found = expression.filters.find(x => x.field == 'JoinWorkDate' && x.operator == item.operator);
+                    //            if (!found) {
+                    //                expression.filters.push(item);
+                    //            } else {
+                    //                found.value = item.value;
+                    //            }
+                    //        } else {
+                    //            expression.filters.push(item)
+                    //        }
+                    //    });
+                    //    dataSource = $('#KendoGrid-grid').data('kendoGrid').dataSource;
+                    //    dataSource.filter(expression);
+
+                    //});
+
+                });
+
+            </script>*@
+
+    }
+}
+

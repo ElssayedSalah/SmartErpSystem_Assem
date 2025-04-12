@@ -1,0 +1,83 @@
+﻿@model BusinessLayer.Models.Financial.FinancialPeriodModel
+
+@{
+    var Title = _Localization.GetLocalizedHtmlString("List") + " " + @_Localization.GetLocalizedHtmlString(@Model != null ? Model.GetType().Name : "");
+    ViewData["Title"] = Title;
+    ViewData["ControlerName"] = "FinancialPeriod";
+
+}
+
+<div class="card">
+    <div class="card-header card-header-55">
+
+        @{await Html.RenderPartialAsync("_BasicList_Header_Partial");}
+
+    </div>
+    <div class="card-body card-body-500">
+        <div id="datatable"></div>
+    </div>
+</div>
+@section Scripts {
+    @{
+
+        <script>
+
+            $(document).ready(function () {
+                debugger
+                var gridOperationButtons = GridOperationButtons('@ViewData["ControlerName"]');
+
+                var dataSource = intializeKendoGrid('/FinancialPeriod/list');
+                $("#datatable").kendoGrid(
+                    {
+                        dataSource: dataSource,
+                        serverFiltering: false,
+                        serverSorting: true,
+                        scrollable: false,
+                        sortable: true,
+                        pageable: {
+                            messages: {
+                                display: "@_Localization.GetLocalizedHtmlString("shared.show") {1} @_Localization.GetLocalizedHtmlString("shared.from") {2}",
+                                empty: "@_Localization.GetLocalizedHtmlString("shared.empty.grid")",
+                                itemsPerPage: ""
+                            },
+                            columnMenu: false,
+
+                            pageSize: 10,
+                            pageSizes: [10, 20, 100]
+                        },
+                        toolbar: ["search"],
+                        search: {
+                            fields: [
+                                { name: "Year", operator: "contains" },
+                                
+                            ]
+                        },
+                        columns: [
+                           { field: "Id", hidden: true },
+                            { field: "Year",title:"@_Localization.GetLocalizedHtmlString("FinancialPeriod")"  },                           
+                            {
+                                field: "DateFrom", title: "@_Localization.GetLocalizedHtmlString("FromDate")",
+                                template: "# if(DateFrom!=null) {# #: kendo.toString(kendo.parseDate(DateFrom), 'dd/MM/yyyy')# #}#",
+                            },
+                            {
+                                field: "DateTo", title: "@_Localization.GetLocalizedHtmlString("ToDate")",
+                                template: "# if(DateTo!=null) {# #: kendo.toString(kendo.parseDate(DateTo), 'dd/MM/yyyy')# #}#",
+                            },
+                            {
+                                field: "isClosed", title: "@_Localization.GetLocalizedHtmlString("isClosed")",
+                                template: "# if(isClosed==true) {# <i class='fa fa-check' aria-hidden='true' style='color:green'></i> #} else {# <i class='fa fa-times' aria-hidden='true' style='color:red'></i> #}#",
+                                attributes: { style: 'text-align:center' },
+                                width: 50,
+                            },
+                            gridOperationButtons[1],
+                            gridOperationButtons[2],
+
+
+                        ],
+                    });
+            });
+
+        </script>
+
+    }
+}
