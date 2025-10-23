@@ -189,6 +189,14 @@ function InitLocalesEditor(selector) {
 
     });
 }
+function InitKendoDropDown(selector) {
+    InitKendoDropDownWithElement($(selector));
+}
+function InitKendoDropDownWithElement(element) {
+    element.not(".multiple").not(".nosearch").addClass('edited').kendoDropDownList({
+        filter: "contains",
+    });
+}
 function InitMultiSelect(selector, placeHolder) {
     $(selector).kendoMultiSelect({
         select: function (e) {
@@ -212,6 +220,41 @@ function InitMultiSelect(selector, placeHolder) {
         autoClose: false
     }).data("kendoMultiSelect")
 }
+function CreateNumericUpDown(element, decimals, change, readonly) {
+    
+    var format = "#,#.";
+    if (decimals == 0)
+        format = "#";
+    if (decimals == undefined)
+        decimals = 2;
+    for (var i = 0; i < decimals; i++) {
+        format += "0"
+    }
+
+    element.kendoNumericTextBox({
+        change: change,
+        /* value: element.val(),*/
+        format: format,
+        min: "0",
+        decimals: decimals, //always display 2 digits
+
+    });   
+    
+   
+    if (element.length > 0 && readonly == true)
+        element.data('kendoNumericTextBox').readonly();
+    //element.bind("focus", function (e) {
+    //    if (!$(this).attr("readonly"))
+    //        $(this).data("kendoNumericTextBox").open();
+    //});
+    try {
+        element.rules("remove", "number");
+    } catch (e) {
+
+    }
+
+}
+
 function CreateNumericUpDownNigativeValue(element, decimals, change, readonly) {
     var format = "#,#.";
     if (decimals == 0)

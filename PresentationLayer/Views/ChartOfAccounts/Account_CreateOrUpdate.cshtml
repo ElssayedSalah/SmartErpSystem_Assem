@@ -145,3 +145,31 @@
     </div>
 </div>
 
+<script>
+    $().ready(function () {
+       /* setCurrencyRateFinder();*/
+        $("#@Html.IdFor(x=>x.PostTo)").change(function (e) {
+            var selectedPost = $(e.target).val();
+            if (selectedPost == 1 || selectedPost == 2) {
+                //show post type
+
+                $.ajax({
+                url: "@Url.Action("GetPostTypes")",
+                type: "Get",
+                datatype: "json",
+                     data: { Post: selectedPost },
+
+                     success: function (data) {
+                         $("#PostTypePnl").show(); 
+                    FillDropDown($("#@Html.IdFor(x=>x.PostType)"), data,"@_Localization.GetLocalizedHtmlString("Select")",@Model.PostType);
+                }
+            });
+            }
+            else {
+                //hide post type
+                $("#PostTypePnl").hide();
+                $("#@Html.IdFor(x=>x.PostType)").val('');
+            }
+        }).change();
+    });
+</script>

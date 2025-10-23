@@ -50,3 +50,124 @@
 </div>
 
 <script src="~/AdminLayout2/assets/libs/jquery/jquery.min.js"></script>
+@section Scripts {
+    <script>
+   var onInit ;
+    function SaveAccount(e) {
+        $(e).find(".fa").addClass("fa-spin").addClass("fa-spinner").removeClass("fa-save");
+        var frm = $("#AccountsForm")[0];
+        var SaveUrl = $(frm).attr("action");
+        console.log(frm)
+        if (true) {
+           /* $(frm).valid()*/
+            $.ajax({
+                url: SaveUrl,
+                type: "Post",
+                datatype: "json",
+                data: convertFormToObject(frm),
+                success: function (data) {
+                    debugger
+                    if (data.IsSaved) {
+                        //alert(data.Message);
+                        ShowSuccessMessege(data.Message);
+                        var tree = $("#treelist").data("kendoTreeList");
+                        tree.dataSource.read();
+                        onInit = data.Value;
+                    }
+                    else {
+                        //alert(data.Message);
+                        ShowErrorMessege(data.Message)
+                    }
+                    $(e).find(".fa-spin").removeClass("fa-spin").removeClass("fa-spinner").addClass("fa-save");
+                },
+                error: function (q) {
+                    $(e).find(".fa-spin").removeClass("fa-spin").removeClass("fa-spinner").addClass("fa-save");
+                }
+            });
+        }
+        else {
+            $(e).find(".fa-spin").removeClass("fa-spin").removeClass("fa-spinner").addClass("fa-save");
+        }
+    }
+    function NewAccount() {
+        GetAccountEditor("@Url.Action("CreateAccount")");
+    }
+    function GetAccountEditor(Url) {
+        $("#CreateOrUpdatePnl").html('<div class="text-center"><i class="fa fa-spin fa-spinner"></i></div>');
+         $.ajax({
+             url: Url,
+                type: "Get",
+                datatype: "json",
+                 success: function (data) {
+                    $("#CreateOrUpdatePnl").html(data);
+                    $("#BtnSave").show();
+                }
+            });
+    }
+    function onTreeBound(e) {
+
+       $("tr").click(function () {
+           setTimeout(function () {
+                var tv = $('#treelist').data('kendoTreeList');
+                selected = tv.select(),
+                    item = tv.dataItem(selected);
+               GetAccountEditor("/ChartOfAccounts/EditAccount/" + item.id);
+
+            }, 200);
+       });
+
+        if (onInit) {
+            $("#" + onInit).closest("tr").click();
+        }
+        else {
+             $(".k-treelist-group").eq(0).click();
+        }
+    }
+
+        var treeReadUrl = "@Url.Action("ListAccountsTree", "ChartOfAccounts")";
+        var nameColStr = "Name";
+        var accountColStr = "AccountCode";
+        $("#menu").kendoContextMenu({
+            // Listen to right-clicks on the TreeList container.
+            target: "#treelist",
+            // Show when a row is clicked.
+            filter: "tbody > tr,table",
+            open: function (e) {
+                //var row = $(e.target);
+                //var dataItem = $("#treelist").data("kendoTreeList").dataItem(row);
+            },
+            // Handle the item clicks.
+            select: function (e) {
+                var action = $(e.item).find(".icon").attr("action");
+                var row = $(e.target);
+                var dataItem = $("#treelist").data("kendoTreeList").dataItem(row);
+                if (action == "create") {
+                    if (dataItem) {
+                        if (!dataItem.LastLevelInTree) {
+                            GetAccountEditor("/ChartOfAccounts/CreateAccount?ParentId=" + dataItem.id);
+                        }
+                        else {
+                            GetAccountEditor("/ChartOfAccounts/CreateAccount?ParentId=" + dataItem.parentId);
+                        }
+                    }
+                    else {
+                        GetAccountEditor("/ChartOfAccounts/CreateAccount");
+                    }
+                }
+                else if (action == "edit") {
+                    GetAccountEditor("/ChartOfAccounts/EditAccount/" + dataItem.id);
+                }
+                else if (action == "delete") {                    
+                    DeleteAccountWithConfirmationDailog(dataItem.id,"ChartOfAccounts","DeleteAccount")
+                }
+                else if (action == "DeleteSub") {
+                    DeleteAccountWithConfirmationDailog(dataItem.id, "ChartOfAccounts","DeleteAccountSub")
+
+                }
+            }
+        });
+
+
+    </script>
+
+}
