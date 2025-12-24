@@ -1,38 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.17" />
-  </ItemGroup>
+	<!-- مهم: ده اللي يوفّر SignInManager/UserManager/RoleManager في Class Library -->
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<!-- !! اتشال Microsoft.AspNetCore.Identity.EntityFrameworkCore من هنا -->
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.10" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.10" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto">
-      <HintPath>C:\Users\TOSHIBA\.nuget\packages\bouncycastle.netcore\1.9.0\lib\netstandard2.0\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="Pkcs11Interop">
-      <HintPath>C:\Users\TOSHIBA\.nuget\packages\pkcs11interop\5.1.2\lib\net45\Pkcs11Interop.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Pkcs">
-      <HintPath>C:\Users\TOSHIBA\.nuget\packages\system.security.cryptography.pkcs\5.0.0\lib\netcoreapp3.0\System.Security.Cryptography.Pkcs.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\SharedResources.ar.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\SharedResources.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
+		<PackageReference Include="Pkcs11Interop" Version="5.3.0" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\SharedResources.ar.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\SharedResources.en.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>
