@@ -366,7 +366,7 @@ namespace BusinessLayer.Services
                 _claimService.Add(permission1);
 
             }
-            //_roleManager.SeedClaimsForSuperUser(permissionProvider, this).Wait();
+            userManager.SeedSuperUserAsync(_roleManager, permissionProvider, this).Wait();
         }
 
         #endregion

@@ -7,26 +7,788 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240601151709_addNewColumns")]
-    partial class addNewColumns
+    [Migration("20260101204413_IntiMigration")]
+    partial class IntiMigration
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AccountNatureId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ConnectedToCostCenter")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CurrencyRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("JournalId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("LastLevelInTree")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("OpenDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostTo")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TransactionsBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TransactionsBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Accounts", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.AccountOpenBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CurrentBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TransactionsBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TransactionsBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountOpenBalance", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.AccountSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ChartOfAccountSettingsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChartOfAccountSettingsId");
+
+                    b.ToTable("AccountSetting", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.AlAstazAccountReportView", b =>
+                {
+                    b.Property<string>("AccountCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountNameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AccountNameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("BalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CostCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrencyFactor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DailyTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DetailsNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DocNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryCreationMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryState")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IsTransfered")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MasterNotes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("AlAstazAccountReportView", (string)null);
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.Bank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("ActivationState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BranchName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banks", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.BankOpenBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BankId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BankOpenBalance", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.CashTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CostCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CurrencyFactor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DiscountAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DocDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DocTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SecondSideAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondSideId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondSideTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CashTransaction", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.ChartOfAccountSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountSettingsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountSettingsTotalLength")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChartOfAccountSettings", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.CheckTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BankAccountNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankBranchName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BankId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CheckNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CheckOwner")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CostCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CurrencyFactor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DiscountAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("DiscountAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DocDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DocTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SecondSideAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondSideId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondSideTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CheckTransaction", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DailyAccounts_Def", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("ActivationState")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyAccounts_Def", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DailyEntryDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CostCenterId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DefaultCurrencyCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DefaultCurrencyDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MasterEntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MasterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MasterId");
+
+                    b.ToTable("DailyEntryDetails", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DailyEntryMaster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CurrencyFactor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DailyTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryCreationMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryState")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IsTransfered")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyEntryMaster", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DefaultAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountNameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AccountNameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AccountNameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GroupNameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupNameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DefaultAccounts", "Financial");
+                });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Financial.FinancialPeriod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CloseDate")
                         .HasColumnType("datetime2");
@@ -46,6 +808,173 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FinancialPeriods", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.TransactionsEntrySettingDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MasterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SideId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SideNaturalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SideTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransactionsEntrySettingDetails", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.TransactionsEntrySettingMaster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DailyTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSide")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FirstSideSideNaturalId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsFirstSideTaxble")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSecondSideTaxble")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SecondSide")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondSideSideNaturalId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TransferState")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransactionsEntrySettingMaster", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.Treasury", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("ActivationState")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BranchId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreationUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedUserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Treasurys", "Financial");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.TreasuryOpenBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EntryNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("OpenBalanceCredit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpenBalanceDebit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TreasuryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TreasuryOpenBalance", "Financial");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Identity.ApplicationRole", b =>
@@ -84,15 +1013,16 @@ namespace DataAccessLayer.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Identity.ApplicationRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ClaimId")
                         .HasColumnType("int");
@@ -111,7 +1041,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Identity.ApplicationUser", b =>
@@ -124,6 +1054,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<bool>("ActivationState")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Code")
                         .HasColumnType("int");
@@ -154,8 +1087,14 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("FinancialPeriod")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("FinancialPeriodFromDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("FinancialPeriodId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("FinancialPeriodToDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsSystemUser")
                         .HasColumnType("bit");
@@ -212,15 +1151,16 @@ namespace DataAccessLayer.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Identity.AspNetClaims", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
@@ -243,8 +1183,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ActionId")
                         .HasColumnType("int");
@@ -267,8 +1208,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -284,6 +1226,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -313,8 +1258,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -339,6 +1285,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<bool>("DefaultCurrency")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -368,8 +1317,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -388,6 +1338,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -414,10 +1367,14 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AllowNegativeOut")
                         .HasColumnType("bit");
 
                     b.Property<string>("BarCode")
@@ -436,6 +1393,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DefaultUnit")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinancialPeriodId")
                         .HasColumnType("int");
 
                     b.Property<int>("GroupId")
@@ -551,7 +1511,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("ItemBalanceQuantityAndValueReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("ItemBalanceQuantityAndValueReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemCartReportView", b =>
@@ -634,7 +1596,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("ItemCartReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("ItemCartReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemDataReportView", b =>
@@ -699,15 +1663,18 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("ItemDataReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("ItemDataReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -723,6 +1690,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -743,6 +1713,43 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemGroups", "Inventory");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemOpenBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CurruntBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FinancialPeriodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PostedBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemOpenBalance", "Inventory");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemPurshasAnaysisReportView", b =>
@@ -834,7 +1841,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("ItemPurshasAnaysisReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("ItemPurshasAnaysisReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.ItemSalesAnaysisReportView", b =>
@@ -926,7 +1935,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("ItemSalesAnaysisReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("ItemSalesAnaysisReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.OpenBalanceReportView", b =>
@@ -982,15 +1993,18 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("UnitNameEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToView("OpenBalanceReportView");
+                    b.ToTable((string)null);
+
+                    b.ToView("OpenBalanceReportView", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.Store", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -1009,6 +2023,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -1035,8 +2052,12 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal?>("ActualQuntity")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Code")
                         .HasColumnType("int");
@@ -1049,6 +2070,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("DifferenceQuntity")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("DiscountType")
                         .HasColumnType("int");
@@ -1114,8 +2138,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BranchId")
                         .HasColumnType("int");
@@ -1165,6 +2190,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("EntryNumber")
                         .HasColumnType("int");
 
@@ -1213,6 +2241,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<decimal>("TotalDisounts")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
+
                     b.Property<string>("UUID")
                         .HasColumnType("nvarchar(max)");
 
@@ -1234,8 +2265,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("ActivationState")
                         .HasColumnType("bit");
@@ -1251,6 +2283,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("CreationUserId")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NameAr")
                         .IsRequired()
@@ -1280,8 +2315,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -1316,11 +2352,17 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EntryNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Governate")
                         .HasColumnType("nvarchar(max)");
@@ -1377,13 +2419,17 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EntryNumber")
@@ -1410,8 +2456,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -1446,11 +2493,17 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EntryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EntryNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Governate")
                         .HasColumnType("nvarchar(max)");
@@ -1507,8 +2560,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -1517,6 +2571,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EntryNumber")
@@ -1540,8 +2597,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("ActivateEInvoice")
                         .HasColumnType("bit");
@@ -1590,6 +2648,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<string>("Fax")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FinancialPeriodId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Governate")
                         .HasColumnType("nvarchar(max)");
@@ -1646,8 +2707,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
@@ -1667,8 +2729,9 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DocSign")
                         .HasColumnType("int");
@@ -1694,14 +2757,21 @@ namespace DataAccessLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("ActivateE_Invoice")
                         .HasColumnType("bit");
 
                     b.Property<int>("E_InvoiceType")
                         .HasColumnType("int");
+
+                    b.Property<bool>("EnableOpenEntryCreation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EnableTransactionsEntryCreation")
+                        .HasColumnType("bit");
 
                     b.Property<string>("IdentityService_Url")
                         .HasColumnType("nvarchar(max)");
@@ -1717,12 +2787,44 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("SystemSettings", "System");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.System.Taxes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TaxId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Taxes", "System");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -1738,7 +2840,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -1760,7 +2862,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -1775,7 +2877,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -1794,7 +2896,25 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.AccountSetting", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Financial.ChartOfAccountSettings", null)
+                        .WithMany("Settings")
+                        .HasForeignKey("ChartOfAccountSettingsId");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DailyEntryDetails", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Financial.DailyEntryMaster", "DailyEntryMaster")
+                        .WithMany("DailyEntryDetails")
+                        .HasForeignKey("MasterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailyEntryMaster");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Identity.ApplicationRoleClaim", b =>
@@ -1865,6 +2985,16 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.ChartOfAccountSettings", b =>
+                {
+                    b.Navigation("Settings");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Financial.DailyEntryMaster", b =>
+                {
+                    b.Navigation("DailyEntryDetails");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.Inventory.Transaction_InvMaster", b =>

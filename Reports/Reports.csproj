@@ -1,84 +1,86 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<!-- Updated to .NET 8 -->
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Financial\DailyAccountsDetailsReport.repx" />
-    <None Remove="Financial\DailyEntryRptPrint.repx" />
-    <None Remove="Financial\ftoturg3.q05~" />
-    <None Remove="Headers\AddToStoreRptPrint.repx" />
-    <None Remove="Headers\CheckReturnRptPrint.repx" />
-    <None Remove="Headers\CustomerBalanceReport.repx" />
-    <None Remove="Headers\DailyAccountsTotalReport.repx" />
-    <None Remove="Headers\ItemSalesAnaysisReport.repx" />
-    <None Remove="Headers\PurchasesReturnRptPrint.repx" />
-    <None Remove="Headers\ReportHeaderAr_Landscape.repx" />
-    <None Remove="Headers\ReportHeaderAr_Portal.repx" />
-    <None Remove="Headers\ReviewBalanceReport.repx" />
-    <None Remove="Headers\StoreCountRptPrint.repx" />
-    <None Remove="Headers\StoreDeprecate.repx" />
-    <None Remove="Headers\TreasuryStatementOfAccountReport.repx" />
-    <None Remove="Inventory\SalesInvoiceRptPrint.repx" />
-    <None Remove="Inventory\SalesReturnRptPrint.repx" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Financial\DailyAccountsDetailsReport.repx" />
+		<None Remove="Financial\DailyEntryRptPrint.repx" />
+		<None Remove="Financial\ftoturg3.q05~" />
+		<None Remove="Headers\AddToStoreRptPrint.repx" />
+		<None Remove="Headers\CheckReturnRptPrint.repx" />
+		<None Remove="Headers\CustomerBalanceReport.repx" />
+		<None Remove="Headers\DailyAccountsTotalReport.repx" />
+		<None Remove="Headers\ItemSalesAnaysisReport.repx" />
+		<None Remove="Headers\PurchasesReturnRptPrint.repx" />
+		<None Remove="Headers\ReportHeaderAr_Landscape.repx" />
+		<None Remove="Headers\ReportHeaderAr_Portal.repx" />
+		<None Remove="Headers\ReviewBalanceReport.repx" />
+		<None Remove="Headers\StoreCountRptPrint.repx" />
+		<None Remove="Headers\StoreDeprecate.repx" />
+		<None Remove="Headers\TreasuryStatementOfAccountReport.repx" />
+		<None Remove="Inventory\SalesInvoiceRptPrint.repx" />
+		<None Remove="Inventory\SalesReturnRptPrint.repx" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Financial\AlAstazAccountReport.repx" />
-    <EmbeddedResource Include="Financial\DailyAccountsDetailsReport.repx" />
-    <EmbeddedResource Include="Financial\DailyEntryRptPrint.repx" />
-    <EmbeddedResource Include="Financial\ReviewBalanceReport.repx" />
-    <EmbeddedResource Include="Financial\DailyAccountsTotalReport.repx" />
-    <EmbeddedResource Include="Financial\BankStatementOfAccountReport.repx" />
-    <EmbeddedResource Include="Financial\TreasuryStatementOfAccountReport.repx" />
-    <EmbeddedResource Include="Financial\CashDepositInBankRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CashWithdrawalFromBankRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CashRecieveRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CashExchangeRptPrint.repx" />
-    <EmbeddedResource Include="Financial\WriteCheckOutRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CheckOutExchangeRptPrint.repx" />
-    <EmbeddedResource Include="Financial\RecieveCheckInRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CheckInExchangeRptPrint.repx" />
-    <EmbeddedResource Include="Financial\CheckReturnRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\AddToStoreRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\StoreCountRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\StoreSettlementRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\CustomerBalanceTotalReport.repx" />
-    <EmbeddedResource Include="Inventory\CustomerBalanceReport.repx" />
-    <EmbeddedResource Include="Inventory\ItemSalesAnaysisReport.repx" />
-    <EmbeddedResource Include="Inventory\SupplierBalanceTotalReport.repx" />
-    <EmbeddedResource Include="Inventory\SupplierBalanceReport.repx" />
-    <EmbeddedResource Include="Inventory\ItemPurshasAnaysisReport.repx" />
-    <EmbeddedResource Include="Inventory\ItemCartReport.repx" />
-    <EmbeddedResource Include="Inventory\ItemBalanceQuantityAndValueReport.repx" />
-    <EmbeddedResource Include="Inventory\ItemDataReport.repx" />
-    <EmbeddedResource Include="Inventory\OpenBalanceReport.repx" />
-    <EmbeddedResource Include="Inventory\StoreDeprecateRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\StoreOutRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\PurchasesReturnRptPrint.repx" />
-    <EmbeddedResource Include="Headers\ReportHeaderAr_Portal.repx" />
-    <EmbeddedResource Include="Headers\ReportHeaderAr_Landscape.repx" />
-    <EmbeddedResource Include="Inventory\PurchasesInvoiceRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\OpenBalanceRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\StoreReciveRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\SalesReturnRptPrint.repx" />
-    <EmbeddedResource Include="Inventory\SalesInvoiceRptPrint.repx" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Financial\AlAstazAccountReport.repx" />
+		<EmbeddedResource Include="Financial\DailyAccountsDetailsReport.repx" />
+		<EmbeddedResource Include="Financial\DailyEntryRptPrint.repx" />
+		<EmbeddedResource Include="Financial\ReviewBalanceReport.repx" />
+		<EmbeddedResource Include="Financial\DailyAccountsTotalReport.repx" />
+		<EmbeddedResource Include="Financial\BankStatementOfAccountReport.repx" />
+		<EmbeddedResource Include="Financial\TreasuryStatementOfAccountReport.repx" />
+		<EmbeddedResource Include="Financial\CashDepositInBankRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CashWithdrawalFromBankRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CashRecieveRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CashExchangeRptPrint.repx" />
+		<EmbeddedResource Include="Financial\WriteCheckOutRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CheckOutExchangeRptPrint.repx" />
+		<EmbeddedResource Include="Financial\RecieveCheckInRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CheckInExchangeRptPrint.repx" />
+		<EmbeddedResource Include="Financial\CheckReturnRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\AddToStoreRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\StoreCountRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\StoreSettlementRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\CustomerBalanceTotalReport.repx" />
+		<EmbeddedResource Include="Inventory\CustomerBalanceReport.repx" />
+		<EmbeddedResource Include="Inventory\ItemSalesAnaysisReport.repx" />
+		<EmbeddedResource Include="Inventory\SupplierBalanceTotalReport.repx" />
+		<EmbeddedResource Include="Inventory\SupplierBalanceReport.repx" />
+		<EmbeddedResource Include="Inventory\ItemPurshasAnaysisReport.repx" />
+		<EmbeddedResource Include="Inventory\ItemCartReport.repx" />
+		<EmbeddedResource Include="Inventory\ItemBalanceQuantityAndValueReport.repx" />
+		<EmbeddedResource Include="Inventory\ItemDataReport.repx" />
+		<EmbeddedResource Include="Inventory\OpenBalanceReport.repx" />
+		<EmbeddedResource Include="Inventory\StoreDeprecateRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\StoreOutRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\PurchasesReturnRptPrint.repx" />
+		<EmbeddedResource Include="Headers\ReportHeaderAr_Portal.repx" />
+		<EmbeddedResource Include="Headers\ReportHeaderAr_Landscape.repx" />
+		<EmbeddedResource Include="Inventory\PurchasesInvoiceRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\OpenBalanceRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\StoreReciveRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\SalesReturnRptPrint.repx" />
+		<EmbeddedResource Include="Inventory\SalesInvoiceRptPrint.repx" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DevExpress.AspNetCore.Reporting" Version="22.2.3" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Financial\AlAstazAccountReport.cs">
-      <DependentUpon>AlAstazAccountReport.repx</DependentUpon>
-    </Compile>
+	<ItemGroup>
+		<Compile Update="Financial\AlAstazAccountReport.cs">
+			<DependentUpon>AlAstazAccountReport.repx</DependentUpon>
+		</Compile>
     <Compile Update="Financial\AlAstazAccountReport.Designer.cs">
       <DependentUpon>AlAstazAccountReport.repx</DependentUpon>
     </Compile>
@@ -311,6 +313,6 @@
     <Compile Update="Inventory\SalesReturnRptPrint.Designer.cs">
       <DependentUpon>SalesReturnRptPrint.repx</DependentUpon>
     </Compile>
-  </ItemGroup>
+	</ItemGroup>
 
 </Project>

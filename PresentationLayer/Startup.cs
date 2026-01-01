@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using PresentationLayer.Helpers;
+using Reports;
 using System;
 using System.Globalization;
 using System.Reflection;

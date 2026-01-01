@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace BusinessLayer.Seeds
 {
     public static class DefaultUsers
-    {        
+    {
 
-        public static async Task SeedSuperUserAsync(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IPermissionProvider permissionProvider, IidentityService IdentityService)
+        public static async Task SeedSuperUserAsync(this UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IPermissionProvider permissionProvider, IidentityService IdentityService)
         {
             //Seed Default User
             var defaultUser = new ApplicationUser
@@ -22,15 +22,15 @@ namespace BusinessLayer.Seeds
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 ActivationState = true,
-                IsSystemUser=true
-            
+                IsSystemUser = true
+
             };
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
                 var user = await userManager.FindByNameAsync(defaultUser.UserName);
                 if (user == null)
                 {
-                    await userManager.CreateAsync(defaultUser, "super");                   
+                    await userManager.CreateAsync(defaultUser, "super");
                     await userManager.AddToRoleAsync(defaultUser, "Super");
 
                     await roleManager.SeedClaimsForSuperUser(permissionProvider, IdentityService);
@@ -52,7 +52,7 @@ namespace BusinessLayer.Seeds
             var availableActions = permissionProvider.AvailableActions;
 
             var superRole = await roleManager.FindByNameAsync("Super");
-            
+
             foreach (var p in permissions)
             {
                 var oldRolePermission = IdentityService.GetPermissionById(p.Id);
@@ -70,8 +70,8 @@ namespace BusinessLayer.Seeds
                     var oldPermissionAction = IdentityService.GetRolePermissionAction(superRole.Id, p.Id, a.Id);
                     if (oldPermissionAction != null)
                     {
-                        //IdentityService.DeleteRolePermissionAction(superRole.Id, p.Id, a.Id);
-                        //IdentityService.AddRolePermissionAction(permissionAction);
+                        IdentityService.DeleteRolePermissionAction(superRole.Id, p.Id, a.Id);
+                        IdentityService.AddRolePermissionAction(permissionAction);
                     }
                     else
                     {
@@ -84,8 +84,8 @@ namespace BusinessLayer.Seeds
                 var oldPermissionMaping = IdentityService.GetRolePermission(superRole.Id, p.Id);
                 if (oldPermissionMaping != null)
                 {
-                    //IdentityService.DeleteRolePermission(oldPermissionMaping.RoleId, oldRolePermission.Id);
-                    //IdentityService.AddRolePermission(new ApplicationRoleClaim { ClaimId = p.Id, RoleId = superRole.Id, ClaimType = "Permission", ClaimValue = "Permission" });
+                    IdentityService.DeleteRolePermission(oldPermissionMaping.RoleId, oldRolePermission.Id);
+                    IdentityService.AddRolePermission(new ApplicationRoleClaim { ClaimId = p.Id, RoleId = superRole.Id, ClaimType = "Permission", ClaimValue = "Permission" });
                 }
                 else
                 {
@@ -98,6 +98,6 @@ namespace BusinessLayer.Seeds
 
         }
 
-       
+
     }
 }

@@ -7,6 +7,7 @@ using DataAccessLayer.Entities.Sales;
 using DataAccessLayer.Entities.System;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.Helpers;
+using Reports;
 using Reports.Financial;
 using Reports.Inventory;
 using System;

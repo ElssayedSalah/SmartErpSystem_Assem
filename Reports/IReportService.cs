@@ -6,7 +6,7 @@ using Reports.Model;
 using Reports.Models.Inventory;
 using System.Collections.Generic;
 
-namespace BusinessLayer.Services
+namespace Reports
 {
     public interface IReportService
     {

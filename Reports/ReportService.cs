@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Models.Filters;
 using BusinessLayer.Models.Reports.Finance;
+using BusinessLayer.Services;
 using DataAccessLayer.Entities.Financial;
 using DataAccessLayer.Entities.Inventory;
 using DataAccessLayer.Entities.Purchases;
@@ -18,7 +19,7 @@ using System.Linq;
 using System.Threading;
 using static BusinessLayer.Helpers.SharedEnums;
 
-namespace BusinessLayer.Services
+namespace Reports
 {
     public class ReportService : IReportService
     {
