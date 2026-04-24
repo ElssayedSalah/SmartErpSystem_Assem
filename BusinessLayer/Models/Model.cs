@@ -18,9 +18,9 @@ namespace BusinessLayer.Models
         [Display(Name = "UpdatedDate")]
         public DateTime? UpdatedDate { get; set; }
         [Display(Name = "CreationUserId")]
-        public string CreationUserId { get; set; }
+        public string? CreationUserId { get; set; }
         [Display(Name = "UpdatedUserId")]
-        public string UpdatedUserId { get; set; }
+        public string? UpdatedUserId { get; set; }
         [Display(Name = "Company")]     
         public int? CompanyId { get; set; }
 
